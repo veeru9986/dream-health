@@ -5,6 +5,7 @@ const GlobalStyles = createGlobalStyle`
 :root {
     --family: "proxima-nova" !important;
     --heavyWeight: 800;
+    --xheavyWeight: 700;
     --mediumWeight: 600;
     --xmediumWeight: 500;
     --lightWeight: 400;
@@ -17,6 +18,7 @@ const GlobalStyles = createGlobalStyle`
     --lightPink: #EB9B9E;
     --lightRed : #C1272D;
     --darkRed: #7A191C;
+    --lineHeight: 112%;
  
     --h1: 3.75rem;
     --h2: 2.625rem;
@@ -28,8 +30,9 @@ const GlobalStyles = createGlobalStyle`
     --p4: 0.875rem;
     --mt: 2rem;
     --gap: 2rem;
+    --mt1: 5rem;
 
-    @media (max-width: 767px) {
+    @media (max-width: 991px) {
       --h1: 3rem;
       --h2: 2.125rem;
       --h3: 1.50rem;
@@ -40,6 +43,8 @@ const GlobalStyles = createGlobalStyle`
       --p4: 0.7rem;
       --mt: 1.7rem;
       --gap: 2rem;
+      --mt1: 3.5rem;
+
 
     }
     @media (max-width: 479px) {
@@ -53,6 +58,7 @@ const GlobalStyles = createGlobalStyle`
       --p4: 0.7rem;
       --mt: 1rem;
       --gap: 2rem;
+      --mt1: 2.5rem;
 
     }
   }

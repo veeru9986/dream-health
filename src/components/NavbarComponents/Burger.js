@@ -8,8 +8,8 @@ const Burger = () => {
   const StyledBurger = styled.div`
     width: auto;
     height: 2rem;
-    position: fixed;
-    right: 20px;
+    position: absolute;
+    right: 0;
     z-index: 20;
     display: none;
 
@@ -21,7 +21,7 @@ const Burger = () => {
     }
     div {
       height: 0.25rem;
-      background-color: ${({ open }) => (open ? `#fff` : `#000`)};
+      background-color: ${({ open }) => (open ? `#000` : `#000`)};
       border-radius: 10px;
       transform-origin: 1px;
       transition: all 0.5s ease-in-out;

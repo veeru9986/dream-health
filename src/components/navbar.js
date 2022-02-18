@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Wrapper } from "./StyledWrapper/Wrapper";
+import { Wrapper } from "./StyledComponents/Wrapper";
 import Logo from "../assets/logo.svg";
 import Burger from "./NavbarComponents/Burger";
 
@@ -11,12 +11,18 @@ const Nav = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
-
+  position: relative;
+  @media (min-width: 1700px){
+    width: 80%;
+  }
   .logo {
     svg {
       width: 120px;
-    }
+      @media (max-width: 479px){
+        width: 90px;
+      }
   }
+}
 `;
 
 function Navbar() {
