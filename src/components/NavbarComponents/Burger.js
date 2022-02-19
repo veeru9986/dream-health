@@ -50,7 +50,7 @@ const Burger = () => {
         <div />
         <div />
       </StyledBurger>
-      <Right open={open} />
+      <Right open={open} setOpen={setOpen} />
     </>
   );
 };

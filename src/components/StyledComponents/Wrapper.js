@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
 export const LinkStyled = styled(Link)`
   min-width: 170px;
   padding: 10px 22px;
-  border: 1px solid;
+  border: 2px solid;
   color: ${(props) => (props.primary ? "#fff" : `#000`)};
   border-color: ${(props) =>
     props.primary ? "transparent" : "var(--medBlue)"};
@@ -26,4 +26,12 @@ export const LinkStyled = styled(Link)`
   display: flex;
   justify-content: center;
   text-decoration: none;
+  transition: 0.3s ease-in-out;
+
+  &:hover{
+     background-color: ${(props => props.primary ? "#fff" : "var(--medBlue)")};
+     border-color: ${(props => props.primary ? "var(--lightRed)" : "none")};
+     color: ${(props => props.primary ? "#000" : "#fff")};
+
+  }
 `;

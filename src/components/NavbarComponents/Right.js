@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Link } from "gatsby";
 import { mainMenuItems } from "../../constants/menu-item";
 import styled from "styled-components";
@@ -18,6 +18,18 @@ const UL = styled.ul`
     /* identical to box height */
 
     color: #060708;
+  }
+  .menu-links-active {
+    color: var(--medBlue);
+    text-decoration: underline;
+    text-decoration-color: var(--medBlue);
+    text-decoration-thickness: 2px;
+  }
+  .cart-active {
+    svg,
+    g {
+      fill: var(--medBlue);
+    }
   }
   li {
     padding: 18px 20px;
@@ -42,22 +54,33 @@ const UL = styled.ul`
   }
 `;
 
-const Right = ({ open }) => {
+const Right = ({ open, setOpen }) => {
   return (
     <>
       <UL open={open}>
         {mainMenuItems.map((m, id) => (
           <li key={id}>
-            <Link className="menu-links" to={m.path}>
+            <Link
+              className="menu-links"
+              activeClassName="menu-links-active"
+              to={m.path}
+              onClick={() => setOpen(!open)}
+            >
               {m.title}
             </Link>
           </li>
         ))}
         <li>
-          <LinkStyled to="/">Sign in</LinkStyled>
+          <LinkStyled to="/" onClick={() => setOpen(!open)}>
+            Sign in
+          </LinkStyled>
         </li>
         <li>
-          <Link to="/">
+          <Link
+            to="/cart"
+            activeClassName="cart-active"
+            onClick={() => setOpen(!open)}
+          >
             <Cart />
           </Link>
         </li>

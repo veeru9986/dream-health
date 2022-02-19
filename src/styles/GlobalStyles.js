@@ -19,7 +19,7 @@ const GlobalStyles = createGlobalStyle`
     --lightRed : #C1272D;
     --darkRed: #7A191C;
     --lineHeight: 112%;
- 
+    --black : #060708;
     --h1: 3.75rem;
     --h2: 2.625rem;
     --h3: 1.75rem;
