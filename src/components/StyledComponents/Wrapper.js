@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
   height: auto;
   margin-top: 2rem;
   place-items: center;
+  overflow: hidden;
 `;
 
 export const LinkStyled = styled(Link)`

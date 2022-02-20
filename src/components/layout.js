@@ -5,7 +5,8 @@ import Footer from "./footer";
 import GlobalStyles from "../styles/GlobalStyles";
 import TypographyStyles from "../styles/TypographyStyles";
 
-function Layout({ children }) {
+function Layout({ children, location }) {
+  console.log(location);
   return (
     <>
       <Helmet>
@@ -13,7 +14,14 @@ function Layout({ children }) {
       </Helmet>
       <GlobalStyles />
       <TypographyStyles />
-      <Navbar />
+      <Navbar
+        positionS={
+          location.pathname.match("/sign-in/*") ||
+          location.pathname.match("/sign-up/*")
+            ? 0
+            : 1
+        }
+      />
       {children}
       <Footer />
     </>
@@ -21,5 +29,3 @@ function Layout({ children }) {
 }
 
 export default Layout;
-
-

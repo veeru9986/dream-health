@@ -16,8 +16,11 @@ const UL = styled.ul`
     font-weight: 500;
     font-size: 18px;
     /* identical to box height */
-
+    transition: 0.3s ease-in-out;
     color: #060708;
+  }
+  .menu-links:hover {
+    color: var(--medBlue);
   }
   .menu-links-active {
     color: var(--medBlue);
@@ -25,7 +28,18 @@ const UL = styled.ul`
     text-decoration-color: var(--medBlue);
     text-decoration-thickness: 2px;
   }
+
   .cart-active {
+  
+    svg,
+    g {
+      fill: var(--medBlue);
+    }
+  }
+  .cart{
+    transition: 0ms.3s ease-in-out;
+  }
+  .cart:hover {
     svg,
     g {
       fill: var(--medBlue);
@@ -71,7 +85,7 @@ const Right = ({ open, setOpen }) => {
           </li>
         ))}
         <li>
-          <LinkStyled to="/" onClick={() => setOpen(!open)}>
+          <LinkStyled to="/sign-in" onClick={() => setOpen(!open)}>
             Sign in
           </LinkStyled>
         </li>
@@ -80,6 +94,7 @@ const Right = ({ open, setOpen }) => {
             to="/cart"
             activeClassName="cart-active"
             onClick={() => setOpen(!open)}
+            className="cart"
           >
             <Cart />
           </Link>

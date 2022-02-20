@@ -1,10 +1,21 @@
 import React from "react";
 import styled from "styled-components";
-import { Wrapper } from "./StyledComponents/Wrapper";
 import Logo from "../assets/logo.svg";
 import Burger from "./NavbarComponents/Burger";
 import { Link } from "gatsby";
 
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: 5% 1fr 5%;
+  grid-template-rows: auto;
+  width: 100%;
+  height: auto;
+
+  margin-top: ${({ positionS }) => (positionS ? "2rem" : "0")};
+  place-items: center;
+  position: ${({ positionS }) => (positionS ? "none" : "absolute")};
+  padding-top: ${({ positionS }) => (positionS ? "0" : "2rem")}; ;
+`;
 const Nav = styled.nav`
   grid-area: auto/2/auto/3;
   width: 100%;
@@ -12,7 +23,6 @@ const Nav = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: relative;
   @media (min-width: 1700px) {
     width: 80%;
   }
@@ -26,12 +36,13 @@ const Nav = styled.nav`
   }
 `;
 
-function Navbar() {
+function Navbar(props) {
+  console.log(props);
   return (
-    <Wrapper>
+    <Wrapper positionS={props.positionS}>
       <Nav>
         <div className="logo">
-          <Link to="/">
+          <Link to="/" style={{ display: "flex" }}>
             <Logo />
           </Link>
         </div>
