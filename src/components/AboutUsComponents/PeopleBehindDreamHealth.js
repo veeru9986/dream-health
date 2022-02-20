@@ -13,8 +13,9 @@ const Container = styled.div`
     font-weight: var(--xheavyWeight);
   }
   p {
-    font-size: var(--p1);
+    font-size: var(--p2);
     color: var(--black);
+    margin: 0.8rem 0;
   }
 
   .para {

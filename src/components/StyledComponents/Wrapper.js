@@ -28,10 +28,34 @@ export const LinkStyled = styled(Link)`
   text-decoration: none;
   transition: 0.3s ease-in-out;
 
-  &:hover{
-     background-color: ${(props => props.primary ? "#fff" : "var(--medBlue)")};
-     border-color: ${(props => props.primary ? "var(--lightRed)" : "none")};
-     color: ${(props => props.primary ? "#000" : "#fff")};
+  &:hover {
+    background-color: ${(props) => (props.primary ? "#fff" : "var(--medBlue)")};
+    border-color: ${(props) => (props.primary ? "var(--lightRed)" : "none")};
+    color: ${(props) => (props.primary ? "#000" : "#fff")};
+  }
+`;
 
+export const ButtonStyled = styled.button`
+  min-width: 170px;
+  padding: 10px 22px;
+  border: 2px solid;
+  color: ${(props) => (props.primary ? "#fff" : `#000`)};
+  border-color: ${(props) =>
+    props.primary ? "transparent" : "var(--medBlue)"};
+  background-color: ${(props) => (props.primary ? "var(--lightRed)" : `#fff`)};
+  outline: none;
+  font-size: 14px;
+  font-weight: var(--mediumWeight);
+  border-radius: 66px;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${(props) => (props.primary ? "#fff" : "var(--medBlue)")};
+    border-color: ${(props) => (props.primary ? "var(--lightRed)" : "none")};
+    color: ${(props) => (props.primary ? "#000" : "#fff")};
   }
 `;

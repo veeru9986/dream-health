@@ -23,6 +23,7 @@ const Conatiner = styled.div`
     h2 {
       line-height: var(--lineHeight);
       font-weight: var(--heavyWeight);
+      font-size: var(--h1);
     }
     p {
       font-weight: var(--xmediumWeight);
@@ -75,7 +76,7 @@ function Hero() {
         />
       </div>
       <div className="hero-desc">
-        <h2>Lorem ipsum dolor sit amet, consectetur </h2>
+        <h1>Lorem ipsum dolor sit amet, consectetur </h1>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis lorem
           consectetur placerat nec. Id id bibendum etiam mauris eget.Lorem ipsum
