@@ -42,7 +42,9 @@ const Container = styled.div`
       flex-direction: column;
       margin: 0 2rem 5rem 0;
       position: relative;
-
+      @media (max-width: 767px){
+        margin: 0 0 5rem 0;
+    }
       .avatar-text-section {
         position: absolute;
         bottom: -15%;

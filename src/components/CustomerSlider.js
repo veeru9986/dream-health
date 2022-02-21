@@ -17,6 +17,9 @@ const Container = styled.div`
 
   .slick-slide{
       padding: 2rem;
+      @media (max-width: 479px) {
+        padding: 0.5rem;
+    }
   }
 
   .customer-slider {

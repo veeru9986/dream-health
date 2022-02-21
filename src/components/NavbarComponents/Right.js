@@ -58,9 +58,11 @@ const UL = styled.ul`
     top: 0;
     right: 0;
     height: 100vh;
-    width: 300px;
+    width: 100%;
     padding-top: 6.5rem;
     transition: transform 0.3s ease-in-out;
+    padding-left: 0;
+    z-index: 10;
 
     .menu-links {
       color: #000;

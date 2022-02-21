@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Logo from "../assets/logo.svg";
+import Logo from "../assets/main-logo.svg";
 import Burger from "./NavbarComponents/Burger";
 import { Link } from "gatsby";
 
@@ -14,7 +14,12 @@ const Wrapper = styled.div`
   margin-top: ${({ positionS }) => (positionS ? "2rem" : "0")};
   place-items: center;
   position: ${({ positionS }) => (positionS ? "none" : "absolute")};
-  padding-top: ${({ positionS }) => (positionS ? "0" : "2rem")}; ;
+  padding-top: ${({ positionS }) => (positionS ? "0" : "2rem")};
+
+  @media (max-width: 767px) {
+    margin-top: 1rem;
+    padding-top: 0;
+  }
 `;
 const Nav = styled.nav`
   grid-area: auto/2/auto/3;

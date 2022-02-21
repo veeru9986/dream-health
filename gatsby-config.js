@@ -1,6 +1,7 @@
 module.exports = {
   siteMetadata: {
-    siteUrl: `https://www.yourdomain.tld`,
+    siteUrl: `https://dreamhealth.netlify.app`,
+    title: `Dream Health`,
   },
   plugins: [
     "gatsby-plugin-styled-components",
@@ -10,6 +11,9 @@ module.exports = {
     {
       resolve: "gatsby-plugin-manifest",
       options: {
+        name: `Dream Health`,
+        short_name: `Dream Health`,
+        description: `Dream Health`,
         icon: "src/images/icon.png",
       },
     },
@@ -17,9 +21,9 @@ module.exports = {
       resolve: "gatsby-plugin-react-svg",
       options: {
         rule: {
-          include: /assets/ // See below to configure properly
-        }
-      }
+          include: /assets/, // See below to configure properly
+        },
+      },
     },
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",

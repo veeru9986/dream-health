@@ -23,6 +23,9 @@ const Container = styled.div`
       background: #EBEBEB;
       border-radius: 10px;
       margin: 1rem 2rem;
+      @media (max-width: 479px){
+        margin: 1rem 0;
+      }
     }
   }
 `;

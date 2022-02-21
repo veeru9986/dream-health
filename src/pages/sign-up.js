@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import SignInForm from "../components/SignInForm";
+import SignUpForm from "../components/SignUpForm";
 import BenefitsSlider from "../components/BenefitsSlider";
 import { Wrapper } from "../components/StyledComponents/Wrapper";
 
@@ -32,7 +32,7 @@ const Container = styled.div`
     @media (min-width: 1300px) {
       margin-top: 0;
     }
-    @media (max-width: 767px){
+    @media (max-width: 767px) {
       grid-area: 1/1/2/3;
     }
   }
@@ -82,7 +82,7 @@ function SignIn() {
             </p>
           </div>
           <div className="sign-in-container">
-            <SignInForm />
+              <SignUpForm />
           </div>
         </div>
       </Container>

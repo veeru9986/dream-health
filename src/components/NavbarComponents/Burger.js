@@ -9,7 +9,7 @@ const Burger = () => {
     width: auto;
     height: 2rem;
     position: absolute;
-    right: 0;
+    right: 17px;
     z-index: 20;
     display: none;
 

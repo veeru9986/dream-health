@@ -25,12 +25,16 @@ const Container = styled.div`
     height: auto;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
     border-radius: 10px;
-    height: 750px;
+    height: 700px;
+    @media (max-width: 767px) {
+      height: auto;
+    }
 
     .gatsby-image-wrapper {
       width: 100%;
       height: 100%;
       filter: grayscale(100%);
+      border-radius: 25px;
     }
   }
 `;
@@ -48,7 +52,7 @@ function BenefitsSlider() {
     <Container>
       <Slider {...settings}>
         <div className="customer-slider">
-          <StaticImage src="../images/bloodtest.jpg" alt="" />
+          <StaticImage src="../images/lab.jpg" alt="" />
         </div>
         <div className="customer-slider">
           <StaticImage src="../images/chemlab.jpg" alt="" />
