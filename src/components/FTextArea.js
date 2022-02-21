@@ -18,6 +18,8 @@ const InputContainer = styled.div`
     font-size: var(--p2);
     font-weight: var(--xmediumWeight);
     text-transform: capitalize;
+    color: var(--black);
+    opacity: 0.7;
   }
 `;
 

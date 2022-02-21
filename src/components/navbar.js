@@ -27,6 +27,7 @@ const Nav = styled.nav`
     width: 80%;
   }
   .logo {
+    z-index: 11;
     svg {
       width: 120px;
       @media (max-width: 479px) {

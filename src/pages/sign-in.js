@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import SignInForm from "../components/SignInForm";
-
+import BenefitsSlider from "../components/BenefitsSlider";
 import { Wrapper } from "../components/StyledComponents/Wrapper";
 
 const Wrapper1 = styled(Wrapper)`
@@ -23,7 +23,7 @@ const Container = styled.div`
   .left-section {
     grid-area: 1/1/2/2;
     width: 100%;
-    background-color: #ebebeb;
+    background-color: #fff;
   }
   .right-section {
     padding-top: 8rem;
@@ -48,7 +48,7 @@ function SignIn() {
     <Wrapper1>
       <Container>
         <div className="left-section">
-          <div className="left-section-section" />
+          <BenefitsSlider />
         </div>
         <div className="right-section">
           <div className="heading">
