@@ -3,6 +3,7 @@ import styled from "styled-components";
 import CustomerSlider from "../components/CustomerSlider";
 import Hero from "../components/Hero";
 import MostCommonTest from "../components/MostCommonTest";
+import Seo from "../components/Seo/Seo";
 import { Wrapper } from "../components/StyledComponents/Wrapper";
 import WhyDreamHealth from "../components/WhyDreamHealth";
 
@@ -16,10 +17,11 @@ const Container = styled.div`
   }
 `;
 
-function Index() {
+function Index({location}) {
   return (
     <Wrapper>
       <Container>
+        <Seo title="Home" loacation={`${location.pathname}`} />
         <Hero />
         <MostCommonTest />
         <WhyDreamHealth />

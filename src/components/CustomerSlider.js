@@ -11,17 +11,21 @@ const Container = styled.div`
   flex-direction: column;
   margin-bottom: 2rem;
 
-  .slick-slider{
-      display: grid;
+  .slick-slider {
+    display: grid;
   }
 
-  .slick-slide{
-      padding: 2rem;
-      @media (max-width: 479px) {
-        padding: 0.5rem;
+  .slick-slide {
+    padding: 2rem;
+    @media (max-width: 479px) {
+      padding: 0.5rem;
     }
   }
-
+  .heading {
+    h2 {
+      font-weight: var(--xheavyWeight);
+    }
+  }
   .customer-slider {
     display: flex;
     flex-direction: column;

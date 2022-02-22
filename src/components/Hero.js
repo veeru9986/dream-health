@@ -20,11 +20,9 @@ const Conatiner = styled.div`
       padding-right: 0;
       margin-top: 1rem;
     }
-    h2 {
-      line-height: var(--lineHeight);
-      font-weight: var(--heavyWeight);
-      font-size: var(--h1);
-    }
+     h1{
+       line-height: 112%;
+     }
     p {
       font-weight: var(--xmediumWeight);
     }

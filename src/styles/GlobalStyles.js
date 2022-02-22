@@ -30,7 +30,8 @@ const GlobalStyles = createGlobalStyle`
     --p4: 0.875rem;
     --mt: 2rem;
     --gap: 2rem;
-    --mt1: 5rem;
+    --mt1: 8.48rem;
+    --tmt1: 5rem;
 
 
     @media (max-width: 991px) {
@@ -44,8 +45,9 @@ const GlobalStyles = createGlobalStyle`
       --p4: 0.7rem;
       --mt: 1.7rem;
       --gap: 2rem;
-      --mt1: 3.5rem;
+      --mt1: 6.25rem;
       --signh2: 1.75rem;
+      --tmt1: 3rem;
 
 
     }
@@ -60,7 +62,8 @@ const GlobalStyles = createGlobalStyle`
       --p4: 0.7rem;
       --mt: 1rem;
       --gap: 2rem;
-      --mt1: 2.5rem;
+      --mt1: 4.375rem;
+      --tmt1: 2rem;
 
     }
   }

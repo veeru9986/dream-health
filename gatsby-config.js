@@ -1,7 +1,18 @@
+const path = require(`path`);
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
+
 module.exports = {
   siteMetadata: {
-    siteUrl: `https://dreamhealth.netlify.app`,
-    title: `Dream Health`,
+    title: "Dream Health",
+    titleTemplate: "Dream Health",
+    description: "Dream Health",
+    image: "/Icon.svg",
+    siteUrl: "https://dreamhealth.netlify.app",
+    author: "veeresh",
+    authorSite: "",
+    twitterUsername: "@dreamhealth",
   },
   plugins: [
     "gatsby-plugin-styled-components",
