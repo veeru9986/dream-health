@@ -34,6 +34,10 @@ const AccordionContainer = styled.div`
   }
   .MuiAccordionDetails-root {
     margin-left: 66px;
+
+    @media (max-width: 991px) {
+      margin-left: 0;
+    }
   }
 
   p {
@@ -44,6 +48,7 @@ const AccordionContainer = styled.div`
     display: flex;
     align-items: center;
 
+    
     h4 {
       font-size: var(--p1);
       font-weight: var(--mediumWeight);
