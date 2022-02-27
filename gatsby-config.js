@@ -33,7 +33,20 @@ module.exports = {
       options: {
         apiURL: process.env.STRAPI_API_URL,
         queryLimit: 1000, // Defaults to 100
-        singleTypes: [`navbar`, `home`, `footer`],
+        singleTypes: [
+          {
+            name: `home`,
+            endpoint: `api/home?populate=deep`,
+          },
+          {
+            name: `navbar`,
+            endpoint: `api/navbar?populate=deep`,
+          },
+          {
+            name: `footer`,
+            endpoint: `api/footer?populate=deep`,
+          },
+        ],
       },
     },
     {

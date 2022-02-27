@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { LinkStyled } from "./StyledComponents/Wrapper";
 import logo from "../images/logo.png";
+import { GatsbyImage } from "gatsby-plugin-image";
 
 const Conatiner = styled.div`
   display: grid;
@@ -54,40 +55,47 @@ const Conatiner = styled.div`
     display: flex;
     justify-content: flex-end;
 
+    .gatsby-image-wrapper {
+      width: 80%;
+    }
+
     @media (max-width: 767px) {
       grid-area: 1/1/2/3;
+      .gatsby-image-wrapper {
+        width: 100%;
+      }
     }
     img {
       width: 100%;
       border-radius: 10px;
 
       @media (min-width: 767px) {
-        width: 80%;
+        width: 100%;
       }
     }
   }
 `;
 
-function WhyDreamHealth() {
+function WhyDreamHealth({ data }) {
+  const { title, description, image, buttons } = data;
   return (
     <Conatiner>
       <div className="image">
-          <img src={logo} alt="logo" />
+        <GatsbyImage
+          image={
+            image.data.attributes.localFile.childImageSharp.gatsbyImageData
+          }
+          alt=""
+        />
       </div>
       <div className="hero-desc">
-        <h2>Why Dream Health</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis lorem
-          consectetur placerat nec. Id id bibendum etiam mauris eget.Lorem ipsum
-          dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit
-          amet, consectetur adipiscing elit. Quis lorem consectetur placerat
-          nec. Id id bibendum etiam mauris eget.Lorem ipsum dolor sit amet,
-          consectetur read more..
-        </p>
+        <h2>{title}</h2>
+        <p>{description}</p>
         <div className="hero-desc-button-wrapper">
-     
           <div className="faq">
-            <LinkStyled to="/">FAQ</LinkStyled>
+            <LinkStyled to={buttons.button_link}>
+              {buttons.button_title}
+            </LinkStyled>
           </div>
         </div>
       </div>

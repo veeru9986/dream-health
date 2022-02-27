@@ -56,7 +56,8 @@ const Container = styled.div`
   }
 `;
 
-function CustomerSlider() {
+function CustomerSlider({ data, title }) {
+  const { customer_reviews } = data;
   var settings = {
     dots: true,
     infinite: false,
@@ -94,57 +95,23 @@ function CustomerSlider() {
   return (
     <Container>
       <div className="heading">
-        <h2>What Our Customer Say about us</h2>
+        <h2>{title}</h2>
       </div>
       <Slider {...settings}>
-        <div className="customer-slider">
-          <div className="quote-quote">
-            <img src={quote} alt="quote" />
-          </div>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Consectetur
-            sodales semper dui amet, tempor sem. Vulputate quis lacus duis in
-            interdum eget nulla.
-          </p>
+        {customer_reviews.map((c) => {
+          return (
+            <>
+              <div className="customer-slider">
+                <div className="quote-quote">
+                  <img src={quote} alt="quote" />
+                </div>
+                <p>{c.description}</p>
 
-          <h4>Name of the Customer</h4>
-        </div>
-        <div className="customer-slider">
-          <div className="quote-quote">
-            <img src={quote} alt="quote" />
-          </div>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Consectetur
-            sodales semper dui amet, tempor sem. Vulputate quis lacus duis in
-            interdum eget nulla.
-          </p>
-
-          <h4>Name of the Customer</h4>
-        </div>
-        <div className="customer-slider">
-          <div className="quote-quote">
-            <img src={quote} alt="quote" />
-          </div>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Consectetur
-            sodales semper dui amet, tempor sem. Vulputate quis lacus duis in
-            interdum eget nulla.
-          </p>
-
-          <h4>Name of the Customer</h4>
-        </div>
-        <div className="customer-slider">
-          <div className="quote-quote">
-            <img src={quote} alt="quote" />
-          </div>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Consectetur
-            sodales semper dui amet, tempor sem. Vulputate quis lacus duis in
-            interdum eget nulla.
-          </p>
-
-          <h4>Name of the Customer</h4>
-        </div>
+                <h4>{c.name_of_the_customer}</h4>
+              </div>
+            </>
+          );
+        })}
       </Slider>
     </Container>
   );

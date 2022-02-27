@@ -30,13 +30,12 @@ const UL = styled.ul`
   }
 
   .cart-active {
-  
     svg,
     g {
       fill: var(--medBlue);
     }
   }
-  .cart{
+  .cart {
     transition: 0ms.3s ease-in-out;
   }
   .cart:hover {
@@ -70,22 +69,24 @@ const UL = styled.ul`
   }
 `;
 
-const Right = ({ open, setOpen }) => {
+const Right = ({ open, setOpen, data }) => {
+  console.log(data[0].title);
   return (
     <>
       <UL open={open}>
-        {mainMenuItems.map((m, id) => (
-          <li key={id}>
+        {data.map((n) => (
+          <li key={n.id}>
             <Link
               className="menu-links"
               activeClassName="menu-links-active"
-              to={m.path}
+              to={n.link_to}
               onClick={() => setOpen(!open)}
             >
-              {m.title}
+              {n.title}
             </Link>
           </li>
         ))}
+
         <li>
           <LinkStyled to="/sign-in" onClick={() => setOpen(!open)}>
             Sign in

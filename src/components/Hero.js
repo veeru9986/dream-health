@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { LinkStyled } from "./StyledComponents/Wrapper";
+import { GatsbyImage } from "gatsby-plugin-image";
 
 const Conatiner = styled.div`
   display: grid;
@@ -20,27 +21,28 @@ const Conatiner = styled.div`
       padding-right: 0;
       margin-top: 1rem;
     }
-     h1{
-       line-height: 112%;
-     }
+    h1 {
+      line-height: 112%;
+    }
     p {
       font-weight: var(--xmediumWeight);
     }
     .hero-desc-button-wrapper {
       display: flex;
-      
-      @media (max-width: 479px){
+
+      @media (max-width: 479px) {
         flex-direction: column;
       }
-      .book-appointment, .phone-no{
+      .book-appointment,
+      .phone-no {
         display: flex;
       }
       .book-appointment {
         margin-right: 1.5rem;
-        @media (max-width: 479px){
+        @media (max-width: 479px) {
           margin-right: 0;
           margin-bottom: 1rem;
-      }
+        }
       }
     }
   }
@@ -48,6 +50,13 @@ const Conatiner = styled.div`
     grid-area: 1/2/2/3;
     display: flex;
     justify-content: flex-end;
+
+    .gatsby-image-wrapper {
+      width: 80%;
+      @media (max-width: 767px) {
+        width: 100%;
+      }
+    }
 
     @media (max-width: 767px) {
       grid-area: 1/1/2/3;
@@ -58,34 +67,32 @@ const Conatiner = styled.div`
       border-radius: 10px;
 
       @media (min-width: 767px) {
-        width: 80%;
+        width: 100%;
       }
     }
   }
 `;
 
-function Hero() {
+function Hero({ data }) {
+  const { localFile } = data.banner_image.data.attributes;
   return (
     <Conatiner>
       <div className="image">
-        <img
-          src="https://picsum.photos/seed/picsum/200/300"
-          alt="lorem ipsum"
-        />
+        <GatsbyImage image={localFile.childImageSharp.gatsbyImageData} />
       </div>
       <div className="hero-desc">
-        <h1>Lorem ipsum dolor sit amet, consectetur </h1>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis lorem
-          consectetur placerat nec. Id id bibendum etiam mauris eget.Lorem ipsum
-          dolor sit amet, consectetur adipiscing elit.{" "}
-        </p>
+        <h1>{data.title}</h1>
+        <p>{data.description}</p>
         <div className="hero-desc-button-wrapper">
           <div className="book-appointment">
-            <LinkStyled primary to="/">Book Appointment</LinkStyled>
+            <LinkStyled primary to={data.home_banner_button[0].button_link}>
+              {data.home_banner_button[0].button_title}
+            </LinkStyled>
           </div>
           <div className="phone-no">
-            <LinkStyled to="/">Phone No</LinkStyled>
+            <LinkStyled to={data.home_banner_button[1]?.button_title || "/"}>
+              {data.home_banner_button[1]?.button_title || "Phone No"}
+            </LinkStyled>
           </div>
         </div>
       </div>

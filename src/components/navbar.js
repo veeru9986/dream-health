@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Logo from "../assets/main-logo.svg";
 import Burger from "./NavbarComponents/Burger";
 import { Link } from "gatsby";
+import { useStaticQuery, graphql } from "gatsby";
 
 const Wrapper = styled.div`
   display: grid;
@@ -43,7 +44,24 @@ const Nav = styled.nav`
 `;
 
 function Navbar(props) {
-  console.log(props);
+  const data = useStaticQuery(graphql`
+    {
+      strapiNavbar {
+        data {
+          attributes {
+            navbar {
+              id
+              link_to
+              title
+            }
+          }
+        }
+      }
+    }
+  `);
+  
+  // console.log(data.strapiNavbar.data.attributes.navbar);
+
   return (
     <Wrapper positionS={props.positionS}>
       <Nav>
@@ -52,7 +70,7 @@ function Navbar(props) {
             <Logo />
           </Link>
         </div>
-        <Burger />
+        <Burger data={data.strapiNavbar.data.attributes.navbar} />
       </Nav>
     </Wrapper>
   );
