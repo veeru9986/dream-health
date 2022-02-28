@@ -25,7 +25,7 @@ module.exports = {
         name: `Dream Health`,
         short_name: `Dream Health`,
         description: `Dream Health`,
-        icon: "src/images/icon.png",
+        icon: "src/images/favicon.png",
       },
     },
     {
