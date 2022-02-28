@@ -3,6 +3,7 @@ import styled from "styled-components";
 import SignInForm from "../components/SignInForm";
 import BenefitsSlider from "../components/BenefitsSlider";
 import { Wrapper } from "../components/StyledComponents/Wrapper";
+import { graphql } from "gatsby";
 
 const Wrapper1 = styled(Wrapper)`
   margin-top: 0;
@@ -32,7 +33,7 @@ const Container = styled.div`
     @media (min-width: 1300px) {
       margin-top: 0;
     }
-    @media (max-width: 767px){
+    @media (max-width: 767px) {
       grid-area: 1/1/2/3;
     }
   }
@@ -65,21 +66,49 @@ const Container = styled.div`
     margin-top: 1rem;
   }
 `;
-
-function SignIn() {
+export const query = graphql`
+  {
+    strapiSignin {
+      data {
+        attributes {
+          signin {
+            description
+            id
+            title
+            images {
+              id
+              image {
+                data {
+                  attributes {
+                    localFile {
+                      childImageSharp {
+                        gatsbyImageData(placeholder: TRACED_SVG)
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+function SignIn({ data }) {
+  const { title, description, images } = data.strapiSignin.data.attributes.signin;
+  console.log(title);
+  console.log(images)
   return (
     <Wrapper1>
       <Container>
         <div className="left-section">
-          <BenefitsSlider />
+          <BenefitsSlider data={images} />
         </div>
         <div className="right-section">
           <div className="heading">
-            <h2>Lorem ipsum dolor sit amet, consectetur</h2>
-            <p className="para">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-              ipsum dolor sit amet,
-            </p>
+            <h2>{title}</h2>
+            <p className="para">{description}</p>
           </div>
           <div className="sign-in-container">
             <SignInForm />

@@ -4,6 +4,7 @@ import people1 from "../../images/people1.png";
 import people2 from "../../images/people2.png";
 import people3 from "../../images/people1.png";
 import people4 from "../../images/people1.png";
+import { GatsbyImage } from "gatsby-plugin-image";
 
 const Container = styled.div`
   grid-area: auto/2/auto/3;
@@ -21,8 +22,8 @@ const Container = styled.div`
   .para {
     width: 50%;
 
-    @media (max-width: 767px){
-        width: 100%;
+    @media (max-width: 767px) {
+      width: 100%;
     }
   }
   .people-behind-dream-health {
@@ -30,8 +31,8 @@ const Container = styled.div`
     flex-flow: row wrap;
     justify-content: space-between;
     align-items: center;
-    @media (max-width: 767px){
-        justify-content: center;
+    @media (max-width: 767px) {
+      justify-content: center;
     }
 
     .avatar-img-section {
@@ -42,9 +43,9 @@ const Container = styled.div`
       flex-direction: column;
       margin: 0 2rem 5rem 0;
       position: relative;
-      @media (max-width: 767px){
+      @media (max-width: 767px) {
         margin: 0 0 5rem 0;
-    }
+      }
       .avatar-text-section {
         position: absolute;
         bottom: -15%;
@@ -60,14 +61,14 @@ const Container = styled.div`
           border-radius: 10px;
           padding: 0.8rem;
 
-          h4{
-              text-transform: capitalize;
-              font-size: var(--h4);
-              font-weight:  var(--mediumWeight);
+          h4 {
+            text-transform: capitalize;
+            font-size: var(--h4);
+            font-weight: var(--mediumWeight);
           }
-          span{
-              font-size:  var(--p2);
-              font-weight: var(--xmediumWeight);
+          span {
+            font-size: var(--p2);
+            font-weight: var(--xmediumWeight);
           }
         }
       }
@@ -75,75 +76,33 @@ const Container = styled.div`
   }
 `;
 
-const people = [
-  {
-    name: "name username",
-    designation: "designation",
-    img: people1,
-  },
-  {
-    name: "name username",
-    designation: "designation",
-    img: people2,
-  },
-  {
-    name: "name username",
-    designation: "designation",
-    img: people3,
-  },
-  {
-    name: "name username",
-    designation: "designation",
-    img: people4,
-  },
-  {
-    name: "name username",
-    designation: "designation",
-    img: people1,
-  },
-  {
-    name: "name username",
-    designation: "designation",
-    img: people2,
-  },
-  {
-    name: "name username",
-    designation: "designation",
-    img: people3,
-  },
-  {
-    name: "name username",
-    designation: "designation",
-    img: people4,
-  },
-];
-
-function PeopleBehindDreamHealth() {
+function PeopleBehindDreamHealth({ data }) {
+  const { title, description, people } = data;
   return (
     <Container>
       <div className="heading">
-        <h2>
-          The People <br /> Behind Dream Health
-        </h2>
+        <h2>{title}</h2>
       </div>
       <div className="para">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis lorem
-          consectetur placerat nec. Id id bibendum etiam mauris eget.Lorem ipsum
-          dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit
-          amet
-        </p>
+        <p>{description}</p>
       </div>
       <div className="people-behind-dream-health">
         {people.map((p) => {
           return (
             <div className="avatar-img-section">
               <div className="image">
+                <GatsbyImage
+                  image={
+                    p.image.data.attributes.localFile.childImageSharp
+                      .gatsbyImageData
+                  }
+                  alt={title}
+                />
                 <img src={p.img} alt={p.name} />
               </div>
               <div className="avatar-text-section">
                 <div className="avatar-text">
-                  <h4>{p.name}</h4>
+                  <h4>{p.name_and_useranme}</h4>
                   <span>{p.designation}</span>
                 </div>
               </div>

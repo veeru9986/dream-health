@@ -46,6 +46,28 @@ module.exports = {
             name: `footer`,
             endpoint: `api/footer?populate=deep`,
           },
+          {
+            name: `service`,
+            endpoint: `api/service?populate=deep`,
+          },
+          {
+            name: `signin`,
+            endpoint: `api/signin?populate=deep`,
+          },
+          {
+            name: `signup`,
+            endpoint: `api/signup?populate=deep`,
+          },
+          {
+            name: `about`,
+            endpoint: `api/about?populate=deep`,
+          },
+        ],
+        collectionTypes: [
+          {
+            name: `test-pages`,
+            endpoint: `api/test-pages?populate=deep`,
+          },
         ],
       },
     },

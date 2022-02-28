@@ -56,7 +56,7 @@ const Container = styled.div`
   }
 `;
 
-function CustomerSlider({ data, title }) {
+function CustomerSlider({ data, title, testPage }) {
   var settings = {
     dots: true,
     infinite: false,
@@ -97,20 +97,36 @@ function CustomerSlider({ data, title }) {
         <h2>{title}</h2>
       </div>
       <Slider {...settings}>
-        {data?.customer_reviews?.map((c) => {
-          return (
-            <>
-              <div className="customer-slider">
-                <div className="quote-quote">
-                  <img src={quote} alt="quote" />
-                </div>
-                <p>{c.description}</p>
+        {testPage
+          ? data.customer_review.map((c) => {
+              return (
+                <>
+                  <div className="customer-slider">
+                    <div className="quote-quote">
+                      <img src={quote} alt="quote" />
+                    </div>
+                    <p>{c.description}</p>
 
-                <h4>{c.name_of_the_customer}</h4>
-              </div>
-            </>
-          );
-        })}
+                    <h4>{c.name_of_the_customer}</h4>
+                  </div>
+                </>
+              );
+            })
+          : data?.customer_reviews?.map((c) => {
+              return (
+                <>
+                  <div className="customer-slider">
+                    <div className="quote-quote">
+                      <img src={quote} alt="quote" />
+                    </div>
+                    <p>{c.description}</p>
+
+                    <h4>{c.name_of_the_customer}</h4>
+                  </div>
+                </>
+              );
+            })}
+        {}
       </Slider>
     </Container>
   );

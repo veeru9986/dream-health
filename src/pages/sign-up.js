@@ -3,6 +3,7 @@ import styled from "styled-components";
 import SignUpForm from "../components/SignUpForm";
 import BenefitsSlider from "../components/BenefitsSlider";
 import { Wrapper } from "../components/StyledComponents/Wrapper";
+import { graphql } from "gatsby";
 
 const Wrapper1 = styled(Wrapper)`
   margin-top: 0;
@@ -65,24 +66,50 @@ const Container = styled.div`
     margin-top: 1rem;
   }
 `;
+export const query = graphql`
+  {
+    strapiSignup {
+      data {
+        attributes {
+          signup {
+            description
+            title
+            images {
+              image {
+                data {
+                  attributes {
+                    localFile {
+                      childImageSharp {
+                        gatsbyImageData(placeholder: TRACED_SVG)
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+function SignIn({data}) {
+  const { title, description, images } =
+    data.strapiSignup.data.attributes.signup;
 
-function SignIn() {
   return (
     <Wrapper1>
       <Container>
         <div className="left-section">
-          <BenefitsSlider />
+          <BenefitsSlider data={images} />
         </div>
         <div className="right-section">
           <div className="heading">
-            <h2>Lorem ipsum dolor sit amet, consectetur</h2>
-            <p className="para">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-              ipsum dolor sit amet,
-            </p>
+            <h2>{title}</h2>
+            <p className="para">{description}</p>
           </div>
           <div className="sign-in-container">
-              <SignUpForm />
+            <SignUpForm />
           </div>
         </div>
       </Container>

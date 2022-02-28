@@ -1,3 +1,4 @@
+import { GatsbyImage } from "gatsby-plugin-image";
 import React from "react";
 import styled from "styled-components";
 import { ButtonStyled, LinkStyled } from "../StyledComponents/Wrapper";
@@ -23,6 +24,11 @@ const HeroContainer = styled.div`
       height: 270px;
       background: #ebebeb;
       border-radius: 10px;
+      .gatsby-image-wrapper{
+        border-radius: 10px;
+        width: 100%;
+        height: 100%;
+      }
     }
   }
   .middle-button-section {
@@ -84,26 +90,28 @@ const HeroContainer = styled.div`
     }
   }
 `;
-function Hero() {
+function Hero({ banner }) {
+  const { description, price, title, buttons, image } = banner;
   return (
     <HeroContainer>
       <div className="left-grid-section">
-        <div className="image-container" />
+        <div className="image-container">
+          <GatsbyImage
+            image={
+              image.data.attributes.localFile.childImageSharp.gatsbyImageData
+            }
+            alt={title}
+          />
+        </div>
       </div>
       <div className="middle-grid-section">
-        <h2>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis lorem
-          consectetur placerat nec.
-        </h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis lorem
-          consectetur placerat nec.
-        </p>
+        <h2>{title}</h2>
+        <p>{description}</p>
       </div>
       <div className="middle-button-section">
         <div className="book-appointment">
-          <LinkStyled to="/" primary>
-            Book Appointment
+          <LinkStyled to={buttons[0].button_link} primary>
+            {buttons[0].button_title}
           </LinkStyled>
         </div>
         <div className="add-to-cart">
@@ -111,7 +119,7 @@ function Hero() {
         </div>
       </div>
       <div className="right-grid-section">
-        <span>₹1230</span>
+        <span>₹{price}</span>
       </div>
     </HeroContainer>
   );

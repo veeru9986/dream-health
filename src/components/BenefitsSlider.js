@@ -4,7 +4,7 @@ import quote from "../images/quote.png";
 import Slider from "react-slick";
 import labtest from "../images/lab.jpg";
 import chemlab from "../images/chemlab.jpg";
-import { StaticImage } from "gatsby-plugin-image";
+import { GatsbyImage } from "gatsby-plugin-image";
 
 const Container = styled.div`
   margin-bottom: 2rem;
@@ -39,7 +39,7 @@ const Container = styled.div`
   }
 `;
 
-function BenefitsSlider() {
+function BenefitsSlider({ data }) {
   var settings = {
     dots: true,
     infinite: false,
@@ -48,15 +48,21 @@ function BenefitsSlider() {
     slidesToScroll: 1,
     initialSlide: 0,
   };
+  console.log(data);
   return (
     <Container>
       <Slider {...settings}>
-        <div className="customer-slider">
-          <StaticImage src="../images/lab.jpg" alt="" />
-        </div>
-        <div className="customer-slider">
-          <StaticImage src="../images/chemlab.jpg" alt="" />
-        </div>
+        {data.map((d) => (
+          <div className="customer-slider" key={d.id}>
+            <GatsbyImage
+              image={
+                d.image.data.attributes.localFile.childImageSharp
+                  .gatsbyImageData
+              }
+              alt=""
+            />
+          </div>
+        ))}
       </Slider>
     </Container>
   );

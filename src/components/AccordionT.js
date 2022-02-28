@@ -48,7 +48,6 @@ const AccordionContainer = styled.div`
     display: flex;
     align-items: center;
 
-    
     h4 {
       font-size: var(--p1);
       font-weight: var(--mediumWeight);
@@ -57,79 +56,49 @@ const AccordionContainer = styled.div`
     .icon {
       width: 50px;
       height: 50px;
-      background-color: #c4c4c4;
       margin-right: 1rem;
+      background-size: cover;
+      background-position: center;
     }
   }
 `;
-export default function AccordionT(props) {
-  const [expanded, setExpanded] = React.useState("panel1");
+export default function AccordionT({ marginTop, accordion }) {
+  const firstTitle = accordion[0].title;
+  const [expanded, setExpanded] = React.useState(`${firstTitle}`);
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
   return (
-    <AccordionContainer primary={props.marginTop}>
-      <Accordion
-        expanded={expanded === "panel1"}
-        onChange={handleChange("panel1")}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <div className="accordion-title-wrapper">
-            <div className="icon" />
-            <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit ?</h4>
-          </div>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-            condimentum mollis sit mattis viverra ullamcorper tellus. Elementum
-            at ipsum et euismod mattis pellentesque pellentesque sed. Fermentum
-            tristique lectus nisl amet. Dolor, auctor non blandit accumsan
-            faucibus. Pulvinar fermentum, scelerisque nisl ut dui pulvinar
-            pulvinar. Accumsan neque habitasse vel vitae euismod odio amet at
-            nibh. Duis non varius diam id arcu blandit porttitor habitant nulla.
-            Feugiat leo, commodo placerat turpis. Vulputate senectus tortor
-            parturient ullamcorper egestas. Interdum vitae gravida sit pharetra
-            eu eu at in. Malesuada vel eu pretium fermentum. Pellentesque lectus
-            urna tellus.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion
-        expanded={expanded === "panel2"}
-        onChange={handleChange("panel2")}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2a-content"
-          id="panel2a-header"
-        >
-          <div className="accordion-title-wrapper">
-            <div className="icon" />
-            <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit ?</h4>
-          </div>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-            condimentum mollis sit mattis viverra ullamcorper tellus. Elementum
-            at ipsum et euismod mattis pellentesque pellentesque sed. Fermentum
-            tristique lectus nisl amet. Dolor, auctor non blandit accumsan
-            faucibus. Pulvinar fermentum, scelerisque nisl ut dui pulvinar
-            pulvinar. Accumsan neque habitasse vel vitae euismod odio amet at
-            nibh. Duis non varius diam id arcu blandit porttitor habitant nulla.
-            Feugiat leo, commodo placerat turpis. Vulputate senectus tortor
-            parturient ullamcorper egestas. Interdum vitae gravida sit pharetra
-            eu eu at in. Malesuada vel eu pretium fermentum. Pellentesque lectus
-            urna tellus.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
+    <AccordionContainer primary={marginTop}>
+      {accordion.map((a, id) => {
+        return (
+          <Accordion
+            expanded={expanded}
+            onChange={handleChange(`${a.title}`)}
+            key={id}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <div className="accordion-title-wrapper">
+                <div
+                  className="icon"
+                  style={{
+                    backgroundImage: `url(${a.icon.data.attributes.url})`,
+                  }}
+                />
+                <h4>{a.title}</h4>
+              </div>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>{a.description}</Typography>
+            </AccordionDetails>
+          </Accordion>
+        );
+      })}
     </AccordionContainer>
   );
 }

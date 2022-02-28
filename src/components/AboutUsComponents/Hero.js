@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { LinkStyled } from "../StyledComponents/Wrapper";
+import ReactMarkdown from "react-markdown";
+import { GatsbyImage } from "gatsby-plugin-image";
 
 const Conatiner = styled.div`
   display: grid;
@@ -57,46 +58,39 @@ const Conatiner = styled.div`
     @media (max-width: 767px) {
       grid-area: 1/1/2/3;
     }
+    .gatsby-image-wrapper {
+      width: 80%;
+      @media (max-width: 767px) {
+        width: 100%;
+      }
+    }
     img {
       width: 100%;
       height: 300px;
       border-radius: 10px;
 
       @media (min-width: 767px) {
-        width: 80%;
+        width: 100%;
       }
     }
   }
 `;
 
-function Hero() {
+function Hero({ data }) {
+  const { title, description, image } = data;
   return (
     <Conatiner>
       <div className="image">
-        <img
-          src="https://picsum.photos/seed/picsum/200/300"
-          alt="lorem ipsum"
+        <GatsbyImage
+          image={
+            image.data.attributes.localFile.childImageSharp.gatsbyImageData
+          }
+          alt={title}
         />
       </div>
       <div className="hero-desc">
-        <h2>About Us</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis lorem
-          consectetur placerat nec. Id id bibendum etiam mauris eget.Lorem ipsum
-          dolor sit amet, consectetur adipiscing elit.{" "}
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis lorem
-          consectetur placerat nec. Id id bibendum etiam m auris eget.Lorem
-          ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor
-          sit amet,
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis lorem
-          consectetur placerat nec. Id id bibendum etiam m auris eget.Lorem
-          ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor
-          sit amet,
-        </p>
+        <h2>{title}</h2>
+        <ReactMarkdown>{description}</ReactMarkdown>
       </div>
     </Conatiner>
   );

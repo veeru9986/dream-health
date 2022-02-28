@@ -1,11 +1,19 @@
+import { GatsbyImage } from "gatsby-plugin-image";
 import React from "react";
 import styled from "styled-components";
+import { Link } from "gatsby";
 
 const Container = styled.div`
   grid-area: auto/2/auto/3;
 
   h2 {
     font-weight: var(--xheavyWeight);
+    text-transform: capitalize;
+  }
+  a {
+    display: flex;
+    width: 100%;
+    height: 100%;
   }
 
   .services-section-section {
@@ -26,28 +34,36 @@ const Container = styled.div`
       margin: 0 1rem 2rem 0;
       background: #ebebeb;
 
-    @media (max-width: 479px) {
-      margin-right: 0;
-    }
+      @media (max-width: 479px) {
+        margin-right: 0;
+      }
+      .gatsby-image-wrapper{
+         border-radius: 10px;
+      }
     }
   }
 `;
 
-function services() {
+function services({ data, title }) {
   return (
     <Container>
       <div className="heading">
-        <h2>Services</h2>
+        <h2>{title}</h2>
       </div>
       <div className="services-section-section">
-        <div className="services-section" />
-        <div className="services-section" />
-        <div className="services-section" />
-        <div className="services-section" />
-        <div className="services-section" />
-        <div className="services-section" />
-        <div className="services-section" />
-        <div className="services-section" />
+        {data.map((d) => (
+          <div className="services-section" key={d.id}>
+            <Link to="/">
+              <GatsbyImage
+                image={
+                  d.test_images.data.attributes.localFile.childImageSharp
+                    .gatsbyImageData
+                }
+                alt={title}
+              />
+            </Link>
+          </div>
+        ))}
       </div>
     </Container>
   );
