@@ -20,8 +20,8 @@ const Container = styled.div`
 
 function Index({ data }) {
   const { banner, checkups, accordion, customer_reviews, slug } =
-    data.strapiTestPages.data[0].attributes;
-  return (
+    data.strapiTestPages.data[0]?.attributes;
+  return ( 
     <Wrapper>
       <Container>
         <Hero banner={banner} />
