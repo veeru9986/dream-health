@@ -1,14 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-import people1 from "../../images/people1.png";
-import people2 from "../../images/people2.png";
-import people3 from "../../images/people1.png";
-import people4 from "../../images/people1.png";
+
 import { GatsbyImage } from "gatsby-plugin-image";
 
 const Container = styled.div`
   grid-area: auto/2/auto/3;
   margin-top: var(--mt1);
+
+  .heading{
+    width: 250px;
+    word-wrap: break-word;
+  }
   h2 {
     line-height: var(--lineHeight);
     font-weight: var(--xheavyWeight);

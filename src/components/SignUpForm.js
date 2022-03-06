@@ -1,21 +1,29 @@
 import React from "react";
 import styled from "styled-components";
-import FInput from "./FInput";
 import { ButtonStyled } from "./StyledComponents/Wrapper";
 import { Link } from "gatsby";
+import { useSelector, useDispatch } from "react-redux";
+import { signupUser, userSelector } from "../features/userSlice";
+import TextField from "@mui/material/TextField";
+import { InputContainer } from "./StyledComponents/InputContainer";
 
 const SignInContainer = styled.div`
   display: flex;
   flex-direction: column;
 
-  .sign-up-form-wrapper{
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sign-up-form-wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
   }
   .input-wrapper {
-    width: 350px;
-    @media (max-width: 767px){
+    width: 330px;
+    @media (max-width: 767px) {
       width: 100%;
     }
   }
@@ -50,10 +58,10 @@ const SignInContainer = styled.div`
         font-weight: var(--mediumWeight);
       }
     }
-    .signup-options{
+    .signup-options {
       display: flex;
 
-      .options{
+      .options {
         width: 50px;
         height: 50px;
         border-radius: 90px;
@@ -64,18 +72,137 @@ const SignInContainer = styled.div`
 `;
 
 function SignUpForm() {
-    const [email, setEmail] = React.useState();
-    const [fName, setFname] = React.useState();
-    const [lName, setLname] = React.useState();
-    const [cPass, setCpass] = React.useState();
-    const [phone, setPhone] = React.useState();
-  
-    const [pass, setPass] = React.useState();
+  const [email, setEmail] = React.useState("email");
+  const [fName, setFname] = React.useState("first name");
+  const [lName, setLname] = React.useState("last name");
+  const [cPass, setCpass] = React.useState("confirm password");
+  const [phone, setPhone] = React.useState("phone");
+  const [pass, setPass] = React.useState("password");
+  const [error, setError] = React.useState("");
+  const data = { fName, email, pass };
+
+  // redux
+  const dispatch = useDispatch();
+  const { isFetching, isSuccess, isError, errorMessage } =
+    useSelector(userSelector);
+
+  //dispatch
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    fName === "first name" ||
+    lName === "last name" ||
+    phone === "phone" ||
+    pass === "password" ||
+    cPass === "confirm password"
+      ? setError("One of the field is default value remove it")
+      : <>{dispatch(signupUser(data))}{setError("")}</>
+  };
+
   return (
     <SignInContainer>
+      <span style={{ color: "red", fontSize: "0.8rem", fontStyle: "italic" }}>
+        {error}
+      </span>
+      <form onSubmit={handleSubmit}>
+        <div className="sign-up-form-wrapper">
+          <InputContainer>
+            <div className="input-wrapper">
+              <span>First Name</span>
+              <TextField
+                error={fName === ""}
+                type="text"
+                id="outlined-error"
+                helperText={fName === "" ? `Empty First Name Field` : " "}
+                value={fName}
+                onChange={(e) => setFname(e.target.value)}
+                required
+              />
+            </div>
+          </InputContainer>
+          <InputContainer>
+            <div className="input-wrapper">
+              <span>Last Name</span>
+              <TextField
+                error={lName === ""}
+                type="text"
+                id="outlined-error"
+                helperText={lName === "" ? `Empty Last Name Field` : " "}
+                value={lName}
+                onChange={(e) => setLname(e.target.value)}
+                required
+              />
+            </div>
+          </InputContainer>
+          <InputContainer>
+            <div className="input-wrapper">
+              <span>Phone Number</span>
+              <TextField
+                error={phone === ""}
+                type="text"
+                id="outlined-error"
+                helperText={phone === "" ? `Empty Phone Field` : " "}
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                required
+              />
+            </div>
+          </InputContainer>
+          <InputContainer>
+            <div className="input-wrapper">
+              <span>Email</span>
+              <TextField
+                error={email === ""}
+                type="text"
+                id="outlined-error"
+                helperText={email === "" ? `Empty Email Field` : " "}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+          </InputContainer>
+          <InputContainer>
+            <div className="input-wrapper">
+              <span>Password</span>
+              <TextField
+                error={pass === ""}
+                type="text"
+                id="outlined-error"
+                helperText={pass === "" ? `Empty Password Field` : " "}
+                value={pass}
+                onChange={(e) => setPass(e.target.value)}
+                required
+              />
+            </div>
+          </InputContainer>
+          <InputContainer>
+            <div className="input-wrapper">
+              <span>Confirm Password</span>
+              <TextField
+                error={cPass === ""}
+                type="text"
+                id="outlined-error"
+                helperText={cPass === "" ? `Empty Confirm Password Field` : " "}
+                value={cPass}
+                onChange={(e) => setCpass(e.target.value)}
+                required
+              />
+            </div>
+          </InputContainer>
+        </div>
 
-      <div className="sign-up-form-wrapper">
-      <FInput
+        <div className="btn-submit-submit">
+          <div className="btn-submit">
+            <ButtonStyled type="submit">sign up</ButtonStyled>
+          </div>
+          <p>
+            already have an account?<Link to="/sign-in">Sign in</Link>
+          </p>
+        </div>
+      </form>
+
+      {/* <FInput
           type="text"
           helperText="helper text"
           error="error"
@@ -128,16 +255,8 @@ function SignUpForm() {
           value={cPass}
           title="Confirm Password"
           className="input"
-        />
-      </div>
-      <div className="btn-submit-submit">
-        <div className="btn-submit">
-          <ButtonStyled>sign up</ButtonStyled>
-        </div>
-        <p>
-          already have an account?<Link to="/sign-in">Sign in</Link>
-        </p>
-      </div>
+        /> */}
+
       <div className="other-signup-options">
         <div className="heading">
           <p>or sign up with</p>

@@ -5,7 +5,8 @@ import TextField from "@mui/material/TextField";
 import OutlinedInput from "@mui/material/OutlinedInput";
 
 const InputContainer = styled.div`
-  .input-wrapper {
+  .input-wrapper,
+  form {
     display: flex;
     flex-direction: column;
   }
@@ -23,7 +24,16 @@ const InputContainer = styled.div`
 `;
 
 function Input(props) {
-  const { error, type, helperText, setDetails, value, title } = props;
+  const {
+    error,
+    type,
+    helperText,
+    setDetails,
+    value,
+    title,
+    handleSubmit,
+    required,
+  } = props;
   return (
     <InputContainer>
       <Box
