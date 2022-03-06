@@ -13,6 +13,7 @@ const InputContainer = styled.div`
   }
   .input-wrapper {
     margin: 0.5rem 0;
+    width: ${(props) => (props.widthSize ? "100%" : "330px")};
   }
   .MuiOutlinedInput-root,
   MuiInputBase-root {
@@ -29,10 +30,10 @@ const InputContainer = styled.div`
 `;
 
 function FInput(props) {
-  const {  label, required, name, control } = props;
+  const { label, required, name, control, widthSize } = props;
 
   return (
-    <InputContainer>
+    <InputContainer widthSize={widthSize}>
       <div className="input-wrapper">
         <span>{label}</span>
 

@@ -10,7 +10,11 @@ import { useForm } from "react-hook-form";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-
+  .contact-flex-container {
+    display: flex;
+    justify-content: space-between ;
+    flex-wrap: wrap;
+  }
   form {
     width: 100%;
   }
@@ -22,7 +26,7 @@ const Container = styled.div`
     flex-flow: row wrap;
 
     .input-wrapper {
-      width: 350px;
+      width: 320px;
       margin: 1rem 0;
 
       @media (max-width: 767px) {
@@ -48,18 +52,20 @@ function ContactUsForm() {
           {error}
         </span> */}
         <form onSubmit={handleSubmit(onSubmit)}>
-          <FInput
-            name="name"
-            required="name required"
-            label="Name"
-            control={control}
-          />
-          <FInput
-            name="email"
-            required="email required"
-            label="Email"
-            control={control}
-          />
+          <div className="contact-flex-container">
+            <FInput
+              name="name"
+              required="name required"
+              label="Name"
+              control={control}
+            />
+            <FInput
+              name="email"
+              required="email required"
+              label="Email"
+              control={control}
+            />
+          </div>
 
           <FTextArea
             name="message"
