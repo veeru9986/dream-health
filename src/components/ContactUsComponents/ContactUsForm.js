@@ -5,6 +5,7 @@ import FTextArea from "../FTextArea";
 import { ButtonStyled } from "../StyledComponents/Wrapper";
 import TextField from "@mui/material/TextField";
 import { InputContainer } from "../StyledComponents/InputContainer";
+import { useForm } from "react-hook-form";
 
 const Container = styled.div`
   display: flex;
@@ -13,15 +14,17 @@ const Container = styled.div`
   form {
     width: 100%;
   }
-
+  .btn-wrapper {
+    margin: 1rem 0;
+  }
   .contact-us-section {
     display: flex;
     flex-flow: row wrap;
 
-    .input-wrapper_1 {
+    .input-wrapper {
       width: 350px;
-      display: flex;
-      flex-direction: column;
+      margin: 1rem 0;
+
       @media (max-width: 767px) {
         width: 250px;
       }
@@ -33,61 +36,36 @@ const Container = styled.div`
 `;
 
 function ContactUsForm() {
-  const [name, setName] = React.useState("name");
-  const [email, setEmail] = React.useState("email");
+  const { handleSubmit, control } = useForm();
 
-  const [message, setMessage] = React.useState("message");
-  const [error, setError] = React.useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    (name === "name" || email === "email") ? 
-      setError("One of the field is default value remove it") : setError("")
+  const onSubmit = (data) => {
+    console.log(data);
   };
-
   return (
     <Container>
       <div className="contact-us-section">
-        <span style={{ color: "red", fontSize: "0.8rem", fontStyle: "italic" }}>
+        {/* <span style={{ color: "red", fontSize: "0.8rem", fontStyle: "italic" }}>
           {error}
-        </span>
-        <form onClick={handleSubmit}>
-          <InputContainer>
-            <div className="input-wrapper_1">
-              <span>Name</span>
-              <TextField
-                error={name === ""}
-                type="text"
-                id="outlined-error"
-                helperText={name === "" ? `Empty Name Field` : " "}
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </div>
-          </InputContainer>
-          <InputContainer>
-            <div className="input-wrapper_1">
-              <span>Email</span>
-              <TextField
-                error={email === ""}
-                type="text"
-                id="outlined-error"
-                helperText={email === "" ? `Empty Email Field` : " "}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-          </InputContainer>
+        </span> */}
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <FInput
+            name="name"
+            required="name required"
+            label="Name"
+            control={control}
+          />
+          <FInput
+            name="email"
+            required="email required"
+            label="Email"
+            control={control}
+          />
+
           <FTextArea
-            type="text"
-            helperText="helper text"
-            error="error"
-            setDetails={setMessage}
-            value={message}
-            title="message"
-            className="textarea"
+            name="message"
+            required="message required"
+            label="Message"
+            control={control}
           />
           <div className="btn-wrapper">
             <ButtonStyled type="submit">Submit</ButtonStyled>

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import OutlinedInput from "@mui/material/OutlinedInput";
+import { useForm, Controller } from "react-hook-form";
 
 const InputContainer = styled.div`
   .input-wrapper,
@@ -10,11 +11,15 @@ const InputContainer = styled.div`
     display: flex;
     flex-direction: column;
   }
+  .input-wrapper {
+    margin: 0.5rem 0;
+  }
   .MuiOutlinedInput-root,
   MuiInputBase-root {
     border-radius: 35px;
   }
-  label {
+  label,
+  span {
     font-size: var(--p2);
     font-weight: var(--xmediumWeight);
     text-transform: capitalize;
@@ -23,42 +28,33 @@ const InputContainer = styled.div`
   }
 `;
 
-function Input(props) {
-  const {
-    error,
-    type,
-    helperText,
-    setDetails,
-    value,
-    title,
-    handleSubmit,
-    required,
-  } = props;
+function FInput(props) {
+  const {  label, required, name, control } = props;
+
   return (
     <InputContainer>
-      <Box
-        component="form"
-        sx={{
-          "& .MuiTextField-root": { m: 1, width: "auto" },
-        }}
-        validate
-        autoComplete="off"
-      >
-        <div className="input-wrapper">
-          <label>{title}</label>
-          <TextField
-            error={value === ""}
-            type={type}
-            id="outlined-error"
-            helperText={value === "" ? `Empty Field` : " "}
-            value={value}
-            onChange={(e) => setDetails(e.target.value)}
-            required
-          />
-        </div>
-      </Box>
+      <div className="input-wrapper">
+        <span>{label}</span>
+
+        <Controller
+          name={name}
+          control={control}
+          defaultValue=""
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
+            <TextField
+              type="text"
+              id="outlined-error"
+              onChange={onChange}
+              helperText={error ? error.message : null}
+              value={value}
+              error={error?.message.length > 1}
+            />
+          )}
+          rules={{ required: required }}
+        />
+      </div>
     </InputContainer>
   );
 }
 
-export default Input;
+export default FInput;

@@ -4,8 +4,9 @@ import { ButtonStyled } from "./StyledComponents/Wrapper";
 import { Link } from "gatsby";
 import { useSelector, useDispatch } from "react-redux";
 import { signupUser, userSelector } from "../features/userSlice";
-import TextField from "@mui/material/TextField";
-import { InputContainer } from "./StyledComponents/InputContainer";
+
+import { useForm } from "react-hook-form";
+import FInput from "./FInput";
 
 const SignInContainer = styled.div`
   display: flex;
@@ -32,6 +33,7 @@ const SignInContainer = styled.div`
     width: 50%;
     justify-content: space-between;
     flex-wrap: wrap;
+    margin-top: 1rem;
 
     .btn-submit {
       display: flex;
@@ -72,124 +74,68 @@ const SignInContainer = styled.div`
 `;
 
 function SignUpForm() {
-  const [email, setEmail] = React.useState("email");
-  const [fName, setFname] = React.useState("first name");
-  const [lName, setLname] = React.useState("last name");
-  const [cPass, setCpass] = React.useState("confirm password");
-  const [phone, setPhone] = React.useState("phone");
-  const [pass, setPass] = React.useState("password");
-  const [error, setError] = React.useState("");
-  const data = { fName, email, pass };
+  //useForm
+  const { handleSubmit, control } = useForm();
 
-  // redux
+  // redux dispatch the input values
   const dispatch = useDispatch();
   const { isFetching, isSuccess, isError, errorMessage } =
     useSelector(userSelector);
 
-  //dispatch
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    fName === "first name" ||
-    lName === "last name" ||
-    phone === "phone" ||
-    pass === "password" ||
-    cPass === "confirm password"
-      ? setError("One of the field is default value remove it")
-      : <>{dispatch(signupUser(data))}{setError("")}</>
+  // submit input values to redux store using dispatch(signupuser)
+  const onSubmit = (data) => {
+    console.log(data);
   };
 
   return (
     <SignInContainer>
-      <span style={{ color: "red", fontSize: "0.8rem", fontStyle: "italic" }}>
+      {/* <span style={{ color: "red", fontSize: "0.8rem", fontStyle: "italic" }}>
         {error}
-      </span>
-      <form onSubmit={handleSubmit}>
+      </span> */}
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="sign-up-form-wrapper">
-          <InputContainer>
-            <div className="input-wrapper">
-              <span>First Name</span>
-              <TextField
-                error={fName === ""}
-                type="text"
-                id="outlined-error"
-                helperText={fName === "" ? `Empty First Name Field` : " "}
-                value={fName}
-                onChange={(e) => setFname(e.target.value)}
-                required
-              />
-            </div>
-          </InputContainer>
-          <InputContainer>
-            <div className="input-wrapper">
-              <span>Last Name</span>
-              <TextField
-                error={lName === ""}
-                type="text"
-                id="outlined-error"
-                helperText={lName === "" ? `Empty Last Name Field` : " "}
-                value={lName}
-                onChange={(e) => setLname(e.target.value)}
-                required
-              />
-            </div>
-          </InputContainer>
-          <InputContainer>
-            <div className="input-wrapper">
-              <span>Phone Number</span>
-              <TextField
-                error={phone === ""}
-                type="text"
-                id="outlined-error"
-                helperText={phone === "" ? `Empty Phone Field` : " "}
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                required
-              />
-            </div>
-          </InputContainer>
-          <InputContainer>
-            <div className="input-wrapper">
-              <span>Email</span>
-              <TextField
-                error={email === ""}
-                type="text"
-                id="outlined-error"
-                helperText={email === "" ? `Empty Email Field` : " "}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-          </InputContainer>
-          <InputContainer>
-            <div className="input-wrapper">
-              <span>Password</span>
-              <TextField
-                error={pass === ""}
-                type="text"
-                id="outlined-error"
-                helperText={pass === "" ? `Empty Password Field` : " "}
-                value={pass}
-                onChange={(e) => setPass(e.target.value)}
-                required
-              />
-            </div>
-          </InputContainer>
-          <InputContainer>
-            <div className="input-wrapper">
-              <span>Confirm Password</span>
-              <TextField
-                error={cPass === ""}
-                type="text"
-                id="outlined-error"
-                helperText={cPass === "" ? `Empty Confirm Password Field` : " "}
-                value={cPass}
-                onChange={(e) => setCpass(e.target.value)}
-                required
-              />
-            </div>
-          </InputContainer>
+          <FInput
+            name="firstName"
+            defaultValue="first name"
+            label="First Name"
+            required="first name required"
+            control={control}
+          />
+          <FInput
+            name="lastName"
+            defaultValue="last name"
+            label="Last Name"
+            required="last name required"
+            control={control}
+          />
+          <FInput
+            name="email"
+            defaultValue="email"
+            label="Email"
+            required="email name required"
+            control={control}
+          />
+          <FInput
+            name="phone"
+            defaultValue="phone number"
+            label="Phone Number"
+            required="phone number required"
+            control={control}
+          />
+          <FInput
+            name="password"
+            defaultValue="password"
+            label="Password"
+            required="password required"
+            control={control}
+          />
+          <FInput
+            name="confirm password"
+            defaultValue="confirm password"
+            label="Confirm Password"
+            required="confirm password required"
+            control={control}
+          />
         </div>
 
         <div className="btn-submit-submit">
@@ -201,61 +147,6 @@ function SignUpForm() {
           </p>
         </div>
       </form>
-
-      {/* <FInput
-          type="text"
-          helperText="helper text"
-          error="error"
-          setDetails={setFname}
-          value={fName}
-          title="First Name"
-          className="input"
-        />
-        <FInput
-          type="text"
-          helperText="helper text"
-          error="error"
-          setDetails={setLname}
-          value={lName}
-          title="Last Name"
-          className="input"
-        />
-        <FInput
-          type="text"
-          helperText="helper text"
-          error="error"
-          setDetails={setPhone}
-          value={phone}
-          title="Phone Number"
-          className="input"
-        />
-        <FInput
-          type="text"
-          helperText="helper text"
-          error="error"
-          setDetails={setEmail}
-          value={email}
-          title="E-mail"
-          className="input"
-        />
-        <FInput
-          type="text"
-          helperText="helper text"
-          error="error"
-          setDetails={setPass}
-          value={pass}
-          title="Password"
-          className="input"
-        />
-        <FInput
-          type="text"
-          helperText="helper text"
-          error="error"
-          setDetails={setCpass}
-          value={cPass}
-          title="Confirm Password"
-          className="input"
-        /> */}
 
       <div className="other-signup-options">
         <div className="heading">

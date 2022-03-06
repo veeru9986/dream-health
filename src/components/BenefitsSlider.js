@@ -5,6 +5,7 @@ import Slider from "react-slick";
 import labtest from "../images/lab.jpg";
 import chemlab from "../images/chemlab.jpg";
 import { GatsbyImage } from "gatsby-plugin-image";
+import { useForm } from "react-hook-form";
 
 const Container = styled.div`
   margin-bottom: 2rem;
@@ -52,8 +53,8 @@ function BenefitsSlider({ data }) {
   return (
     <Container>
       <Slider {...settings}>
-        {data.map((d) => (
-          <div className="customer-slider" key={d.id}>
+        {data.map((d, id) => (
+          <div className="customer-slider" key={id}>
             <GatsbyImage
               image={
                 d.image.data.attributes.localFile.childImageSharp

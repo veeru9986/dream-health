@@ -3,8 +3,8 @@ import styled from "styled-components";
 import FInput from "./FInput";
 import { ButtonStyled } from "./StyledComponents/Wrapper";
 import { Link } from "gatsby";
-import { InputContainer } from "./StyledComponents/InputContainer";
-import TextField from "@mui/material/TextField";
+
+import { useForm } from "react-hook-form";
 
 const SignInContainer = styled.div`
   display: flex;
@@ -58,49 +58,30 @@ const SignInContainer = styled.div`
 `;
 
 function SignInForm() {
-  const [email, setEmail] = React.useState("email");
-  const [pass, setPass] = React.useState("password");
-  const [error, setError] = React.useState("");
+  //useForm
+  const { handleSubmit, control } = useForm();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    (email === "email" || pass === "password") &&
-      setError("One of the field is default value remove it.");
+  const onSubmit = (data) => {
+    console.log(data);
   };
   return (
     <SignInContainer>
-      <span style={{ color: "red", fontSize: "0.8rem", fontStyle: "italic" }}>
+      {/* <span style={{ color: "red", fontSize: "0.8rem", fontStyle: "italic" }}>
         {error}
-      </span>
-      <form onSubmit={handleSubmit}>
-        <InputContainer>
-          <div className="input-wrapper">
-            <span>Email</span>
-            <TextField
-              error={email === ""}
-              type="text"
-              id="outlined-error"
-              helperText={email === "" ? `Empty Email Field` : " "}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-        </InputContainer>
-        <InputContainer>
-          <div className="input-wrapper">
-            <span>Password</span>
-            <TextField
-              error={pass === ""}
-              type="text"
-              id="outlined-error"
-              helperText={pass === "" ? `Empty Password Field` : " "}
-              value={pass}
-              onChange={(e) => setPass(e.target.value)}
-              required
-            />
-          </div>
-        </InputContainer>
+      </span> */}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <FInput
+          name="email"
+          label="First Name"
+          required="email required"
+          control={control}
+        />
+        <FInput
+          name="password"
+          label="Password"
+          required="password required"
+          control={control}
+        />
         <div className="btn-submit-submit">
           <div className="btn-submit">
             <ButtonStyled type="submit">sign in</ButtonStyled>
