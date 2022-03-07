@@ -9,11 +9,12 @@ import styled from "styled-components";
 import { useForm, Controller } from "react-hook-form";
 
 const Wrapper = styled.div`
-  width: 100%;
+  width: ${(props) => props.width && props.width};
+
   .MuiOutlinedInput-root {
     border-radius: 35px;
-    width: 350px;
     padding: 0 10px;
+    width: ${(props) => props.width && props.width};
   }
 `;
 
@@ -53,48 +54,39 @@ function getStyles(name, personName, theme) {
 export default function MuiSelect(props) {
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
-  const { control } = props;
+  const { control, name, width } = props;
 
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
-  };
+  // const handleChange = (event) => {
+  //   const {
+  //     target: { value },
+  //   } = event;
+  //   setPersonName(
+  //     // On autofill we get a stringified value.
+  //     typeof value === "string" ? value.split(",") : value
+  //   );
+  // };
 
   return (
-    <Wrapper>
+    <Wrapper width={width}>
       <Controller
-        name="tests"
+        name={name}
         control={control}
-        type="text"
         defaultValue={[]}
+        type="text"
         render={({ field }) => (
           <Select
             {...field}
             multiple
             displayEmpty
-            value={personName}
-            onChange={handleChange}
             defaultValue={[]}
             input={<OutlinedInput />}
             IconComponent={() => <ExpandMoreIcon />}
             renderValue={(selected) => {
-              if (selected.length === 0) {
-                return <em>Placeholder</em>;
-              }
-
               return selected.join(", ");
             }}
             MenuProps={MenuProps}
             inputProps={{ "aria-label": "Without label" }}
           >
-            <MenuItem disabled value="">
-              <em>Placeholder</em>
-            </MenuItem>
             {names.map((name) => (
               <MenuItem
                 key={name}

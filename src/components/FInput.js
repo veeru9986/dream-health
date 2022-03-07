@@ -13,7 +13,7 @@ const InputContainer = styled.div`
   }
   .input-wrapper {
     margin: 0.5rem 0;
-    width: ${(props) => (props.widthSize ? "100%" : "330px")};
+    width: ${(props) => (props.widthSize ? "100%" : "320px")};
   }
   .MuiOutlinedInput-root,
   MuiInputBase-root {
