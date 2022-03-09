@@ -9,7 +9,10 @@ import { useForm, Controller } from "react-hook-form";
 
 const Wrapper = styled.div`
   width: ${(props) => props.width && props.width};
+  @media (max-width: 767px){
+    margin: 1rem 0;
 
+  }
   .MuiOutlinedInput-root {
     border-radius: 35px;
     padding: 0 10px;

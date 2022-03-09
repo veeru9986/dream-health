@@ -29,7 +29,8 @@ const TypographyStyles = createGlobalStyle`
 
  p{
      font-size: var(--p1);
-     font-weight: var(--lightWeight)
+     font-weight: var(--lightWeight);
+     margin: 0.4em 0;
  }
 
 

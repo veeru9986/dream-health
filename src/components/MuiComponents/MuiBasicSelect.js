@@ -11,6 +11,9 @@ import { FormHelperText } from "@mui/material";
 
 const Wrapper = styled.div`
   width: ${(props) => props.width && props.width};
+  @media (max-width: 767px) {
+    margin: 1rem 0;
+  }
 
   .MuiOutlinedInput-root {
     border-radius: 35px;
@@ -45,25 +48,25 @@ export default function MuiBasicSelect(props) {
         name={name}
         control={control}
         type="text"
-        render={({ field: { onChange, value } , fieldState: { error }}) => (
+        render={({ field: { onChange, value }, fieldState: { error } }) => (
           <>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={value}
-            defaultValue=""
-            onChange={onChange}
-            IconComponent={() => <ExpandMoreIcon />}
-            MenuProps={MenuProps}
-            error={error?.message.length > 1}
-          >
-            {options?.map((o, id) => (
-              <MenuItem value={o.title} key={o.id}>
-                {o.title}
-              </MenuItem>
-            ))}
-          </Select>
-          <FormHelperText>{error ? required : null}</FormHelperText>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={value}
+              defaultValue=""
+              onChange={onChange}
+              IconComponent={() => <ExpandMoreIcon />}
+              MenuProps={MenuProps}
+              error={error?.message.length > 1}
+            >
+              {options?.map((o, id) => (
+                <MenuItem value={o.title} key={o.id}>
+                  {o.title}
+                </MenuItem>
+              ))}
+            </Select>
+            <FormHelperText>{error ? required : null}</FormHelperText>
           </>
         )}
         rules={{ required: required }}
