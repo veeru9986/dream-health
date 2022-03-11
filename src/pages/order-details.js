@@ -10,6 +10,12 @@ const Container = styled.div`
   display: grid;
   grid-template-columns: 20% 1fr 20%;
   grid-template-rows: auto;
+  @media (max-width: 767px) {
+    grid-template-columns: 10% 1fr 10%;
+  }
+  @media (max-width: 550px) {
+    grid-template-columns: 5% 1fr 5%;
+  }
   span {
     font-size: var(--p2);
     font-weight: var(--lightWeight);
@@ -18,6 +24,11 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+  .desktop {
+    @media (max-width: 479px) {
+      display: none;
+    }
   }
   .order-details-cotainer {
     grid-area: auto/2/auto/3;
@@ -66,11 +77,18 @@ const Container = styled.div`
         height: 150px;
         background-color: #c4c4c4;
         border-radius: 24px;
+
+        @media (max-width: 550px) {
+          display: none;
+        }
       }
       .name-of-the-test {
         display: flex;
         flex-direction: column;
         margin-left: 1.5rem;
+        @media (max-width: 550px) {
+          margin-left: 0;
+        }
       }
     }
   }
@@ -86,6 +104,9 @@ const Container = styled.div`
   .customer-details {
     display: flex;
     justify-content: space-between;
+    @media (max-width: 479px) {
+      flex-direction: column;
+    }
     span,
     p {
       font-size: var(--p2);
@@ -93,6 +114,21 @@ const Container = styled.div`
     }
     .total {
       min-width: 200px;
+      .mob {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-content: flex-end;
+        align-items: flex-end;
+      }
+      .payment-total-flex {
+        min-width: 200px;
+      }
+      @media (max-width: 479px) {
+        .total-number {
+          font-size: 20px;
+        }
+      }
     }
   }
 `;
@@ -144,7 +180,7 @@ function OrderDetails() {
               <h4>Payment Method</h4>
               <span>Debit Card</span>
             </div>
-            <div className="payment-total">
+            <div className="payment-total desktop">
               <div className="payment-total-flex">
                 <h4>Subtotal :</h4>
                 <span>2499</span>
@@ -163,9 +199,23 @@ function OrderDetails() {
               <p>Test Name, Date</p>
             </div>
             <div className="total">
-              <div className="payment-total-flex">
+              <div className="payment-total-flex desktop">
                 <h4>Total :</h4>
                 <span>2499</span>
+              </div>
+              <div className="payment-total mob">
+                <div className="payment-total-flex">
+                  <h4>Subtotal :</h4>
+                  <span>2499</span>
+                </div>
+                <div className="payment-total-flex">
+                  <h4>GST :</h4>
+                  <span>1%</span>
+                </div>
+                <div className="payment-total-flex">
+                  <h4>Total :</h4>
+                  <span className="total-number">2499</span>
+                </div>
               </div>
             </div>
           </div>
