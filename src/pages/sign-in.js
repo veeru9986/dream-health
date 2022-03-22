@@ -96,9 +96,10 @@ export const query = graphql`
   }
 `;
 function SignIn({ data }) {
-  const { title, description, images } = data.strapiSignin.data.attributes.signin;
+  const { title, description, images } =
+    data.strapiSignin.data.attributes.signin;
   console.log(title);
-  console.log(images)
+  console.log(images);
   return (
     <Wrapper1>
       <Container>

@@ -12,8 +12,11 @@ const Container = styled.div`
   width: 100%;
   grid-area: auto/2/auto/3;
   margin-top: var(--mt);
-  h2{
-      font-weight: var(--xheavyWeight)
+  @media (min-width: 1700px) {
+    width: 80%;
+  }
+  h2 {
+    font-weight: var(--xheavyWeight);
   }
   label {
     font-size: var(--h4);
@@ -36,10 +39,20 @@ const Container = styled.div`
     margin: var(--mt) 0;
     justify-content: space-between;
     padding: 1rem 2rem;
-
+    @media (max-width: 767px) {
+      flex-direction: column;
+      width: 80%;
+    }
+    @media (max-width: 479px) {
+      flex-direction: column;
+      width: 100%;
+    }
     .test-details-section {
       width: 30%;
       margin-right: 2rem;
+      @media (max-width: 767px) {
+        width: 100%;
+      }
       span {
         font-size: var(--p2);
         font-weight: var(--xheavyWeight);
@@ -58,6 +71,10 @@ const Container = styled.div`
       margin-right: 2rem;
       display: flex;
       flex-direction: column;
+      @media (max-width: 767px) {
+        width: 100%;
+        margin-top: 1.2rem;
+      }
       .customer-details {
         display: flex;
         justify-content: space-between;
@@ -79,6 +96,45 @@ const Container = styled.div`
     margin-bottom: 2rem;
     border-bottom: 1px solid #e5e5e5;
     padding-bottom: 2rem;
+    @media (max-width: 767px) {
+      flex-direction: column;
+      margin-top: 3rem;
+    }
+  }
+  .payment-total-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    .payment-total-section {
+      width: 40%;
+      display: flex;
+      flex-direction: column;
+      @media (max-width: 767px) {
+        width: 70%;
+      }
+      .total {
+        font-size: var(--h3) !important;
+      }
+      .flex {
+        display: flex;
+        justify-content: space-between;
+        h4 {
+          color: #000000;
+          font-weight: var(--mediumWeight);
+        }
+        span {
+          font-size: var(--p3);
+          @media (max-width: 767px) {
+            font-size: 18px;
+          }
+        }
+      }
+      .checkout-btn {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 1rem;
+      }
+    }
   }
 `;
 
@@ -132,10 +188,10 @@ function Checkout() {
             </div>
             <div className="flex">
               <h4 className="total">Total : </h4>
-              <span>2499</span>
+              <span className="total">2499</span>
             </div>
             <div className="checkout-btn">
-              <ButtonStyled>Proceed To Checkout</ButtonStyled>
+              <ButtonStyled primary>Proceed To Checkout</ButtonStyled>
             </div>
           </div>
         </div>

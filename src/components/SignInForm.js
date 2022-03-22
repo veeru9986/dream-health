@@ -2,9 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import FInput from "./FInput";
 import { ButtonStyled } from "./StyledComponents/Wrapper";
-import { Link } from "gatsby";
+import { Link, navigate } from "gatsby";
 
 import { useForm } from "react-hook-form";
+import { useAddLoginMutation } from "../features/api/authApi";
 
 const SignInContainer = styled.div`
   display: flex;
@@ -61,18 +62,23 @@ function SignInForm() {
   //useForm
   const { handleSubmit, control } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const [addLogin, { error, isLoading, data, status }] = useAddLoginMutation();
+  const onSubmit = async (data) => {
+    const { email, password } = data;
+    await addLogin({ identifier: email, password: password });
   };
+  if (status === "fulfilled") {
+    navigate("/");
+  }
   return (
     <SignInContainer>
-      {/* <span style={{ color: "red", fontSize: "0.8rem", fontStyle: "italic" }}>
-        {error}
-      </span> */}
+      <span style={{ color: "red", fontSize: "0.8rem", fontStyle: "italic" }}>
+        {error && error.data.error.message}
+      </span>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FInput
           name="email"
-          label="First Name"
+          label="Email"
           required="email required"
           control={control}
         />

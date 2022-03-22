@@ -1218,6 +1218,13 @@
     querystring "^0.2.0"
     strip-ansi "^6.0.0"
 
+"@googlemaps/js-api-loader@^1.7.0":
+  version "1.13.8"
+  resolved "https://registry.yarnpkg.com/@googlemaps/js-api-loader/-/js-api-loader-1.13.8.tgz#9edfa766367dc145eec6a5ee6e90ba67244a4afb"
+  integrity sha512-xsn4vmrRc/p8PW6p6PglfInGiW9haEgkAeby4BGxNkVipWy8q0Wv16+sWpQ3rP31RahfWBoyVgAc1DgLXcZY3Q==
+  dependencies:
+    fast-deep-equal "^3.1.3"
+
 "@graphql-tools/batch-execute@^7.1.2":
   version "7.1.2"
   resolved "https://registry.yarnpkg.com/@graphql-tools/batch-execute/-/batch-execute-7.1.2.tgz#35ba09a1e0f80f34f1ce111d23c40f039d4403a0"
@@ -1724,6 +1731,11 @@
   dependencies:
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
+
+"@mapbox/point-geometry@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@mapbox/point-geometry/-/point-geometry-0.1.0.tgz#8a83f9335c7860effa2eeeca254332aa0aeed8f2"
+  integrity sha1-ioP5M1x4YO/6Lu7KJUMyqgru2PI=
 
 "@microsoft/fetch-event-source@2.0.1":
   version "2.0.1"
@@ -4864,7 +4876,7 @@ eventemitter3@^3.1.0:
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-3.1.2.tgz#2d3d48f9c346698fce83a85d7d664e98535df6e7"
   integrity sha512-tvtQIeLVHjDkJYnzf2dgVMxfuSGJeM/7UCG17TT4EumTfNtF+0nebF/4zWOIkCreAbtNqhGEboB6BWrwqNaw4Q==
 
-eventemitter3@^4.0.0:
+eventemitter3@^4.0.0, eventemitter3@^4.0.4:
   version "4.0.7"
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-4.0.7.tgz#2de9b68f6528d5644ef5c59526a1b4a07306169f"
   integrity sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==
@@ -6054,6 +6066,16 @@ globby@^11.0.3, globby@^11.0.4:
     merge2 "^1.4.1"
     slash "^3.0.0"
 
+google-map-react@^2.1.10:
+  version "2.1.10"
+  resolved "https://registry.yarnpkg.com/google-map-react/-/google-map-react-2.1.10.tgz#16b5b699f257d6008dc9333d0bbbf1ab5b31fa42"
+  integrity sha512-cqW2EcygYqF26inp5liM/pAcCwOGXB9LW32oGwf931Iuq8tnasCpyEtq87G+RyQCKCo2P8/QyV+MGHuc7r9AEg==
+  dependencies:
+    "@googlemaps/js-api-loader" "^1.7.0"
+    "@mapbox/point-geometry" "^0.1.0"
+    eventemitter3 "^4.0.4"
+    prop-types "^15.7.2"
+
 got@^11.8.2, got@^11.8.3:
   version "11.8.3"
   resolved "https://registry.yarnpkg.com/got/-/got-11.8.3.tgz#f496c8fdda5d729a90b4905d2b07dbd148170770"
@@ -6883,6 +6905,14 @@ isobject@^3.0.0, isobject@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
   integrity sha1-TkMekrEalzFjaqH5yNHMvP2reN8=
+
+isomorphic-fetch@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/isomorphic-fetch/-/isomorphic-fetch-3.0.0.tgz#0267b005049046d2421207215d45d6a262b8b8b4"
+  integrity sha512-qvUtwJ3j6qwsF3jLxkZ72qCgjMysPzDfeV240JHiGZsANBYd+EEuu35v7dfrJ9Up0Ak07D7GGSkGhCHTqg/5wA==
+  dependencies:
+    node-fetch "^2.6.1"
+    whatwg-fetch "^3.4.1"
 
 isomorphic-ws@4.0.1:
   version "4.0.1"
@@ -11179,6 +11209,11 @@ webpack@^5.61.0:
     terser-webpack-plugin "^5.1.3"
     watchpack "^2.3.1"
     webpack-sources "^3.2.3"
+
+whatwg-fetch@^3.4.1:
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-3.6.2.tgz#dced24f37f2624ed0281725d51d0e2e3fe677f8c"
+  integrity sha512-bJlen0FcuU/0EMLrdbJ7zOnW6ITZLrZMIarMUVmdKtsGvZna8vxKYaexICWPfZ8qwf9fzNq+UEIZrnSaApt6RA==
 
 whatwg-url@^5.0.0:
   version "5.0.0"

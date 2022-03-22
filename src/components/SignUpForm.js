@@ -1,12 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { ButtonStyled } from "./StyledComponents/Wrapper";
-import { Link } from "gatsby";
-import { useSelector, useDispatch } from "react-redux";
-import { signupUser, userSelector } from "../features/userSlice";
+import { Link, navigate } from "gatsby";
 
 import { useForm } from "react-hook-form";
 import FInput from "./FInput";
+import { useAddRegisterMutation } from "../features/api/authApi";
 
 const SignInContainer = styled.div`
   display: flex;
@@ -77,21 +76,29 @@ function SignUpForm() {
   //useForm
   const { handleSubmit, control } = useForm();
 
-  // redux dispatch the input values
-  const dispatch = useDispatch();
-  const { isFetching, isSuccess, isError, errorMessage } =
-    useSelector(userSelector);
+  //destructure api from rtk
+  const [addRegister, { isLoading, error, status }] = useAddRegisterMutation();
 
   // submit input values to redux store using dispatch(signupuser)
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    const { firstName, email, password } = data;
+    await addRegister({
+      username: firstName,
+      password: password,
+      email: email,
+    });
   };
-
+  console.log(status);
+  console.log(error);
+  console.log(isLoading);
+  if (status === "fulfilled") {
+    navigate("/sign-in");
+  }
   return (
     <SignInContainer>
-      {/* <span style={{ color: "red", fontSize: "0.8rem", fontStyle: "italic" }}>
-        {error}
-      </span> */}
+      <span style={{ color: "red", fontSize: "0.8rem", fontStyle: "italic" }}>
+        {error && error.data.error.message}
+      </span>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="sign-up-form-wrapper">
           <FInput

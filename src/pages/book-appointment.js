@@ -25,8 +25,9 @@ const Container = styled.div`
     display: flex;
     grid-area: 1/1/3/2;
     background-color: #ebebeb;
+    border-radius: 6px;
     @media (max-width: 767px) {
-      grid-area: 2/1/3/3;
+      grid-area: 1/1/2/3;
       width: 100%;
       height: 200px;
     }
@@ -48,7 +49,8 @@ const Container = styled.div`
       }
     }
     @media (max-width: 767px) {
-      grid-area: 1/1/2/3;
+      grid-area: 2/1/3/3;
+      margin-top: var(--mt);
     }
 
     .contact-wrapper {

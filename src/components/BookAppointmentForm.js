@@ -17,23 +17,30 @@ const Wrapper = styled.div`
     color: var(--black);
     opacity: 0.7;
   }
-  .flex-row, .button{
+  .flex-row,
+  .button {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     margin: 1rem 0;
   }
-  .button{
+  .button {
     align-items: center;
     justify-content: flex-start;
     margin-top: 2rem;
-
-    span{
+    @media (max-width: 767px) {
+      flex-direction: column;
+      width: 200px;
+    }
+    span {
       margin: 0 1rem;
       font-weight: 700;
       color: #000;
       font-size: 0.8rem !important;
       opacity: 1 !important;
+      @media (max-width: 767px) {
+        margin: 0.7rem 0;
+      }
     }
   }
 `;
@@ -182,8 +189,10 @@ function BookAppointmentForm() {
           </div>
           <div className="flex-row button">
             <ButtonStyled1 type="submit">Pay Now</ButtonStyled1>
-            <span style={{color: "black", fontSize: "0.6rem"}}>or</span>
-            <ButtonStyled1 primary type="submit">Pay Now</ButtonStyled1>
+            <span style={{ color: "black", fontSize: "0.6rem" }}>or</span>
+            <ButtonStyled1 primary type="submit">
+              Pay Now
+            </ButtonStyled1>
           </div>
         </form>
       </div>
