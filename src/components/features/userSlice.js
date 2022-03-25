@@ -1,14 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { registerApi } from "./api/authApi";
+import { getToken, saveToken} from "../../../utils/cart";
 
 const initialState = {
   username: "",
-  token:
-    typeof window !== "undefined"
-      ? sessionStorage.getItem("token")
-        ? JSON.parse(sessionStorage.getItem("token"))
-        : ""
-      : null,
+  token: getToken(),
   email: "",
 };
 
@@ -24,6 +20,7 @@ const userSlice = createSlice({
         state.token = payload.jwt;
         state.username = payload.user.username;
         state.email = payload.user.email;
+        saveToken(payload.jwt)
       }
     );
   },

@@ -5,7 +5,7 @@ import { Link, navigate } from "gatsby";
 
 import { useForm } from "react-hook-form";
 import FInput from "./FInput";
-import { useAddRegisterMutation } from "../features/api/authApi";
+import { useAddRegisterMutation } from "./features/api/authApi";
 
 const SignInContainer = styled.div`
   display: flex;
