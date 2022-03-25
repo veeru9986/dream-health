@@ -6,8 +6,9 @@ import MuiSelect from "./MuiComponents/MuiSelect";
 import MuiBasicSelect from "./MuiComponents/MuiBasicSelect";
 import MuiDatePicker from "./MuiComponents/MuiDatePicker";
 import { ButtonStyled } from "./StyledComponents/Wrapper";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addDetails } from "./features/userSlice";
+import { navigate } from "gatsby";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -117,15 +118,14 @@ const ageNumbers = () => {
   return age;
 };
 
-console.log(ageNumbers());
-
-function BookAppointmentForm() {
+function BookAppointmentForm({ data }) {
   const { handleSubmit, control } = useForm();
-  const dispatch = useDispatch()
-
+  const dispatch = useDispatch();
+  const details = useSelector((state) => state.user.details);
 
   const onSubmit = (data) => {
-    dispatch(addDetails(data))
+    dispatch(addDetails(data));
+    navigate("/checkout");
   };
 
   return (
@@ -138,6 +138,7 @@ function BookAppointmentForm() {
             required="Name is required"
             control={control}
             widthSize
+            details={details}
           />
           <div className="flex-row">
             <MuiBasicSelect
@@ -146,6 +147,7 @@ function BookAppointmentForm() {
               label="Age"
               name="age"
               width="320px"
+              details={details}
             />
             <MuiBasicSelect
               control={control}
@@ -153,12 +155,18 @@ function BookAppointmentForm() {
               label="Gender"
               name="gender"
               width="320px"
+              details={details}
             />
           </div>
 
           <div className="flex-row">
             <span>You can select one or multiple Test from dropdown</span>
-            <MuiSelect control={control} name="tests" width="100%" />
+            <MuiSelect
+              control={control}
+              name="tests"
+              width="100%"
+              data={data}
+            />
           </div>
 
           <div className="flex-row">
@@ -167,12 +175,14 @@ function BookAppointmentForm() {
               label="Mobile Number"
               required="Mobile Number is required"
               control={control}
+              details={details}
             />
             <FInput
               name="email"
               label="E-mail"
               required="E-mail is required"
               control={control}
+              details={details}
             />
           </div>
           <div className="flex-row">

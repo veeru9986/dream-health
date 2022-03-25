@@ -53,7 +53,13 @@ export default function MuiBasicSelect(props) {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={value}
+              value={
+                name === "age"
+                  ? props.details
+                    ? props.details[0].age
+                    : value
+                  : props.details && props.details[0].gender
+              }
               defaultValue=""
               onChange={onChange}
               IconComponent={() => <ExpandMoreIcon />}

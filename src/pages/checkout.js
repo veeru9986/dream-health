@@ -7,6 +7,7 @@ import {
 import confirm from "../images/Order Confirmation 1.png";
 import styled from "styled-components";
 import MuiRadioButton from "../components/MuiComponents/MuiRadioButton";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   width: 100%;
@@ -48,6 +49,8 @@ const Container = styled.div`
       width: 100%;
     }
     .test-details-section {
+      display: flex;
+      flex-direction: column;
       width: 30%;
       margin-right: 2rem;
       @media (max-width: 767px) {
@@ -140,7 +143,8 @@ const Container = styled.div`
 
 function Checkout() {
   const [value, setValue] = React.useState("upi");
-
+  const details = useSelector((state) => state.user.details);
+  const { tests, name, email, time, mobile, date } = details && details;
   const handleChange = (val) => {
     setValue(val);
   };
@@ -156,16 +160,18 @@ function Checkout() {
               <h4>Test Details</h4>
               <span className="edit">edit</span>
             </div>
-            <span>Selected test</span>
+            {tests.map((t) => (
+              <span key={t.id}>{t}</span>
+            ))}
           </div>
           <div className="customer-details-section">
             <div className="customer-details">
               <h4>Customer Details</h4>
               <span className="edit">edit</span>
             </div>
-            <span>Name Surname</span>
-            <span>Appointment Date, Time Slot</span>
-            <span>Email Phone No</span>
+            <span>{name}</span>
+            <span>{date ? date : "Appointment Date"}{` `}{time}</span>
+            <span>{email}{` `}{mobile}</span>
           </div>
         </div>
         <div className="payment-options-wrapper">

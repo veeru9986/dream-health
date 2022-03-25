@@ -52,6 +52,8 @@ function getStyles(name, personName, theme) {
 }
 
 export default function MuiSelect(props) {
+  const { data } = props;
+  console.log(data);
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
   const { control, name, width } = props;
@@ -87,15 +89,21 @@ export default function MuiSelect(props) {
             MenuProps={MenuProps}
             inputProps={{ "aria-label": "Without label" }}
           >
-            {names.map((name) => (
-              <MenuItem
-                key={name}
-                value={name}
-                style={getStyles(name, personName, theme)}
-              >
-                {name}
-              </MenuItem>
-            ))}
+            {data &&
+              data.map((name) => (
+                <MenuItem
+                  key={name.data[0].attributes.banner.title}
+                  value={name.data[0].attributes.banner.title}
+                  style={getStyles(
+                    name.data[0].attributes.banner.title,
+                    personName,
+                    theme
+                  )}
+                >
+                  {name.data[0].attributes.banner.title}
+            
+                </MenuItem>
+              ))}
           </Select>
         )}
       />

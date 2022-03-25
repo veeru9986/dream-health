@@ -47,7 +47,15 @@ function FInput(props) {
               id="outlined-error"
               onChange={onChange}
               helperText={error ? error.message : null}
-              value={value}
+              value={
+                props.details
+                  ? name === "mobile"
+                    ? props.details[0].mobile
+                    : name === "email"
+                    ? props.details[0].email
+                    : props.details[0].name
+                  : value
+              }
               error={error?.message.length > 1}
             />
           )}

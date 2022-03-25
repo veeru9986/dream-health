@@ -1,3 +1,4 @@
+import { navigate } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";
 import React from "react";
 import styled from "styled-components";
@@ -96,6 +97,7 @@ function Hero({ banner, dispatch }) {
 
   const handleCart = (title, price, image) => {
     dispatch(addToCart({ title, price, image }));
+    navigate("/cart")
   };
   return (
     <HeroContainer>

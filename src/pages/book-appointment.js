@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import BookAppointmentForm from "../components/BookAppointmentForm";
 import { Wrapper } from "../components/StyledComponents/Wrapper";
+import { graphql } from "gatsby"
 
 const Container = styled.div`
   margin-top: var(--mt);
@@ -82,7 +83,7 @@ const Container = styled.div`
   }
 `;
 
-function BookAppointment() {
+function BookAppointment({data}) {
   return (
     <Wrapper>
       <Container>
@@ -97,7 +98,7 @@ function BookAppointment() {
             </p>
           </div>
           <div className="book-appointment">
-            <BookAppointmentForm />
+            <BookAppointmentForm data={data.allStrapiTestPages.nodes} />
           </div>
         </div>
       </Container>
@@ -106,3 +107,20 @@ function BookAppointment() {
 }
 
 export default BookAppointment;
+
+export const query = graphql`
+  {
+    allStrapiTestPages {
+      nodes {
+        data {
+          attributes {
+            banner {
+              title
+              price
+            }
+          }
+        }
+      }
+    }
+  }
+`

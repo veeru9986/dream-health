@@ -253,7 +253,7 @@ function Cart({ cart }) {
         <span style={{ textAlign: "center" }}>Serial No</span>
         <span>Test Name</span>
         <span>Quantity</span>
-        <span>no of items: {length < 10 ? `0${cart.length}` : cart.length}</span>
+        <span>no of items: {length < 10 ? `0${cart && cart.length}` : cart && cart.length}</span>
       </div>
       <div className="cart-details-wrapper">
         {cart &&
