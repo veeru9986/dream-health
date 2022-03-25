@@ -4,6 +4,8 @@ import { mainMenuItems } from "../../constants/menu-item";
 import styled from "styled-components";
 import { LinkStyled } from "../StyledComponents/Wrapper";
 import Cart from "../../assets/cart.svg";
+import { useSelector } from "react-redux";
+import { ProductionQuantityLimits } from "@mui/icons-material";
 
 const UL = styled.ul`
   list-style: none;
@@ -71,6 +73,10 @@ const UL = styled.ul`
 
 const Right = ({ open, setOpen, data }) => {
   console.log(data[0].title);
+
+  const cart = useSelector((state) => state.cart.cartItems);
+  const totalCart =
+    cart && cart.reduce((count, product) => count + product.cartQuantity, 0);
   return (
     <>
       <UL open={open}>
@@ -99,7 +105,7 @@ const Right = ({ open, setOpen, data }) => {
             onClick={() => setOpen(!open)}
             className="cart"
           >
-            <Cart />
+            <Cart /> {totalCart}
           </Link>
         </li>
       </UL>

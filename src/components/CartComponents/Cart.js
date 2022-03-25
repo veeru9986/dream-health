@@ -2,7 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { ButtonStyled } from "../StyledComponents/Wrapper";
-
+import { cartTotal, cartSubTotal } from "../../../utils/cart";
+import { useDispatch } from "react-redux";
+import { addToCart, decreaseCart, removeFromCart } from "../features/cartSlice";
 const data = [
   {
     test_name: "Name of the Test",
@@ -228,71 +230,87 @@ const ButtonStyledJ = styled(ButtonStyled)`
   margin-top: 1.2rem;
 `;
 
-function Cart() {
+function Cart({ cart }) {
+  console.log(cart);
   const length = data.length;
+  const dispatch = useDispatch();
+
+  const handleDecreaseCart = (d) => {
+    dispatch(decreaseCart(d));
+  };
+
+  const handleIncreaseCart = (d) => {
+    dispatch(addToCart(d));
+  };
+
+  const handleRemoveCart = (d) => {
+    dispatch(removeFromCart(d))
+  }
+
   return (
     <CartContainer>
       <div className="cart-titles titles">
         <span style={{ textAlign: "center" }}>Serial No</span>
         <span>Test Name</span>
         <span>Quantity</span>
-        <span>no of items: {length < 10 ? `0${length}` : length}</span>
+        <span>no of items: {length < 10 ? `0${cart.length}` : cart.length}</span>
       </div>
       <div className="cart-details-wrapper">
-        {data.map((d, id) => {
-          return (
-            <div className="cart-details" key={id}>
-              <div className="serial-no">
-                <span>{id < 10 ? `0${++id}` : ++id}</span>
-              </div>
-              <div className="test-name">
-                <div className="test-image" />
-                <div className="test-name-details">
-                  <h4>{d.test_name}</h4>
-                  <p>Appointment Date : {d.appointment_date}</p>
-                  <div className="quantity-tab">
-                    <div>
-                      <button>-</button>
-                    </div>
-                    <span>{d.quantity}</span>
-                    <div>
-                      <button>+</button>
-                    </div>
-                    <div className="delete-btn">
-                      <button>
-                        <DeleteIcon className="delete" />
-                      </button>
+        {cart &&
+          cart.map((d, id) => {
+            return (
+              <div className="cart-details" key={id}>
+                <div className="serial-no">
+                  <span>{id < 10 ? `0${++id}` : ++id}</span>
+                </div>
+                <div className="test-name">
+                  <div className="test-image" />
+                  <div className="test-name-details">
+                    <h4>{d.title}</h4>
+                    <p>Appointment Date : Feb 24, 2022</p>
+                    <div className="quantity-tab">
+                      <div>
+                        <button onClick={() => handleDecreaseCart(d)}>-</button>
+                      </div>
+                      <span>{d.cartQuantity}</span>
+                      <div>
+                        <button onClick={() => handleIncreaseCart(d)}>+</button>
+                      </div>
+                      <div className="delete-btn">
+                        <button>
+                          <DeleteIcon className="delete" />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="quantity">
-                <div>
-                  <button>-</button>
+                <div className="quantity">
+                  <div>
+                    <button onClick={() => handleDecreaseCart(d)}>-</button>
+                  </div>
+                  <span>{d.cartQuantity}</span>
+                  <div>
+                    <button onClick={() => handleIncreaseCart(d)}>+</button>
+                  </div>
                 </div>
-                <span>{d.quantity}</span>
-                <div>
-                  <button>+</button>
+                <div className="no-of-items">
+                  <h2>{d.price}</h2>
+                  <div className="delete-btn">
+                    <button>
+                      <DeleteIcon className="delete" onClick={() => handleRemoveCart(d)} />
+                    </button>
+                  </div>
                 </div>
               </div>
-              <div className="no-of-items">
-                <h2>{d.price}</h2>
-                <div className="delete-btn">
-                  <button>
-                    <DeleteIcon className="delete" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
 
       <div className="checkout-wrapper">
         <div className="checkout">
           <div className="subtotal">
             <h4>Subtotal</h4>
-            <span>2499</span>
+            <span>{cartTotal(cart)}</span>
           </div>
           <div className="gst">
             <h4>GST</h4>
@@ -300,7 +318,7 @@ function Cart() {
           </div>
           <div className="total">
             <h2>Total</h2>
-            <span>2499</span>
+            <span>{cartSubTotal(cart, 0.1)}</span>
           </div>
           <ButtonStyledJ primary>Proceed to Checkout</ButtonStyledJ>
         </div>

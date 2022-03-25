@@ -6,6 +6,8 @@ import MuiSelect from "./MuiComponents/MuiSelect";
 import MuiBasicSelect from "./MuiComponents/MuiBasicSelect";
 import MuiDatePicker from "./MuiComponents/MuiDatePicker";
 import { ButtonStyled } from "./StyledComponents/Wrapper";
+import { useDispatch } from "react-redux";
+import { addDetails } from "./features/userSlice";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -119,9 +121,11 @@ console.log(ageNumbers());
 
 function BookAppointmentForm() {
   const { handleSubmit, control } = useForm();
+  const dispatch = useDispatch()
+
 
   const onSubmit = (data) => {
-    console.log(data);
+    dispatch(addDetails(data))
   };
 
   return (

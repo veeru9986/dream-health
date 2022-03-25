@@ -1,6 +1,7 @@
 import { GatsbyImage } from "gatsby-plugin-image";
 import React from "react";
 import styled from "styled-components";
+import { addToCart } from "../features/cartSlice";
 import { ButtonStyled, LinkStyled } from "../StyledComponents/Wrapper";
 
 const HeroContainer = styled.div`
@@ -24,7 +25,7 @@ const HeroContainer = styled.div`
       height: 270px;
       background: #ebebeb;
       border-radius: 10px;
-      .gatsby-image-wrapper{
+      .gatsby-image-wrapper {
         border-radius: 10px;
         width: 100%;
         height: 100%;
@@ -90,8 +91,12 @@ const HeroContainer = styled.div`
     }
   }
 `;
-function Hero({ banner }) {
+function Hero({ banner, dispatch }) {
   const { description, price, title, buttons, image } = banner;
+
+  const handleCart = (title, price, image) => {
+    dispatch(addToCart({ title, price, image }));
+  };
   return (
     <HeroContainer>
       <div className="left-grid-section">
@@ -115,7 +120,9 @@ function Hero({ banner }) {
           </LinkStyled>
         </div>
         <div className="add-to-cart">
-          <ButtonStyled to="/">Add to cart</ButtonStyled>
+          <ButtonStyled to="/" onClick={() => handleCart(title, price, image)}>
+            Add to cart
+          </ButtonStyled>
         </div>
       </div>
       <div className="right-grid-section">

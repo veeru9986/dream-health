@@ -1,7 +1,7 @@
 export const cartTotal = (cart) => {
   try {
     const subTotal = cart.reduce(
-      (counter, product) => counter + product.price,
+      (counter, product) => counter + (product.price * product.cartQuantity),
       0
     );
 
@@ -27,6 +27,14 @@ export const getToken = () => {
       ? JSON.parse(sessionStorage.getItem("token"))
       : "";
     return token;
+  } catch (err) {}
+};
+export const getDetails = () => {
+  try {
+    const details = localStorage.getItem("token")
+      ? JSON.parse(sessionStorage.getItem("token"))
+      : [];
+    return details;
   } catch (err) {}
 };
 

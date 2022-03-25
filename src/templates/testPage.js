@@ -7,6 +7,8 @@ import DreamHealthCheckups from "../components/TestPageComponents/DreamHealthChe
 import Hero from "../components/TestPageComponents/Hero";
 import CustomerSlider from "../components/CustomerSlider";
 import { graphql } from "gatsby";
+import { useDispatch } from "react-redux";
+
 
 const Container = styled.div`
   margin-top: var(--mt);
@@ -21,10 +23,11 @@ const Container = styled.div`
 function Index({ data }) {
   const { banner, checkups, accordion, customer_reviews, slug } =
     data.strapiTestPages.data[0]?.attributes;
+    const dispatch = useDispatch()
   return ( 
     <Wrapper>
       <Container>
-        <Hero banner={banner} />
+        <Hero banner={banner} dispatch={dispatch} />
         <AccordionT marginTop="var(--tmt1)" accordion={accordion} />
         <DreamHealthCheckups />
         <CustomerSlider data={customer_reviews.data[0].attributes} testPage title="What Our Customer Say about us" />

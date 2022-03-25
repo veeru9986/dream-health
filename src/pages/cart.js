@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import CartJ from "../components/CartComponents/Cart"
 import { Wrapper } from "../components/StyledComponents/Wrapper";
@@ -18,12 +19,13 @@ const Container = styled.div`
 `;
 
 function Cart() {
+  const cart = useSelector(state => state.cart.cartItems)
   return (
     <Wrapper>
       <Container>
         <h2>Items in Cart</h2>
         <div>
-          <CartJ />
+          <CartJ cart={cart} />
         </div>
       </Container>
     </Wrapper>
