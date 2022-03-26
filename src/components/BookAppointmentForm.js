@@ -124,6 +124,7 @@ function BookAppointmentForm({ data }) {
   const details = useSelector((state) => state.user.details);
 
   const onSubmit = (data) => {
+    console.log(data);
     let event = new Date(data.date);
     let date = JSON.stringify(event);
     date = date.slice(1, 11);
@@ -137,6 +138,7 @@ function BookAppointmentForm({ data }) {
         date: date,
         time: data.time,
         mobile: data.mobile,
+        age: data.age
       })
     );
     navigate("/checkout");

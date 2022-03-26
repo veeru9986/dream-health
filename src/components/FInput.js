@@ -40,22 +40,22 @@ function FInput(props) {
         <Controller
           name={name}
           control={control}
-          defaultValue=""
+          defaultValue={
+            details && details.length
+              ? name === "mobile"
+                ? details[0]?.mobile
+                : name === "email"
+                ? details[0]?.email
+                : details[0]?.name
+              : ""
+          }
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <TextField
               type="text"
               id="outlined-error"
               onChange={onChange}
               helperText={error ? error.message : null}
-              value={
-               details && details.length
-                  ? name === "mobile"
-                    ? details[0]?.mobile
-                    : name === "email"
-                    ? details[0]?.email
-                    : details[0]?.name
-                  : value
-              }
+              value={value}
               error={error?.message.length > 1}
             />
           )}

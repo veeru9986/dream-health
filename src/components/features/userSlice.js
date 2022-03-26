@@ -22,20 +22,21 @@ const userSlice = createSlice({
       const index = state.details.findIndex(
         (item) => item.name === action.payload.name
       );
-      if (index >= 1) {
-        state.details[index].name = action.payload.name;
-        state.details[index].tests = action.payload.tests;
-        state.details[index].email = action.payload.email;
-        state.details[index].mobile = action.payload.mobile;
-        state.details[index].time = action.payload.time;
-        state.details[index].date = action.payload.date;
-        state.details[index].age = action.payload.age;
-        state.details[index].gender = action.payload.gender;
+      console.log("index", index);
 
-      } else {
+      if (index >= 0 || state.details.length) {
+        state.details[index >= 0 ? index : 0].name = action.payload.name;
+        state.details[index >= 0 ? index : 0].tests = action.payload.tests;
+        state.details[index >= 0 ? index : 0].email = action.payload.email;
+        state.details[index >= 0 ? index : 0].mobile = action.payload.mobile;
+        state.details[index >= 0 ? index : 0].time = action.payload.time;
+        state.details[index >= 0 ? index : 0].date = action.payload.date;
+        state.details[index >= 0 ? index : 0].age = action.payload.age;
+        state.details[index >= 0 ? index : 0].gender = action.payload.gender;
+      } else if (state.details.length <= 1) {
         state.details.push(action.payload);
-        localStorage.setItem("details", JSON.stringify(state.details));
       }
+      localStorage.setItem("details", JSON.stringify(state.details));
     },
   },
   extraReducers: (builder) => {

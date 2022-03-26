@@ -8,6 +8,7 @@ import confirm from "../images/Order Confirmation 1.png";
 import styled from "styled-components";
 import MuiRadioButton from "../components/MuiComponents/MuiRadioButton";
 import { useSelector } from "react-redux";
+import { Link } from "gatsby";
 
 const Container = styled.div`
   width: 100%;
@@ -56,9 +57,11 @@ const Container = styled.div`
       @media (max-width: 767px) {
         width: 100%;
       }
-      span {
+      span,
+      a {
         font-size: var(--p2);
         font-weight: var(--xheavyWeight);
+        text-decoration: none;
       }
 
       .test-details {
@@ -84,6 +87,12 @@ const Container = styled.div`
         align-items: center;
         border-bottom: 2px solid #060708;
         margin-bottom: 1.2rem;
+
+        a {
+          font-size: var(--p2);
+          font-weight: var(--xheavyWeight);
+          text-decoration: none;
+        }
         span {
           font-weight: va(--lightWeight);
           font-size: var(--p2);
@@ -91,6 +100,7 @@ const Container = styled.div`
           /* or 167% */
 
           color: #000000;
+          text-decoration: none;
         }
       }
     }
@@ -161,7 +171,7 @@ function Checkout() {
               <div className="test-details-section">
                 <div className="test-details">
                   <h4>Test Details</h4>
-                  <span className="edit">edit</span>
+                  <Link to="/book-appointment">edit</Link>
                 </div>
                 {details[0]?.tests.map((t) => (
                   <span key={t.id}>{t}</span>
@@ -170,7 +180,7 @@ function Checkout() {
               <div className="customer-details-section">
                 <div className="customer-details">
                   <h4>Customer Details</h4>
-                  <span className="edit">edit</span>
+                  <Link to="/book-appointment">edit</Link>
                 </div>
                 <span>{details[0]?.name}</span>
                 <span>
