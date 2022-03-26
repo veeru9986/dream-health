@@ -9,9 +9,8 @@ import { useForm, Controller } from "react-hook-form";
 
 const Wrapper = styled.div`
   width: ${(props) => props.width && props.width};
-  @media (max-width: 767px){
+  @media (max-width: 767px) {
     margin: 1rem 0;
-
   }
   .MuiOutlinedInput-root {
     border-radius: 35px;
@@ -35,9 +34,9 @@ export default function MuiDatePicker(props) {
             <InputLabel id="demo-simple-select-label">{label}</InputLabel>
 
             <DatePicker
-              disableFuture
               openTo="year"
               views={["year", "month", "day"]}
+              inputFormat="MM/dd/yyyy"
               value={value}
               onChange={onChange}
               renderInput={(params) => <TextField {...params} />}

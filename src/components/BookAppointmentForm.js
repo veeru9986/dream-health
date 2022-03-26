@@ -124,7 +124,21 @@ function BookAppointmentForm({ data }) {
   const details = useSelector((state) => state.user.details);
 
   const onSubmit = (data) => {
-    dispatch(addDetails(data));
+    let event = new Date(data.date);
+    let date = JSON.stringify(event);
+    date = date.slice(1, 11);
+    console.log(date);
+    dispatch(
+      addDetails({
+        name: data.name,
+        email: data.email,
+        tests: data.tests,
+        gender: data.gender,
+        date: date,
+        time: data.time,
+        mobile: data.mobile,
+      })
+    );
     navigate("/checkout");
   };
 

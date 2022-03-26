@@ -144,7 +144,8 @@ const Container = styled.div`
 function Checkout() {
   const [value, setValue] = React.useState("upi");
   const details = useSelector((state) => state.user.details);
-  const { tests, name, email, time, mobile, date } = details && details;
+  console.log(details);
+  // const { tests, name, email, time, mobile, date } = details && details[0];
   const handleChange = (val) => {
     setValue(val);
   };
@@ -154,53 +155,65 @@ function Checkout() {
         <div className="heading">
           <h2>Checkout</h2>
         </div>
-        <div className="checkout-details-wrapper">
-          <div className="test-details-section">
-            <div className="test-details">
-              <h4>Test Details</h4>
-              <span className="edit">edit</span>
+        {details && details.length && (
+          <>
+            <div className="checkout-details-wrapper">
+              <div className="test-details-section">
+                <div className="test-details">
+                  <h4>Test Details</h4>
+                  <span className="edit">edit</span>
+                </div>
+                {details[0]?.tests.map((t) => (
+                  <span key={t.id}>{t}</span>
+                ))}
+              </div>
+              <div className="customer-details-section">
+                <div className="customer-details">
+                  <h4>Customer Details</h4>
+                  <span className="edit">edit</span>
+                </div>
+                <span>{details[0]?.name}</span>
+                <span>
+                  {details[0].date ? details[0]?.date : "Appointment Date"}
+                  {` `}
+                  {details[0]?.time}
+                </span>
+                <span>
+                  {details[0]?.email}
+                  {` `}
+                  {details[0]?.mobile}
+                </span>
+              </div>
             </div>
-            {tests.map((t) => (
-              <span key={t.id}>{t}</span>
-            ))}
-          </div>
-          <div className="customer-details-section">
-            <div className="customer-details">
-              <h4>Customer Details</h4>
-              <span className="edit">edit</span>
+            <div className="payment-options-wrapper">
+              <div className="payment-options-section">
+                <MuiRadioButton handleChange={handleChange} />
+              </div>
+              <div className="payment-option">
+                {value === "upi" ? "upi" : "person"}
+              </div>
             </div>
-            <span>{name}</span>
-            <span>{date ? date : "Appointment Date"}{` `}{time}</span>
-            <span>{email}{` `}{mobile}</span>
-          </div>
-        </div>
-        <div className="payment-options-wrapper">
-          <div className="payment-options-section">
-            <MuiRadioButton handleChange={handleChange} />
-          </div>
-          <div className="payment-option">
-            {value === "upi" ? "upi" : "person"}
-          </div>
-        </div>
-        <div className="payment-total-wrapper">
-          <div className="payment-total-section">
-            <div className="flex">
-              <h4>Subtotal : </h4>
-              <span>2499</span>
+            <div className="payment-total-wrapper">
+              <div className="payment-total-section">
+                <div className="flex">
+                  <h4>Subtotal : </h4>
+                  <span>2499</span>
+                </div>
+                <div className="flex">
+                  <h4>GST : </h4>
+                  <span>1%</span>
+                </div>
+                <div className="flex">
+                  <h4 className="total">Total : </h4>
+                  <span className="total">2499</span>
+                </div>
+                <div className="checkout-btn">
+                  <ButtonStyled primary>Proceed To Checkout</ButtonStyled>
+                </div>
+              </div>
             </div>
-            <div className="flex">
-              <h4>GST : </h4>
-              <span>1%</span>
-            </div>
-            <div className="flex">
-              <h4 className="total">Total : </h4>
-              <span className="total">2499</span>
-            </div>
-            <div className="checkout-btn">
-              <ButtonStyled primary>Proceed To Checkout</ButtonStyled>
-            </div>
-          </div>
-        </div>
+          </>
+        )}
       </Container>
     </Wrapper>
   );

@@ -36,7 +36,7 @@ const MenuProps = {
 };
 export default function MuiBasicSelect(props) {
   const [age, setAge] = React.useState("");
-  const { control, label, options, name, width, required } = props;
+  const { control, label, options, name, width, required, details } = props;
   const handleChange = (event) => {
     setAge(event.target.value);
   };
@@ -55,10 +55,10 @@ export default function MuiBasicSelect(props) {
               id="demo-simple-select"
               value={
                 name === "age"
-                  ? props.details
-                    ? props.details[0].age
+                  ? details && details.length
+                    ? details[0]?.age
                     : value
-                  : props.details && props.details[0].gender
+                  : details && details[0]?.gender
               }
               defaultValue=""
               onChange={onChange}

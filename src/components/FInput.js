@@ -30,7 +30,7 @@ const InputContainer = styled.div`
 `;
 
 function FInput(props) {
-  const { label, required, name, control, widthSize } = props;
+  const { label, required, name, control, widthSize, details } = props;
 
   return (
     <InputContainer widthSize={widthSize}>
@@ -48,12 +48,12 @@ function FInput(props) {
               onChange={onChange}
               helperText={error ? error.message : null}
               value={
-                props.details
+               details && details.length
                   ? name === "mobile"
-                    ? props.details[0].mobile
+                    ? details[0]?.mobile
                     : name === "email"
-                    ? props.details[0].email
-                    : props.details[0].name
+                    ? details[0]?.email
+                    : details[0]?.name
                   : value
               }
               error={error?.message.length > 1}
