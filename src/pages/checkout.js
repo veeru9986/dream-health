@@ -9,6 +9,8 @@ import styled from "styled-components";
 import MuiRadioButton from "../components/MuiComponents/MuiRadioButton";
 import { useSelector } from "react-redux";
 import { Link } from "gatsby";
+import { graphql } from "gatsby";
+import { cartTotal1, cartSubTotal1 } from "../../utils/cart";
 
 const Container = styled.div`
   width: 100%;
@@ -151,10 +153,32 @@ const Container = styled.div`
   }
 `;
 
-function Checkout() {
+function Checkout({ data }) {
   const [value, setValue] = React.useState("upi");
   const details = useSelector((state) => state.user.details);
   console.log(details);
+
+  // const getPriceForEachTest =
+  //   details &&
+  //   details[0].tests.map((pro) =>
+  //     data.allStrapiTestPages.nodes.find(
+  //       (d) => pro === d.data[0]?.attributes.banner.title
+  //     )
+  //   );
+  const getPriceForEachTest = data.allStrapiTestPages.nodes.reduce(
+    (temp, pro) => {
+      details &&
+        details[0]?.tests.map((d) => {
+          if (d === pro.data[0]?.attributes.banner.title) {
+            temp.push(pro.data[0]?.attributes.banner);
+          }
+        });
+        return temp
+    },
+    []
+  );
+
+  console.log(getPriceForEachTest);
   // const { tests, name, email, time, mobile, date } = details && details[0];
   const handleChange = (val) => {
     setValue(val);
@@ -207,7 +231,7 @@ function Checkout() {
               <div className="payment-total-section">
                 <div className="flex">
                   <h4>Subtotal : </h4>
-                  <span>2499</span>
+                  <span>{cartTotal1(getPriceForEachTest)}</span>
                 </div>
                 <div className="flex">
                   <h4>GST : </h4>
@@ -215,7 +239,9 @@ function Checkout() {
                 </div>
                 <div className="flex">
                   <h4 className="total">Total : </h4>
-                  <span className="total">2499</span>
+                  <span className="total">
+                    {cartSubTotal1(getPriceForEachTest, 0.1)}
+                  </span>
                 </div>
                 <div className="checkout-btn">
                   <ButtonStyled primary>Proceed To Checkout</ButtonStyled>
@@ -230,3 +256,20 @@ function Checkout() {
 }
 
 export default Checkout;
+
+export const query = graphql`
+  {
+    allStrapiTestPages {
+      nodes {
+        data {
+          attributes {
+            banner {
+              title
+              price
+            }
+          }
+        }
+      }
+    }
+  }
+`;

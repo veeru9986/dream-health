@@ -5,7 +5,6 @@ import styled from "styled-components";
 import { LinkStyled } from "../StyledComponents/Wrapper";
 import Cart from "../../assets/cart.svg";
 import { useSelector } from "react-redux";
-import { ProductionQuantityLimits } from "@mui/icons-material";
 
 const UL = styled.ul`
   list-style: none;
@@ -51,6 +50,15 @@ const UL = styled.ul`
     text-transform: capitalize;
   }
 
+  .avatar-wrapper {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    border: 1px solid #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   @media (max-width: 768px) {
     flex-flow: column nowrap;
     background-color: #fff;
@@ -75,6 +83,10 @@ const Right = ({ open, setOpen, data }) => {
   console.log(data[0].title);
 
   const cart = useSelector((state) => state.cart.cartItems);
+  const { token, username } = useSelector((state) => state.user);
+  // const { data: user, isError, isLoading } = useGetUserQuery();
+  // console.log(user);
+
   const totalCart =
     cart && cart.reduce((count, product) => count + product.cartQuantity, 0);
   return (
@@ -92,12 +104,25 @@ const Right = ({ open, setOpen, data }) => {
             </Link>
           </li>
         ))}
+        {!token ? (
+          <li>
+            <LinkStyled to="/sign-in" onClick={() => setOpen(!open)}>
+              Sign in
+            </LinkStyled>
+          </li>
+        ) : (
+          <li className="avatar-wrapper">
+            <Link
+              className="menu-links"
+              style={{ fontSize: "2rem" }}
+              to="/"
+              onClick={() => setOpen(!open)}
+            >
+              {username && username.charAt(0)}{" "}
+            </Link>
+          </li>
+        )}
 
-        <li>
-          <LinkStyled to="/sign-in" onClick={() => setOpen(!open)}>
-            Sign in
-          </LinkStyled>
-        </li>
         <li>
           <Link
             to="/cart"

@@ -9,6 +9,29 @@ export const cartTotal = (cart) => {
   } catch (err) {}
 };
 
+export const cartTotal1 = (cart) => {
+  try {
+    const subTotal = cart.reduce(
+      (counter, product) => counter + product.price,
+      0
+    );
+
+    return subTotal;
+  } catch (err) {}
+};
+
+export const cartSubTotal1 = (cart, taxRate) => {
+  try {
+    const subTotal = cartTotal1(cart);
+    const total = subTotal + subTotal * taxRate;
+    const inrTotal = total.toLocaleString("en-IN", {
+      style: "currency",
+      currency: "INR",
+    });
+    return inrTotal;
+  } catch (err) {}
+};
+
 export const cartSubTotal = (cart, taxRate) => {
   try {
     const subTotal = cartTotal(cart);
@@ -40,6 +63,9 @@ export const getDetails = () => {
 
 export const saveToken = (token) => {
   sessionStorage.setItem("token", JSON.stringify(token));
+};
+export const saveUser = (user) => {
+  sessionStorage.setItem("user", JSON.stringify(user));
 };
 
 // export const removeCart = (strapiId) => {

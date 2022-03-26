@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { ButtonStyled } from "../StyledComponents/Wrapper";
+import { ButtonStyled, LinkStyled } from "../StyledComponents/Wrapper";
 import { cartTotal, cartSubTotal } from "../../../utils/cart";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart, decreaseCart, removeFromCart } from "../features/cartSlice";
 const data = [
   {
@@ -229,12 +229,15 @@ const CartContainer = styled.div`
 const ButtonStyledJ = styled(ButtonStyled)`
   margin-top: 1.2rem;
 `;
+const LinkStyledj = styled(LinkStyled)`
+  margin-top: 1.2rem;
+`;
 
 function Cart({ cart }) {
   console.log(cart);
   const length = data.length;
   const dispatch = useDispatch();
-
+  const token = useSelector((state) => state.user.token);
   const handleDecreaseCart = (d) => {
     dispatch(decreaseCart(d));
   };
@@ -244,8 +247,8 @@ function Cart({ cart }) {
   };
 
   const handleRemoveCart = (d) => {
-    dispatch(removeFromCart(d))
-  }
+    dispatch(removeFromCart(d));
+  };
 
   return (
     <CartContainer>
@@ -253,7 +256,10 @@ function Cart({ cart }) {
         <span style={{ textAlign: "center" }}>Serial No</span>
         <span>Test Name</span>
         <span>Quantity</span>
-        <span>no of items: {length < 10 ? `0${cart && cart.length}` : cart && cart.length}</span>
+        <span>
+          no of items:{" "}
+          {length < 10 ? `0${cart && cart.length}` : cart && cart.length}
+        </span>
       </div>
       <div className="cart-details-wrapper">
         {cart &&
@@ -278,7 +284,10 @@ function Cart({ cart }) {
                       </div>
                       <div className="delete-btn">
                         <button>
-                          <DeleteIcon className="delete" />
+                          <DeleteIcon
+                            className="delete"
+                            onClick={() => handleRemoveCart(d)}
+                          />
                         </button>
                       </div>
                     </div>
@@ -297,7 +306,10 @@ function Cart({ cart }) {
                   <h2>{d.price}</h2>
                   <div className="delete-btn">
                     <button>
-                      <DeleteIcon className="delete" onClick={() => handleRemoveCart(d)} />
+                      <DeleteIcon
+                        className="delete"
+                        onClick={() => handleRemoveCart(d)}
+                      />
                     </button>
                   </div>
                 </div>
@@ -320,7 +332,16 @@ function Cart({ cart }) {
             <h2>Total</h2>
             <span>{cartSubTotal(cart, 0.1)}</span>
           </div>
-          <ButtonStyledJ primary>Proceed to Checkout</ButtonStyledJ>
+          {token ? (
+            <ButtonStyledJ primary>Proceed to Checkout</ButtonStyledJ>
+          ) : (
+            <>
+              <span>You need to login to proceed for checkout</span>
+              <LinkStyledj primary to="/sign-in">
+                Sign In
+              </LinkStyledj>
+            </>
+          )}
         </div>
       </div>
     </CartContainer>

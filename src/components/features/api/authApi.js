@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import "isomorphic-fetch";
-import { useSelector } from "react-redux";
-import store from "../../app/store";
+import store from "../../app/store/store";
 
 export const registerApi = createApi({
   reducerPath: "registerApi",
@@ -16,6 +15,7 @@ export const registerApi = createApi({
       return headers;
     },
   }),
+  tagTypes: [`User`],
   endpoints: (builder) => ({
     addRegister: builder.mutation({
       query: (user) => ({
@@ -34,4 +34,7 @@ export const registerApi = createApi({
   }),
 });
 
-export const { useAddRegisterMutation, useAddLoginMutation } = registerApi;
+export const {
+  useAddRegisterMutation,
+  useAddLoginMutation,
+} = registerApi;

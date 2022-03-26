@@ -1,10 +1,20 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { saveToken, saveUser } from "../../../utils/cart";
 import { registerApi } from "./api/authApi";
-import { getToken, saveToken, getDetails } from "../../../utils/cart";
+
+const checkWindow = typeof window !== "undefined";
 
 const initialState = {
-  username: "",
-  token: getToken(),
+  username: checkWindow
+    ? sessionStorage.getItem("user")
+      ? JSON.parse(sessionStorage.getItem("user"))
+      : ""
+    : null,
+  token: checkWindow
+    ? sessionStorage.getItem("token")
+      ? JSON.parse(sessionStorage.getItem("token"))
+      : ""
+    : null,
   email: "",
   details:
     typeof window !== "undefined"
@@ -14,7 +24,7 @@ const initialState = {
       : null,
 };
 
-const userSlice = createSlice({
+export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
@@ -48,11 +58,11 @@ const userSlice = createSlice({
         state.username = payload.user.username;
         state.email = payload.user.email;
         saveToken(payload.jwt);
+        saveUser(payload.user.username);
       }
     );
   },
 });
 
-export const selectUser = (state) => state;
 export const { addDetails } = userSlice.actions;
 export default userSlice.reducer;
