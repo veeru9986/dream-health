@@ -92,15 +92,15 @@ export default function MuiSelect(props) {
             {data &&
               data.map((name) => (
                 <MenuItem
-                  key={name.data[0].attributes.banner.title}
-                  value={name.data[0].attributes.banner.title}
+                  key={name.banner.title}
+                  value={name.banner.title}
                   style={getStyles(
-                    name.data[0].attributes.banner.title,
+                    name.banner.title,
                     personName,
                     theme
                   )}
                 >
-                  {name.data[0].attributes.banner.title}
+                  {name.banner.title}
             
                 </MenuItem>
               ))}
