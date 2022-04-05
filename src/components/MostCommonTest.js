@@ -66,6 +66,8 @@ const Container = styled.div`
 `;
 
 function MostCommonTest({ title, data }) {
+  console.log(data.test_links);
+
   return (
     <Container>
       <div className="heading">
@@ -77,10 +79,9 @@ function MostCommonTest({ title, data }) {
             <div className="grid_images bg-anim">
               <GatsbyImage
                 image={
-                  t.test_images.data === null
+                  t.test_images === null
                     ? ""
-                    : t.test_images.data.attributes.localFile.childImageSharp
-                        .gatsbyImageData
+                    : t.test_images.file.childImageSharp.gatsbyImageData
                 }
                 alt=""
               />

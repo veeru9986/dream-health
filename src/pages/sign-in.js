@@ -69,24 +69,16 @@ const Container = styled.div`
 export const query = graphql`
   {
     strapiSignin {
-      data {
-        attributes {
-          signin {
-            description
-            id
-            title
-            images {
-              id
-              image {
-                data {
-                  attributes {
-                    localFile {
-                      childImageSharp {
-                        gatsbyImageData(placeholder: TRACED_SVG)
-                      }
-                    }
-                  }
-                }
+      signin {
+        description
+        id
+        title
+        images {
+          id
+          image {
+            file {
+              childImageSharp {
+                gatsbyImageData(placeholder: TRACED_SVG)
               }
             }
           }
@@ -96,8 +88,7 @@ export const query = graphql`
   }
 `;
 function SignIn({ data }) {
-  const { title, description, images } =
-    data.strapiSignin.data.attributes.signin;
+  const { title, description, images } = data.strapiSignin.signin;
   console.log(title);
   console.log(images);
   return (

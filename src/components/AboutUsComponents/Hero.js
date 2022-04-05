@@ -83,7 +83,7 @@ function Hero({ data }) {
       <div className="image">
         <GatsbyImage
           image={
-            image.data.attributes.localFile.childImageSharp.gatsbyImageData
+            image.file.childImageSharp.gatsbyImageData
           }
           alt={title}
         />

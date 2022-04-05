@@ -29,48 +29,21 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-source-strapi`,
+      resolve: "gatsby-source-strapi",
       options: {
-        apiURL: process.env.STRAPI_API_URL,
-        queryLimit: 1000, // Defaults to 100
+        apiURL: "https://infinite-retreat-91320.herokuapp.com",
         singleTypes: [
-          {
-            name: `home`,
-            endpoint: `api/home?populate=deep`,
-          },
-          {
-            name: `navbar`,
-            endpoint: `api/navbar?populate=deep`,
-          },
-          {
-            name: `footer`,
-            endpoint: `api/footer?populate=deep`,
-          },
-          {
-            name: `service`,
-            endpoint: `api/service?populate=deep`,
-          },
-          {
-            name: `signin`,
-            endpoint: `api/signin?populate=deep`,
-          },
-          {
-            name: `signup`,
-            endpoint: `api/signup?populate=deep`,
-          },
-          {
-            name: `about`,
-            endpoint: `api/about?populate=deep`,
-          },
-        ],
-        collectionTypes: [
-          {
-            name: `test-pages`,
-            endpoint: `api/test-pages?populate=deep`,
-          },
+          "home",
+          "navbar",
+          "service",
+          "about",
+          "signin",
+          "signup",
+          "footer",
         ],
       },
     },
+
     {
       resolve: "gatsby-plugin-react-svg",
       options: {

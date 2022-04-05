@@ -56,7 +56,7 @@ function services({ data, title }) {
             <Link to="/">
               <GatsbyImage
                 image={
-                  d.test_images.data.attributes.localFile.childImageSharp
+                  d.test_images.file.childImageSharp
                     .gatsbyImageData
                 }
                 alt={title}

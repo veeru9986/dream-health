@@ -74,11 +74,10 @@ const Conatiner = styled.div`
 `;
 
 function Hero({ data }) {
-  const { localFile } = data.banner_image.data.attributes;
   return (
     <Conatiner>
       <div className="image">
-        <GatsbyImage image={localFile.childImageSharp.gatsbyImageData} />
+        <GatsbyImage image={data.banner_image.file.childImageSharp.gatsbyImageData} />
       </div>
       <div className="hero-desc">
         <h1>{data.title}</h1>

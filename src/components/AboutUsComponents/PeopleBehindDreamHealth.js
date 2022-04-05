@@ -95,7 +95,7 @@ function PeopleBehindDreamHealth({ data }) {
               <div className="image">
                 <GatsbyImage
                   image={
-                    p.image.data.attributes.localFile.childImageSharp
+                    p.image.file.childImageSharp
                       .gatsbyImageData
                   }
                   alt={title}

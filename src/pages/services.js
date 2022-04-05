@@ -17,22 +17,14 @@ const Container = styled.div`
 export const query = graphql`
   {
     strapiService {
-      data {
-        attributes {
-          main_title
-          services_links {
-            id
-            LinkTo
-            test_images {
-              data {
-                attributes {
-                  localFile {
-                    childImageSharp {
-                      gatsbyImageData(placeholder: TRACED_SVG)
-                    }
-                  }
-                }
-              }
+      main_title
+      services_links {
+        id
+        LinkTo
+        test_images {
+          file {
+            childImageSharp {
+              gatsbyImageData(placeholder: TRACED_SVG)
             }
           }
         }
@@ -41,7 +33,7 @@ export const query = graphql`
   }
 `;
 function Services({ data }) {
-  const { services_links, main_title } = data.strapiService.data.attributes;
+  const { services_links, main_title } = data.strapiService;
   return (
     <Wrapper>
       <Container>
@@ -52,3 +44,5 @@ function Services({ data }) {
 }
 
 export default Services;
+
+

@@ -3,46 +3,34 @@ import styled from "styled-components";
 import Hero from "../components/AboutUsComponents/Hero";
 import PeopleBehindDreamHealth from "../components/AboutUsComponents/PeopleBehindDreamHealth";
 import { Wrapper } from "../components/StyledComponents/Wrapper";
-import { graphql } from "gatsby"
+import { graphql } from "gatsby";
 
 export const query = graphql`
   {
     strapiAbout {
-      data {
-        attributes {
-          banner {
-            description
-            title
-            image {
-              data {
-                attributes {
-                  localFile {
-                    childImageSharp {
-                      gatsbyImageData(formats: AUTO, placeholder: TRACED_SVG)
-                    }
-                  }
-                }
-              }
+      banner {
+        description 
+        title
+        image {
+          file {
+            childImageSharp {
+              gatsbyImageData(formats: AUTO, placeholder: TRACED_SVG)
             }
           }
-          people_behind_dream_health {
-            title
-            description
-            id
-            people {
-              designation
-              id
-              name_and_useranme
-              image {
-                data {
-                  attributes {
-                    localFile {
-                      childImageSharp {
-                        gatsbyImageData(placeholder: TRACED_SVG, formats: AUTO)
-                      }
-                    }
-                  }
-                }
+        }
+      }
+      people_behind_dream_health {
+        title
+        description
+        id
+        people {
+          designation
+          id
+          name_and_useranme
+          image {
+            file {
+              childImageSharp {
+                gatsbyImageData(placeholder: TRACED_SVG, formats: AUTO)
               }
             }
           }
@@ -50,7 +38,7 @@ export const query = graphql`
       }
     }
   }
-`
+`;
 
 const Container = styled.div`
   margin-top: var(--mt);
@@ -62,8 +50,9 @@ const Container = styled.div`
   }
 `;
 
-function AboutUs({data}) {
-  const {banner, people_behind_dream_health} = data.strapiAbout.data.attributes
+function AboutUs({ data }) {
+  const { banner, people_behind_dream_health } =
+    data.strapiAbout;
   return (
     <Wrapper>
       <Container>

@@ -57,7 +57,7 @@ function BenefitsSlider({ data }) {
           <div className="customer-slider" key={id}>
             <GatsbyImage
               image={
-                d.image.data.attributes.localFile.childImageSharp
+                d.image.file.childImageSharp
                   .gatsbyImageData
               }
               alt=""

@@ -47,19 +47,15 @@ function Navbar(props) {
   const data = useStaticQuery(graphql`
     {
       strapiNavbar {
-        data {
-          attributes {
-            navbar {
-              id
-              link_to
-              title
-            }
-          }
+        navbar {
+          id
+          link_to
+          title
         }
       }
     }
   `);
-  
+
   // console.log(data.strapiNavbar.data.attributes.navbar);
 
   return (
@@ -70,10 +66,11 @@ function Navbar(props) {
             <Logo />
           </Link>
         </div>
-        <Burger data={data.strapiNavbar.data.attributes.navbar} />
+        <Burger data={data.strapiNavbar.navbar} />
       </Nav>
     </Wrapper>
   );
 }
 
 export default Navbar;
+

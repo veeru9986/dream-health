@@ -69,22 +69,14 @@ const Container = styled.div`
 export const query = graphql`
   {
     strapiSignup {
-      data {
-        attributes {
-          signup {
-            description
-            title
-            images {
-              image {
-                data {
-                  attributes {
-                    localFile {
-                      childImageSharp {
-                        gatsbyImageData(placeholder: TRACED_SVG)
-                      }
-                    }
-                  }
-                }
+      signup {
+        description
+        title
+        images {
+          image {
+            file {
+              childImageSharp {
+                gatsbyImageData(placeholder: TRACED_SVG)
               }
             }
           }
@@ -93,9 +85,9 @@ export const query = graphql`
     }
   }
 `;
-function SignIn({data}) {
+function SignIn({ data }) {
   const { title, description, images } =
-    data.strapiSignup.data.attributes.signup;
+    data.strapiSignup.signup;
 
   return (
     <Wrapper1>
