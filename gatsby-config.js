@@ -41,6 +41,7 @@ module.exports = {
           "signup",
           "footer",
         ],
+        collectionTypes: ["test-pages"],
       },
     },
 
