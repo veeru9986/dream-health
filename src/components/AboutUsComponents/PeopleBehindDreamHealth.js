@@ -8,7 +8,6 @@ const Container = styled.div`
   margin-top: var(--mt1);
 
   .heading{
-    width: 250px;
     word-wrap: break-word;
   }
   h2 {

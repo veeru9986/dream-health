@@ -39,6 +39,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
+    overflow: auto;
     .para {
       margin: 0.8rem 0;
       font-size: var(--p2);
