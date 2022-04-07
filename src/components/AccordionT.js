@@ -87,7 +87,7 @@ export default function AccordionT({ marginTop, accordion }) {
                 <div
                   className="icon"
                   style={{
-                    backgroundImage: `url(${a.icon.data.attributes.url})`,
+                    backgroundImage: `url(${a.icon.url})`,
                   }}
                 />
                 <h4>{a.title}</h4>

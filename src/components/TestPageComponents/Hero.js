@@ -105,7 +105,7 @@ function Hero({ banner, dispatch }) {
         <div className="image-container">
           <GatsbyImage
             image={
-              image.data.attributes.localFile.childImageSharp.gatsbyImageData
+              image.file.childImageSharp.gatsbyImageData
             }
             alt={title}
           />

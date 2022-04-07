@@ -1,36 +1,7 @@
+import { GatsbyImage } from "gatsby-plugin-image";
 import React from "react";
 import styled from "styled-components";
 import { LinkStyled } from "../StyledComponents/Wrapper";
-
-const gridImages = [
-  {
-    text: "ok",
-  },
-  {
-    text: "ok",
-  },
-  {
-    text: "ok",
-  },
-  {
-    text: "ok",
-  },
-  {
-    text: "ok",
-  },
-  {
-    text: "ok",
-  },
-  {
-    text: "ok",
-  },
-  {
-    text: "ok",
-  },
-  {
-    text: "ok",
-  },
-];
 
 const Container = styled.div`
   width: 100%;
@@ -52,7 +23,7 @@ const Container = styled.div`
       @media (max-width: 479px) {
         text-align: center;
         width: 80%;
-    }
+      }
     }
   }
   .dream-health-flex {
@@ -68,11 +39,15 @@ const Container = styled.div`
       justify-content: center;
     }
     .dream-health {
-      background: #ebebeb;
       border-radius: 10px;
       width: 300px;
       height: 300px;
       margin-bottom: 1rem;
+
+      .gatsby-image-wrapper {
+        height: 300px;
+        border-radius: 10px;
+      }
     }
   }
   .view-all-btn {
@@ -82,20 +57,23 @@ const Container = styled.div`
   }
 `;
 
-function DreamHealthCheckups() {
+function DreamHealthCheckups({ data }) {
   const [show, setShow] = React.useState(4);
   return (
     <Container>
       <div className="heading">
-        <h2>Dream Health Checkups</h2>
-        <span>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis{" "}
-        </span>
+        <h2>{data.title}</h2>
+        <span>{data.description}</span>
       </div>
 
       <div className="dream-health-flex">
-        {gridImages.slice(0, show).map((g) => (
-          <div className="dream-health" key={g.id} />
+        {data.image_with_links.slice(0, show).map((g) => (
+          <div className="dream-health" key={g.id}>
+            <GatsbyImage
+              image={g.test_images.file.childImageSharp.gatsbyImageData}
+              alt=""
+            />
+          </div>
         ))}
       </div>
       <div className="view-all-btn">

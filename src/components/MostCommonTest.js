@@ -121,7 +121,7 @@ const Container = styled.div`
 `;
 
 function MostCommonTest({ title, data }) {
-  console.log(data.test_links);
+  console.log(data);
 
   return (
     <Container>
@@ -146,7 +146,7 @@ function MostCommonTest({ title, data }) {
                   <p>
                     {t.title
                       ? t.title
-                      : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce"}
+                      : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "}
                   </p>
                 </div>
               </div>

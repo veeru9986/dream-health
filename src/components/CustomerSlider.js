@@ -57,6 +57,7 @@ const Container = styled.div`
 `;
 
 function CustomerSlider({ data, title, testPage }) {
+  console.log(data);
   var settings = {
     dots: true,
     infinite: false,
@@ -98,7 +99,7 @@ function CustomerSlider({ data, title, testPage }) {
       </div>
       <Slider {...settings}>
         {testPage
-          ? data.customer_review.map((c) => {
+          ? data[0].customer_review?.map((c) => {
               return (
                 <>
                   <div className="customer-slider">
