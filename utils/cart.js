@@ -67,7 +67,9 @@ export const saveToken = (token) => {
 export const saveUser = (user) => {
   sessionStorage.setItem("user", JSON.stringify(user));
 };
-
+export const saveSession = (sessionId) => {
+  sessionStorage.setItem("sessionId", JSON.stringify(sessionId));
+};
 // export const removeCart = (strapiId) => {
 //   const cart = getCart()
 //   const indexOfProduct = cart.findIndex((C) => C.strapiId === strapiId)

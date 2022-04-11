@@ -16,6 +16,12 @@ const initialState = {
       : ""
     : null,
   email: "",
+  sessionId:
+    typeof window !== "undefined"
+      ? sessionStorage.getItem("sessionId")
+        ? JSON.parse(sessionStorage.getItem("sessionId"))
+        : ""
+      : null,
   details:
     typeof window !== "undefined"
       ? localStorage.getItem("details")

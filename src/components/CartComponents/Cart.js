@@ -5,6 +5,8 @@ import { ButtonStyled, LinkStyled } from "../StyledComponents/Wrapper";
 import { cartTotal, cartSubTotal } from "../../../utils/cart";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, decreaseCart, removeFromCart } from "../features/cartSlice";
+import Checkout from "../Checkout";
+
 const data = [
   {
     test_name: "Name of the Test",
@@ -333,7 +335,7 @@ function Cart({ cart }) {
             <span>{cartSubTotal(cart, 0.1)}</span>
           </div>
           {token ? (
-            <ButtonStyledJ primary>Proceed to Checkout</ButtonStyledJ>
+            <Checkout title="Proceed to Checkout" cart={cart} />
           ) : (
             <>
               <span>You need to login to proceed for checkout</span>
