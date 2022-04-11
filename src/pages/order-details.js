@@ -6,6 +6,8 @@ import userSlice from "../components/features/userSlice";
 import { LinkStyled, Wrapper } from "../components/StyledComponents/Wrapper";
 import confirm from "../images/Order Confirmation 1.png";
 import * as queryString from "query-string";
+import { GatsbyImage } from "gatsby-plugin-image";
+import { cartTotal1, cartSubTotal1 } from "../../utils/cart";
 
 const Container = styled.div`
   width: 100%;
@@ -76,10 +78,10 @@ const Container = styled.div`
       display: flex;
       align-items: center;
 
-      .image {
+      .image,
+      .gatsby-image-wrapper {
         width: 150px;
         height: 150px;
-        background-color: #c4c4c4;
         border-radius: 24px;
 
         @media (max-width: 550px) {
@@ -171,6 +173,7 @@ function OrderDetails({ location }) {
           <div className="order-details-cotainer">
             <div className="order-details-container-1">
               <h2>Your Order Details</h2>
+
               <div className="img">
                 <img src={confirm} alt="" />
               </div>
@@ -194,17 +197,27 @@ function OrderDetails({ location }) {
               </div>
             </div>
             <div className="test-details">
-              <div className="details-wrapper">
-                <div className="image" />
-                <div className="name-of-the-test">
-                  <h4>Name of the test</h4>
-                  <p>Appointment Date : Feb 24, 2022</p>
-                </div>
-              </div>
-
-              <div>
-                <h4>2499</h4>
-              </div>
+              {cart.map((c) => {
+                return (
+                  <>
+                    <div className="details-wrapper">
+                      <div className="image">
+                        <GatsbyImage
+                          image={c.image.file.childImageSharp.gatsbyImageData}
+                          alt={c.title}
+                        />
+                      </div>
+                      <div className="name-of-the-test">
+                        <h4>{c.title}</h4>
+                        <p>Appointment Date : Feb 24, 2022</p>
+                      </div>
+                    </div>
+                    <div>
+                      <h4>{c.price}</h4>
+                    </div>
+                  </>
+                );
+              })}
             </div>
             <div className="payment-method-container">
               <div className="payment-method">
@@ -214,7 +227,7 @@ function OrderDetails({ location }) {
               <div className="payment-total desktop">
                 <div className="payment-total-flex">
                   <h4>Subtotal :</h4>
-                  <span>2499</span>
+                  <span>{cartTotal1(cart)}</span>
                 </div>
                 <div className="payment-total-flex">
                   <h4>GST :</h4>
@@ -232,12 +245,12 @@ function OrderDetails({ location }) {
               <div className="total">
                 <div className="payment-total-flex desktop">
                   <h4>Total :</h4>
-                  <span>2499</span>
+                  <span> {cartSubTotal1(cart, 0.1)}</span>
                 </div>
                 <div className="payment-total mob">
                   <div className="payment-total-flex">
                     <h4>Subtotal :</h4>
-                    <span>2499</span>
+                    <span>{cartTotal1(cart)}</span>
                   </div>
                   <div className="payment-total-flex">
                     <h4>GST :</h4>
@@ -245,7 +258,9 @@ function OrderDetails({ location }) {
                   </div>
                   <div className="payment-total-flex">
                     <h4>Total :</h4>
-                    <span className="total-number">2499</span>
+                    <span className="total-number">
+                      {cartSubTotal1(cart, 0.1)}
+                    </span>
                   </div>
                 </div>
               </div>
