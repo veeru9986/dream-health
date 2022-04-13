@@ -7,8 +7,12 @@ import { Link } from "gatsby";
 
 const FooterWrapper = styled(Wrapper)`
   background-color: #fbfbfb;
-  padding: 4rem 0;
+  padding: 4rem 0 0 0;
   @media (max-width: 650px) {
+    padding: 2rem 0;
+  }
+  .powered-by {
+    grid-area: 2/2/3/3;
     padding: 2rem 0;
   }
 `;
@@ -21,8 +25,7 @@ const Container = styled.div`
   height: auto;
   grid-column-gap: 0.75rem;
 
-
-  @media (min-width: 1700px){
+  @media (min-width: 1700px) {
     width: 80%;
   }
 
@@ -124,6 +127,7 @@ const Container = styled.div`
       margin-top: 1rem;
     }
   }
+
   .grid-4 {
     grid-area: auto/4/auto/5;
     margin-top: 3.5rem;
@@ -204,6 +208,9 @@ function Footer() {
           </div>
         </div>
       </Container>
+      <h4 className="powered-by">
+        ©2022 Powered By <span>Ethical Den</span>
+      </h4>
     </FooterWrapper>
   );
 }
