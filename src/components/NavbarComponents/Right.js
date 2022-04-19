@@ -83,7 +83,8 @@ const Right = ({ open, setOpen, data }) => {
   console.log(data[0].title);
 
   const cart = useSelector((state) => state.cart.cartItems);
-  const { token, username } = useSelector((state) => state.user);
+  const { token, username, user } = useSelector((state) => state.user);
+  console.log(user);
   // const { data: user, isError, isLoading } = useGetUserQuery();
   // console.log(user);
 
@@ -115,7 +116,7 @@ const Right = ({ open, setOpen, data }) => {
             <Link
               className="menu-links"
               style={{ fontSize: "2rem" }}
-              to="/"
+              to="/profile"
               onClick={() => setOpen(!open)}
             >
               {username && username.charAt(0)}{" "}

@@ -45,6 +45,9 @@ export const registerApi = createApi({
         body: credentials,
       }),
     }),
+    getOrders: builder.query({
+      query: () => "/orders",
+    }),
   }),
 });
 
@@ -53,4 +56,5 @@ export const {
   useAddLoginMutation,
   useAddOrderDetailsMutation,
   useOrderSuccessMutation,
+  useGetOrdersQuery
 } = registerApi;

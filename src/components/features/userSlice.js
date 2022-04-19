@@ -28,6 +28,7 @@ const initialState = {
         ? JSON.parse(localStorage.getItem("details"))
         : []
       : null,
+  user: []
 };
 
 export const userSlice = createSlice({
@@ -65,6 +66,7 @@ export const userSlice = createSlice({
         state.email = payload.user.email;
         saveToken(payload.jwt);
         saveUser(payload.user.username);
+        state.user.push(payload)
       }
     );
   },
