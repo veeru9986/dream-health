@@ -221,7 +221,7 @@ function BookAppointmentForm({ data }) {
             <ButtonStyled1 type="submit">Pay Now</ButtonStyled1>
             <span style={{ color: "black", fontSize: "0.6rem" }}>or</span>
             <ButtonStyled1 primary type="submit">
-              Pay Now
+              Pay In-persom
             </ButtonStyled1>
           </div>
         </form>

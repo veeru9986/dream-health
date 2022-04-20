@@ -66,6 +66,7 @@ export const homeQuery = graphql`
         test_links {
           LinkTo
           id
+          title
           test_images {
             file {
               childImageSharp {

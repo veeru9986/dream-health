@@ -28,6 +28,7 @@ const SignInContainer = styled.div`
     p {
       font-size: 12px;
       font-weight: var(--lightWeight);
+      margin: auto;
     }
     a {
       text-decoration: none;
@@ -87,6 +88,7 @@ function SignInForm() {
           label="Password"
           required="password required"
           control={control}
+          password
         />
         <div className="btn-submit-submit">
           <div className="btn-submit">

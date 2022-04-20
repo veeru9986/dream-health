@@ -42,6 +42,7 @@ const SignInContainer = styled.div`
     p {
       font-size: 12px;
       font-weight: var(--lightWeight);
+      margin: auto;
     }
     a {
       text-decoration: none;
@@ -135,6 +136,7 @@ function SignUpForm() {
             label="Password"
             required="password required"
             control={control}
+            password={true}
           />
           <FInput
             name="confirm password"
@@ -142,6 +144,7 @@ function SignUpForm() {
             label="Confirm Password"
             required="confirm password required"
             control={control}
+            password={true}
           />
         </div>
 

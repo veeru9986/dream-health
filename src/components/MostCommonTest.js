@@ -41,6 +41,9 @@ const Container = styled.div`
   a {
     border-radius: 10px;
     margin: 1rem 2rem;
+    text-align: center;
+    display: flex;
+    color: #fff;
   }
   /* a {
     border-radius: 10px;
@@ -130,7 +133,7 @@ function MostCommonTest({ title, data }) {
       </div>
       <div className="most-common-test-grid">
         {data.test_links.map((t) => (
-          <Link to={t.LinkTo} key={t.id} className="test-links">
+          <div className="test-links" key={t.id}>
             <div className="content-overlay" />
             <div className="grid_images bg-anim">
               <GatsbyImage
@@ -143,15 +146,15 @@ function MostCommonTest({ title, data }) {
               />
               <div className="hover-slide-up">
                 <div className="hover-slide-text-up">
-                  <p>
+                  <Link to={t.LinkTo}>
                     {t.title
                       ? t.title
                       : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "}
-                  </p>
+                  </Link>
                 </div>
               </div>
             </div>
-          </Link>
+          </div>
         ))}
       </div>
     </Container>
