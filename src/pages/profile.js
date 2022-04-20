@@ -172,7 +172,7 @@ const Container = styled.div`
 function Profile() {
   const [name, setName] = React.useState("Upcoming Appoinments");
   const { data, isSuccess, isLoading } = useGetOrdersQuery();
-  const { cart } = useSelector((state) => state.cart.cartItems);
+  const cart = useSelector((state) => state.cart.cartItems);
   const { details, token } = useSelector((state) => state.user);
 
   const handleAppoinment = (e) => {
