@@ -1,7 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { useOrderSuccessMutation } from "../components/features/api/authApi";
+import {
+  useGetOrdersQuery,
+  useOrderSuccessMutation,
+} from "../components/features/api/authApi";
 import userSlice from "../components/features/userSlice";
 import { LinkStyled, Wrapper } from "../components/StyledComponents/Wrapper";
 import confirm from "../images/Order Confirmation 1.png";
@@ -139,9 +142,13 @@ const Container = styled.div`
   }
 `;
 
+const toConvertDate = (createdAt) => {
+  let date = new Date(createdAt);
+  return date.toDateString();
+};
+
 function OrderDetails({ location }) {
-  const [orderSuccess, { data, isSuccess, isLoading }] =
-    useOrderSuccessMutation();
+  const { data, isLoading, isError } = useGetOrdersQuery();
   const cart = useSelector((state) => state.cart.cartItems);
   const user = useSelector((state) => state.user.username);
 
@@ -153,122 +160,109 @@ function OrderDetails({ location }) {
   console.log(status);
   console.log(location);
 
-  const saveOrderDetails = async () => {
-    await orderSuccess({
-      cartDetail: cart,
-      user: user,
-    });
-  };
-
-  React.useEffect(() => {
-    cart && user && sessionId && saveOrderDetails();
-  }, [sessionId]);
-
   console.log("sessionId", sessionId);
   console.log("data", data);
+
+  const { item } = !isLoading && data.data[0].attributes.data;
+  console.log(item);
   return (
     <Wrapper>
       <Container>
-        {isLoading ? (
-          status === "success" && (
-            <div className="order-details-cotainer">
-              <div className="order-details-container-1">
-                <h2>Your Order Details</h2>
+        {!isLoading ? (
+          <div className="order-details-cotainer">
+            <div className="order-details-container-1">
+              <h2>Your Order Details</h2>
 
-                <div className="img">
-                  <img src={confirm} alt="" />
+              <div className="img">
+                <img src={confirm} alt="" />
+              </div>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Ultricies purus.
+              </p>
+              <div className="btn">
+                <LinkStyled to="/">Go to Homepage</LinkStyled>
+              </div>
+            </div>
+            <div className="divider" />
+            <div className="order-details-container-2">
+              <div className="order-number">
+                <h4>Order Number</h4>
+                <span>241123</span>
+              </div>
+              <div className="order-date">
+                <h4>Order Date</h4>
+                <span>{toConvertDate(data.data[0].attributes.createdAt)}</span>
+              </div>
+            </div>
+            <div className="test-details">
+              <div className="details-wrapper">
+                <div className="image">
+                  <GatsbyImage
+                    image={item[0].image.file.childImageSharp.gatsbyImageData}
+                    alt={item[0].title}
+                  />
                 </div>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Ultricies purus.
-                </p>
-                <div className="btn">
-                  <LinkStyled to="/">Go to Homepage</LinkStyled>
+                <div className="name-of-the-test">
+                  <h4>{item[0].title}</h4>
+                  <p>Appointment Date : Feb 24, 2022</p>
                 </div>
               </div>
-              <div className="divider" />
-              <div className="order-details-container-2">
-                <div className="order-number">
-                  <h4>Order Number</h4>
-                  <span>241123</span>
+              <div>
+                <h4>{item[0].price}</h4>
+              </div>
+            </div>
+            <div className="payment-method-container">
+              <div className="payment-method">
+                <h4>Payment Method</h4>
+                <span>Debit Card</span>
+              </div>
+              <div className="payment-total desktop">
+                <div className="payment-total-flex">
+                  <h4>Subtotal :</h4>
+                  <span>{cartTotal(data.data[0].attributes.data.item)}</span>
                 </div>
-                <div className="order-date">
-                  <h4>Order Date</h4>
-                  <span>Feb 12, 2022</span>
+                <div className="payment-total-flex">
+                  <h4>GST :</h4>
+                  <span>1%</span>
                 </div>
               </div>
-              <div className="test-details">
-                {cart.map((c) => {
-                  return (
-                    <>
-                      <div className="details-wrapper">
-                        <div className="image">
-                          <GatsbyImage
-                            image={c.image.file.childImageSharp.gatsbyImageData}
-                            alt={c.title}
-                          />
-                        </div>
-                        <div className="name-of-the-test">
-                          <h4>{c.title}</h4>
-                          <p>Appointment Date : Feb 24, 2022</p>
-                        </div>
-                      </div>
-                      <div>
-                        <h4>{c.price}</h4>
-                      </div>
-                    </>
-                  );
-                })}
+            </div>
+            <div className="customer-details">
+              <div className="details">
+                <h4>Customer Details</h4>
+                <p>Name Surname, Age</p>
+                <p>Contact</p>
+                <p>Test Name, Date</p>
               </div>
-              <div className="payment-method-container">
-                <div className="payment-method">
-                  <h4>Payment Method</h4>
-                  <span>Debit Card</span>
+              <div className="total">
+                <div className="payment-total-flex desktop">
+                  <h4>Total :</h4>
+                  <span>
+                    {" "}
+                    {cartSubTotal(data.data[0].attributes.data.item, 0.1)}
+                  </span>
                 </div>
-                <div className="payment-total desktop">
+                <div className="payment-total mob">
                   <div className="payment-total-flex">
                     <h4>Subtotal :</h4>
-                    <span>{cartTotal(cart)}</span>
+                    <span>{cartTotal(data.data[0].attributes.data.item)}</span>
                   </div>
                   <div className="payment-total-flex">
                     <h4>GST :</h4>
                     <span>1%</span>
                   </div>
-                </div>
-              </div>
-              <div className="customer-details">
-                <div className="details">
-                  <h4>Customer Details</h4>
-                  <p>Name Surname, Age</p>
-                  <p>Contact</p>
-                  <p>Test Name, Date</p>
-                </div>
-                <div className="total">
-                  <div className="payment-total-flex desktop">
+                  <div className="payment-total-flex">
                     <h4>Total :</h4>
-                    <span> {cartSubTotal(cart, 0.1)}</span>
-                  </div>
-                  <div className="payment-total mob">
-                    <div className="payment-total-flex">
-                      <h4>Subtotal :</h4>
-                      <span>{cartTotal(cart)}</span>
-                    </div>
-                    <div className="payment-total-flex">
-                      <h4>GST :</h4>
-                      <span>1%</span>
-                    </div>
-                    <div className="payment-total-flex">
-                      <h4>Total :</h4>
-                      <span className="total-number">
-                        {cartSubTotal(cart, 0.1)}
-                      </span>
-                    </div>
+                    <span className="total-number">
+                      {cartSubTotal(data.data[0].attributes.data.item, 0.1)}
+                    </span>
                   </div>
                 </div>
               </div>
-              <div className="divider" />
             </div>
-          )
+            <div className="divider" />
+          </div>
         ) : (
           <h2>Loading...</h2>
         )}

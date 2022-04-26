@@ -4,6 +4,10 @@ require("dotenv").config({
 });
 
 module.exports = {
+  flags: {
+    FAST_DEV: true,
+    FAST_REFRESH: true,
+  },
   siteMetadata: {
     title: "Dream Health",
     titleTemplate: "Dream Health",
@@ -42,7 +46,7 @@ module.exports = {
           "footer",
         ],
         collectionTypes: ["test-page", "customer-review"],
-        cache: false
+        cache: false,
       },
     },
 

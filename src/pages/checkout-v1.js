@@ -7,11 +7,10 @@ import {
 import confirm from "../images/Order Confirmation 1.png";
 import styled from "styled-components";
 import MuiRadioButton from "../components/MuiComponents/MuiRadioButton";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "gatsby";
-import { graphql } from "gatsby";
-import { cartTotal1, cartSubTotal1 } from "../../utils/cart";
-import Checkout from "../components/Checkout";
+import { cartTotal, cartSubTotal } from "../../utils/cart";
+import Checkout from "../components/Checkout"
 
 const Container = styled.div`
   width: 100%;
@@ -158,8 +157,7 @@ function Checkout1({ data }) {
   const [value, setValue] = React.useState("upi");
   const details = useSelector((state) => state.user.details);
   console.log(details);
-  const dispatch = useDispatch();
-
+  const cart = useSelector((state) => state.cart.cartItems);
   // const getPriceForEachTest =
   //   details &&
   //   details[0].tests.map((pro) =>
@@ -167,20 +165,19 @@ function Checkout1({ data }) {
   //       (d) => pro === d.data[0]?.attributes.banner.title
   //     )
   //   );
-  const getPriceForEachTest = data.allStrapiTestPage.nodes.reduce(
-    (temp, pro) => {
-      details &&
-        details[0]?.tests.map((d) => {
-          if (d === pro.banner.title) {
-            temp.push(pro.banner);
-          }
-        });
-      return temp;
-    },
-    []
-  );
+  //   const getPriceForEachTest = data.allStrapiTestPage.nodes.reduce(
+  //     (temp, pro) => {
+  //       details &&
+  //         details[0]?.tests.map((d) => {
+  //           if (d === pro.banner.title) {
+  //             temp.push(pro.banner);
+  //           }
+  //         });
+  //       return temp;
+  //     },
+  //     []
+  //   );
 
-  console.log(getPriceForEachTest);
   // const { tests, name, email, time, mobile, date } = details && details[0];
   const handleChange = (val) => {
     setValue(val);
@@ -191,7 +188,7 @@ function Checkout1({ data }) {
         <div className="heading">
           <h2>Checkout</h2>
         </div>
-        {details && details.length && (
+        {cart && cart.length && (
           <>
             <div className="checkout-details-wrapper">
               <div className="test-details-section">
@@ -199,8 +196,8 @@ function Checkout1({ data }) {
                   <h4>Test Details</h4>
                   <Link to="/book-appointment">edit</Link>
                 </div>
-                {details[0]?.tests.map((t) => (
-                  <span key={t.id}>{t}</span>
+                {cart.map((t) => (
+                  <span key={t.id}>{t.title}</span>
                 ))}
               </div>
               <div className="customer-details-section">
@@ -233,7 +230,7 @@ function Checkout1({ data }) {
               <div className="payment-total-section">
                 <div className="flex">
                   <h4>Subtotal : </h4>
-                  <span>{cartTotal1(getPriceForEachTest)}</span>
+                  <span>{cartTotal(cart)}</span>
                 </div>
                 <div className="flex">
                   <h4>GST : </h4>
@@ -241,16 +238,10 @@ function Checkout1({ data }) {
                 </div>
                 <div className="flex">
                   <h4 className="total">Total : </h4>
-                  <span className="total">
-                    {cartSubTotal1(getPriceForEachTest, 0.1)}
-                  </span>
+                  <span className="total">{cartSubTotal(cart, 0.1)}</span>
                 </div>
                 <div className="checkout-btn">
-                  <Checkout
-                    title="Proceed To Checkout"
-                    detailss
-                    price={cartSubTotal1(getPriceForEachTest, 0.1)}
-                  />
+                  <Checkout cart={cart} title="Proceed To Checkout" />
                 </div>
               </div>
             </div>
@@ -262,16 +253,3 @@ function Checkout1({ data }) {
 }
 
 export default Checkout1;
-
-export const query = graphql`
-  {
-    allStrapiTestPage {
-      nodes {
-        banner {
-          title
-          price
-        }
-      }
-    }
-  }
-`;

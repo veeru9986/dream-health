@@ -138,9 +138,10 @@ function BookAppointmentForm({ data }) {
         date: date,
         time: data.time,
         mobile: data.mobile,
-        age: data.age
+        age: data.age,
       })
     );
+
     navigate("/checkout");
   };
 

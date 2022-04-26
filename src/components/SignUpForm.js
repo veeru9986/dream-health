@@ -6,6 +6,7 @@ import { Link, navigate } from "gatsby";
 import { useForm } from "react-hook-form";
 import FInput from "./FInput";
 import { useAddRegisterMutation } from "./features/api/authApi";
+import { Google } from "@mui/icons-material";
 
 const SignInContainer = styled.div`
   display: flex;
@@ -67,7 +68,11 @@ const SignInContainer = styled.div`
         width: 50px;
         height: 50px;
         border-radius: 90px;
-        background-color: var(--black);
+        /* border: 1px solid var(--medBlue); */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
       }
     }
   }
@@ -82,11 +87,13 @@ function SignUpForm() {
 
   // submit input values to redux store using dispatch(signupuser)
   const onSubmit = async (data) => {
-    const { firstName, email, password } = data;
+    const { firstName, email, password, lastName, phone } = data;
     await addRegister({
       username: firstName,
       password: password,
       email: email,
+      lastName: lastName,
+      phone: phone,
     });
   };
   console.log(status);
@@ -163,7 +170,11 @@ function SignUpForm() {
           <p>or sign up with</p>
         </div>
         <div className="signup-options">
-          <div className="options" />
+          <div className="options">
+            <a href="https://infinite-retreat-91320.herokuapp.com/api/connect/google">
+              <Google />
+            </a>
+          </div>
         </div>
       </div>
     </SignInContainer>

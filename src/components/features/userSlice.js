@@ -50,6 +50,9 @@ export const userSlice = createSlice({
         state.details[index >= 0 ? index : 0].date = action.payload.date;
         state.details[index >= 0 ? index : 0].age = action.payload.age;
         state.details[index >= 0 ? index : 0].gender = action.payload.gender;
+        state.details[index >= 0 ? index : 0].price = action.payload.price;
+        state.details[index >= 0 ? index : 0].cartQuantity = action.payload.cartQuantity;
+
       } else if (state.details.length <= 1) {
         state.details.push(action.payload);
       }

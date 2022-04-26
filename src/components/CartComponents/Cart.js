@@ -6,6 +6,7 @@ import { cartTotal, cartSubTotal } from "../../../utils/cart";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, decreaseCart, removeFromCart } from "../features/cartSlice";
 import Checkout from "../Checkout";
+import MuiDialog from "../MuiComponents/MuiDialog";
 
 const data = [
   {
@@ -335,7 +336,7 @@ function Cart({ cart }) {
             <span>{cartSubTotal(cart, 0.1)}</span>
           </div>
           {token ? (
-            <Checkout title="Proceed to Checkout" cart={cart} />
+            <Checkout title="Proceed To Checkout" cart={cart} />
           ) : (
             <>
               <span>You need to login to proceed for checkout</span>
