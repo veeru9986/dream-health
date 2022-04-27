@@ -7,10 +7,12 @@ import {
 import confirm from "../images/Order Confirmation 1.png";
 import styled from "styled-components";
 import MuiRadioButton from "../components/MuiComponents/MuiRadioButton";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "gatsby";
-import { cartTotal, cartSubTotal } from "../../utils/cart";
-import Checkout from "../components/Checkout"
+import { graphql } from "gatsby";
+import { cartTotal1, cartSubTotal1 } from "../../utils/cart";
+import Checkout from "../components/CheckoutV";
+import { addDetails } from "../components/features/userSlice";
 
 const Container = styled.div`
   width: 100%;
@@ -157,27 +159,43 @@ function Checkout1({ data }) {
   const [value, setValue] = React.useState("upi");
   const details = useSelector((state) => state.user.details);
   console.log(details);
-  const cart = useSelector((state) => state.cart.cartItems);
-  // const getPriceForEachTest =
-  //   details &&
-  //   details[0].tests.map((pro) =>
-  //     data.allStrapiTestPages.nodes.find(
-  //       (d) => pro === d.data[0]?.attributes.banner.title
-  //     )
-  //   );
-  //   const getPriceForEachTest = data.allStrapiTestPage.nodes.reduce(
-  //     (temp, pro) => {
-  //       details &&
-  //         details[0]?.tests.map((d) => {
-  //           if (d === pro.banner.title) {
-  //             temp.push(pro.banner);
-  //           }
-  //         });
-  //       return temp;
-  //     },
-  //     []
-  //   );
+  const dispatch = useDispatch();
 
+  const getPriceForEachTest = data.allStrapiTestPage.nodes.reduce(
+    (temp, pro) => {
+      details &&
+        details[0]?.tests.map((d) => {
+          if (d === pro.banner.title) {
+            temp.push({ ...pro.banner, cartQuantity: 1 });
+          }
+        });
+      return temp;
+    },
+    []
+  );
+
+  console.log(getPriceForEachTest);
+  React.useEffect(() => {
+    let price1 = cartSubTotal1(getPriceForEachTest, 0.1).replace(
+      /[^\d\.]/g,
+      ""
+    );
+    dispatch(
+      addDetails({
+        name: details[0]?.name,
+        email: details[0]?.email,
+        tests: details[0]?.tests,
+        gender: details[0]?.gender,
+        date: details[0]?.date,
+        time: details[0]?.time,
+        mobile: details[0]?.mobile,
+        age: details[0]?.age,
+        price: (price1 * 100) / 100,
+        cartQuantity: 1,
+        data: getPriceForEachTest,
+      })
+    );
+  }, []);
   // const { tests, name, email, time, mobile, date } = details && details[0];
   const handleChange = (val) => {
     setValue(val);
@@ -188,7 +206,7 @@ function Checkout1({ data }) {
         <div className="heading">
           <h2>Checkout</h2>
         </div>
-        {cart && cart.length && (
+        {details && details.length && (
           <>
             <div className="checkout-details-wrapper">
               <div className="test-details-section">
@@ -196,8 +214,8 @@ function Checkout1({ data }) {
                   <h4>Test Details</h4>
                   <Link to="/book-appointment">edit</Link>
                 </div>
-                {cart.map((t) => (
-                  <span key={t.id}>{t.title}</span>
+                {details[0]?.tests.map((t) => (
+                  <span key={t.id}>{t}</span>
                 ))}
               </div>
               <div className="customer-details-section">
@@ -230,7 +248,7 @@ function Checkout1({ data }) {
               <div className="payment-total-section">
                 <div className="flex">
                   <h4>Subtotal : </h4>
-                  <span>{cartTotal(cart)}</span>
+                  <span>{cartTotal1(getPriceForEachTest)}</span>
                 </div>
                 <div className="flex">
                   <h4>GST : </h4>
@@ -238,10 +256,12 @@ function Checkout1({ data }) {
                 </div>
                 <div className="flex">
                   <h4 className="total">Total : </h4>
-                  <span className="total">{cartSubTotal(cart, 0.1)}</span>
+                  <span className="total">
+                    {cartSubTotal1(getPriceForEachTest, 0.1)}
+                  </span>
                 </div>
                 <div className="checkout-btn">
-                  <Checkout cart={cart} title="Proceed To Checkout" />
+                  <Checkout title="Proceed To Checkout" detailss />
                 </div>
               </div>
             </div>
@@ -253,3 +273,23 @@ function Checkout1({ data }) {
 }
 
 export default Checkout1;
+
+export const query = graphql`
+  {
+    allStrapiTestPage {
+      nodes {
+        banner {
+          title
+          price
+          image {
+            file {
+              childImageSharp {
+                gatsbyImageData(placeholder: TRACED_SVG)
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;

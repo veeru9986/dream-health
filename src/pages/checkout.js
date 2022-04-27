@@ -250,6 +250,7 @@ function Checkout1({ data }) {
                     title="Proceed To Checkout"
                     detailss
                     price={cartSubTotal1(getPriceForEachTest, 0.1)}
+                    productDetails={getPriceForEachTest}
                   />
                 </div>
               </div>

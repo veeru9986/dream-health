@@ -4,13 +4,13 @@ import styled from "styled-components";
 import {
   useGetOrdersQuery,
   useOrderSuccessMutation,
-} from "../components/features/api/authApi";
-import userSlice from "../components/features/userSlice";
-import { LinkStyled, Wrapper } from "../components/StyledComponents/Wrapper";
-import confirm from "../images/Order Confirmation 1.png";
+} from "../../components/features/api/authApi";
+import userSlice from "../../components/features/userSlice";
+import { LinkStyled, Wrapper } from "../../components/StyledComponents/Wrapper";
+import confirm from "../../images/Order Confirmation 1.png";
 import * as queryString from "query-string";
 import { GatsbyImage } from "gatsby-plugin-image";
-import { cartTotal, cartSubTotal } from "../../utils/cart";
+import { cartTotal, cartSubTotal, cartTotal1 } from "../../../utils/cart";
 
 const Container = styled.div`
   width: 100%;
@@ -70,6 +70,7 @@ const Container = styled.div`
     justify-content: space-between;
     align-items: center;
     margin: var(--mt) 0;
+    flex-wrap: wrap;
 
     span,
     p {
@@ -95,6 +96,7 @@ const Container = styled.div`
         display: flex;
         flex-direction: column;
         margin-left: 1.5rem;
+        margin-right: 1.5rem;
         @media (max-width: 550px) {
           margin-left: 0;
         }
@@ -146,6 +148,7 @@ const Container = styled.div`
     align-items: center;
     height: 100vh;
     width: 100%;
+    grid-area: auto/2/auto/3;
   }
 `;
 
@@ -155,16 +158,16 @@ const toConvertDate = (createdAt) => {
 };
 
 function OrderDetails({ location }) {
-  const { data, isLoading, isError } = useGetOrdersQuery();
+  const { data: orders, isLoading, isError } = useGetOrdersQuery();
   const cart = useSelector((state) => state.cart.cartItems);
   const { user, token } = useSelector((state) => state.user);
   const [copy, setCopy] = React.useState([]);
 
   const sessionId = useSelector((state) => state.user.sessionId);
 
-  const { status } = queryString.parse(location.search);
+  const { orderId } = queryString.parse(location.search);
 
-  const copyA = !isLoading && data.data.slice();
+  const copyA = !isLoading && orders.data.slice();
 
   function biggestToSmallest(a, b) {
     return (
@@ -175,14 +178,16 @@ function OrderDetails({ location }) {
 
   !isLoading && copyA.sort(biggestToSmallest);
 
-  console.log(copyA);
+  console.log("copyA", copyA);
   const { item } = !isLoading && copyA[0].attributes.data;
-  console.log(item);
+  const { order_id, createdAt } = !isLoading && copyA[0].attributes;
+  const { data, name, age, date, mobile, email, gender, price } =
+    !isLoading && item[0];
 
   return (
     <Wrapper>
       <Container>
-        {!isLoading && token ? (
+        {!isLoading ? (
           <div className="order-details-cotainer">
             <div className="order-details-container-1">
               <h2>Your Order Details</h2>
@@ -202,29 +207,33 @@ function OrderDetails({ location }) {
             <div className="order-details-container-2">
               <div className="order-number">
                 <h4>Order Number</h4>
-                <span>241123</span>
+                <span>{order_id}</span>
               </div>
               <div className="order-date">
                 <h4>Order Date</h4>
-                <span>{toConvertDate(data.data[0].attributes.createdAt)}</span>
+                <span>{toConvertDate(createdAt)}</span>
               </div>
             </div>
             <div className="test-details">
-              <div className="details-wrapper">
-                <div className="image">
-                  <GatsbyImage
-                    image={item[0].image.file.childImageSharp.gatsbyImageData}
-                    alt={item[0].title}
-                  />
+              {data.map((d) => (
+                <div className="details-wrapper">
+                  <div className="image">
+                    {/* <GatsbyImage
+                        image={
+                          item[0].image.file.childImageSharp.gatsbyImageData
+                        }
+                        alt={d.title}
+                      /> */}
+                  </div>
+                  <div className="name-of-the-test">
+                    <h4>{d.title}</h4>
+                    <p>{date}</p>
+                  </div>
+                  <div>
+                    <h4>{d.price}</h4>
+                  </div>
                 </div>
-                <div className="name-of-the-test">
-                  <h4>{item[0].title}</h4>
-                  <p>Appointment Date : Feb 24, 2022</p>
-                </div>
-              </div>
-              <div>
-                <h4>{item[0].price}</h4>
-              </div>
+              ))}
             </div>
             <div className="payment-method-container">
               <div className="payment-method">
@@ -234,7 +243,7 @@ function OrderDetails({ location }) {
               <div className="payment-total desktop">
                 <div className="payment-total-flex">
                   <h4>Subtotal :</h4>
-                  <span>{cartTotal(data.data[0].attributes.data.item)}</span>
+                  <span>{cartTotal(data)}</span>
                 </div>
                 <div className="payment-total-flex">
                   <h4>GST :</h4>
@@ -245,22 +254,21 @@ function OrderDetails({ location }) {
             <div className="customer-details">
               <div className="details">
                 <h4>Customer Details</h4>
-                <p>Name Surname, Age</p>
-                <p>Contact</p>
-                <p>Test Name, Date</p>
+                <p>
+                  {name} Surname, {age}
+                </p>
+                <p>{mobile}</p>
+                <p>Test Name, {date}</p>
               </div>
               <div className="total">
                 <div className="payment-total-flex desktop">
                   <h4>Total :</h4>
-                  <span>
-                    {" "}
-                    {cartSubTotal(data.data[0].attributes.data.item, 0.1)}
-                  </span>
+                  <span> {cartSubTotal(data, 0.1)}</span>
                 </div>
                 <div className="payment-total mob">
                   <div className="payment-total-flex">
                     <h4>Subtotal :</h4>
-                    <span>{cartTotal(data.data[0].attributes.data.item)}</span>
+                    <span>{cartTotal(data)}</span>
                   </div>
                   <div className="payment-total-flex">
                     <h4>GST :</h4>
@@ -269,7 +277,7 @@ function OrderDetails({ location }) {
                   <div className="payment-total-flex">
                     <h4>Total :</h4>
                     <span className="total-number">
-                      {cartSubTotal(data.data[0].attributes.data.item, 0.1)}
+                      {cartSubTotal(data, 0.1)}
                     </span>
                   </div>
                 </div>
@@ -280,6 +288,12 @@ function OrderDetails({ location }) {
         ) : (
           <div className="loading-container">
             <h2>Loading...</h2>
+          </div>
+        )}
+
+        {order_id !== orderId && (
+          <div className="loading-container">
+            <h2>Not found any order details.</h2>
           </div>
         )}
       </Container>

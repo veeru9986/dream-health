@@ -31,15 +31,13 @@ function loadScript(src) {
 }
 
 function Checkout({ title, cart, detailss, price, productDetails }) {
-  const [addCartDetails, { isLoading, isError, isSuccess, data }] =
-    useAddOrderDetailsMutation();
-  const [orderSucess, { data: orderSuccessData, isSuccess: orderSuccess }] =
-    useOrderSuccessMutation();
   const user = useSelector((state) => state.user.username);
   const dispatch = useDispatch();
   const details = useSelector((state) => state.user.details);
   const token = useSelector((state) => state.user.token);
   // console.log("price", price.replace(/[^\d\.]/g, ""));
+
+  console.log(productDetails);
 
   const displayRazorpay = async () => {
     const res = await loadScript(
@@ -62,7 +60,7 @@ function Checkout({ title, cart, detailss, price, productDetails }) {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          cartDetail: cart,
+          cartDetail: details,
         }),
       }
     );
@@ -87,23 +85,25 @@ function Checkout({ title, cart, detailss, price, productDetails }) {
         const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
           response;
 
-        const result = await fetch(`${process.env.STRAPI_API_URL}/api/orders`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            orderCreationId: id,
-            razorpayPaymentId: razorpay_payment_id,
-            razorpayOrderId: razorpay_order_id,
-            razorpaySignature: razorpay_signature,
-            cartDetail: cart,
-          }),
-        });
+        const result = await fetch(
+          `${process.env.STRAPI_API_URL}/api/orders-v1`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              orderCreationId: id,
+              razorpayPaymentId: razorpay_payment_id,
+              razorpayOrderId: razorpay_order_id,
+              razorpaySignature: razorpay_signature,
+              cartDetail: details,
+            }),
+          }
+        );
         if (result.status === 200 && result.ok === true) {
-          dispatch(clearCart());
-          navigate(`/order-v1/order-details/?orderId=${id}`);
+          navigate(`/order/order-details/?orderId=${id}`);
           window.scrollTo({ behavior: "smooth", top: "0px" });
         }
       },
@@ -123,7 +123,7 @@ function Checkout({ title, cart, detailss, price, productDetails }) {
   return (
     <div>
       <ButtonStyledJ onClick={displayRazorpay} primary>
-        {isLoading ? "Loading.." : title}
+        {title}
       </ButtonStyledJ>
     </div>
   );

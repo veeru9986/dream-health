@@ -142,7 +142,7 @@ function BookAppointmentForm({ data }) {
       })
     );
 
-    navigate("/checkout");
+    navigate("/checkout-v1");
   };
 
   return (

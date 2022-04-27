@@ -4,13 +4,13 @@ import styled from "styled-components";
 import {
   useGetOrdersQuery,
   useOrderSuccessMutation,
-} from "../components/features/api/authApi";
-import userSlice from "../components/features/userSlice";
-import { LinkStyled, Wrapper } from "../components/StyledComponents/Wrapper";
-import confirm from "../images/Order Confirmation 1.png";
+} from "../../components/features/api/authApi";
+import userSlice from "../../components/features/userSlice";
+import { LinkStyled, Wrapper } from "../../components/StyledComponents/Wrapper";
+import confirm from "../../images/Order Confirmation 1.png";
 import * as queryString from "query-string";
 import { GatsbyImage } from "gatsby-plugin-image";
-import { cartTotal, cartSubTotal } from "../../utils/cart";
+import { cartTotal, cartSubTotal } from "../../../utils/cart";
 
 const Container = styled.div`
   width: 100%;
@@ -146,6 +146,7 @@ const Container = styled.div`
     align-items: center;
     height: 100vh;
     width: 100%;
+    grid-area: auto/2/auto/3;
   }
 `;
 
@@ -158,11 +159,8 @@ function OrderDetails({ location }) {
   const { data, isLoading, isError } = useGetOrdersQuery();
   const cart = useSelector((state) => state.cart.cartItems);
   const { user, token } = useSelector((state) => state.user);
-  const [copy, setCopy] = React.useState([]);
 
-  const sessionId = useSelector((state) => state.user.sessionId);
-
-  const { status } = queryString.parse(location.search);
+  const { orderId } = queryString.parse(location.search);
 
   const copyA = !isLoading && data.data.slice();
 
@@ -177,6 +175,8 @@ function OrderDetails({ location }) {
 
   console.log(copyA);
   const { item } = !isLoading && copyA[0].attributes.data;
+  const { order_id } = !isLoading && copyA[0].attributes;
+
   console.log(item);
 
   return (
@@ -245,9 +245,11 @@ function OrderDetails({ location }) {
             <div className="customer-details">
               <div className="details">
                 <h4>Customer Details</h4>
-                <p>Name Surname, Age</p>
+                <p>{user} Surname, Age</p>
                 <p>Contact</p>
-                <p>Test Name, Date</p>
+                <p>
+                  Test Name, {toConvertDate(data.data[0].attributes.createdAt)}
+                </p>
               </div>
               <div className="total">
                 <div className="payment-total-flex desktop">
@@ -280,6 +282,11 @@ function OrderDetails({ location }) {
         ) : (
           <div className="loading-container">
             <h2>Loading...</h2>
+          </div>
+        )}
+        {order_id !== orderId && (
+          <div className="loading-container">
+            <h2>Not found any order details.</h2>
           </div>
         )}
       </Container>

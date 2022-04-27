@@ -28,7 +28,7 @@ const initialState = {
         ? JSON.parse(localStorage.getItem("details"))
         : []
       : null,
-  user: []
+  user: [],
 };
 
 export const userSlice = createSlice({
@@ -51,8 +51,9 @@ export const userSlice = createSlice({
         state.details[index >= 0 ? index : 0].age = action.payload.age;
         state.details[index >= 0 ? index : 0].gender = action.payload.gender;
         state.details[index >= 0 ? index : 0].price = action.payload.price;
-        state.details[index >= 0 ? index : 0].cartQuantity = action.payload.cartQuantity;
-
+        state.details[index >= 0 ? index : 0].cartQuantity =
+          action.payload.cartQuantity;
+        state.details[index >= 0 ? index : 0].data = action.payload.data;
       } else if (state.details.length <= 1) {
         state.details.push(action.payload);
       }
@@ -69,7 +70,7 @@ export const userSlice = createSlice({
         state.email = payload.user.email;
         saveToken(payload.jwt);
         saveUser(payload.user.username);
-        state.user.push(payload)
+        state.user.push(payload);
       }
     );
   },
