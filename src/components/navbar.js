@@ -4,6 +4,7 @@ import Logo from "../assets/main-logo.svg";
 import Burger from "./NavbarComponents/Burger";
 import { Link } from "gatsby";
 import { useStaticQuery, graphql } from "gatsby";
+import { useSelector } from "react-redux";
 
 const Wrapper = styled.div`
   display: grid;
@@ -44,6 +45,7 @@ const Nav = styled.nav`
 `;
 
 function Navbar(props) {
+  const { username } = useSelector((state) => state.user);
   const data = useStaticQuery(graphql`
     {
       strapiNavbar {
@@ -66,11 +68,10 @@ function Navbar(props) {
             <Logo />
           </Link>
         </div>
-        <Burger data={data.strapiNavbar.navbar} />
+        <Burger data={data.strapiNavbar.navbar} username={username} />
       </Nav>
     </Wrapper>
   );
 }
 
 export default Navbar;
-

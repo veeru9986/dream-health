@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Right from "./Right";
 
-const Burger = ({data}) => {
+const Burger = ({ data, username }) => {
   const [open, setOpen] = useState(false);
 
   const StyledBurger = styled.div`
@@ -50,7 +50,7 @@ const Burger = ({data}) => {
         <div />
         <div />
       </StyledBurger>
-      <Right open={open} setOpen={setOpen} data={data} />
+      <Right open={open} setOpen={setOpen} data={data} username={username} />
     </>
   );
 };

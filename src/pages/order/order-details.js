@@ -159,11 +159,7 @@ const toConvertDate = (createdAt) => {
 
 function OrderDetails({ location }) {
   const { data: orders, isLoading, isError } = useGetOrdersQuery();
-  const cart = useSelector((state) => state.cart.cartItems);
-  const { user, token } = useSelector((state) => state.user);
-  const [copy, setCopy] = React.useState([]);
 
-  const sessionId = useSelector((state) => state.user.sessionId);
 
   const { orderId } = queryString.parse(location.search);
 

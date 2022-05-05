@@ -52,10 +52,10 @@ export const getToken = () => {
     return token;
   } catch (err) {}
 };
-export const getDetails = () => {
+export const getUser = () => {
   try {
-    const details = localStorage.getItem("token")
-      ? JSON.parse(sessionStorage.getItem("token"))
+    const details = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user"))
       : [];
     return details;
   } catch (err) {}
@@ -64,9 +64,9 @@ export const getDetails = () => {
 export const saveToken = (token) => {
   sessionStorage.setItem("token", JSON.stringify(token));
 };
-export const saveUser = (user) => {
-  sessionStorage.setItem("user", JSON.stringify(user));
-};
+// export const saveUser = (user) => {
+//   localStorage.setItem("user", JSON.stringify(user));
+// };
 export const saveSession = (sessionId) => {
   sessionStorage.setItem("sessionId", JSON.stringify(sessionId));
 };

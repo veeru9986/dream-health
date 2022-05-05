@@ -1,8 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { getUser } from "../../utils/cart";
 import { useGetOrdersQuery } from "../components/features/api/authApi";
-import { Wrapper } from "../components/StyledComponents/Wrapper";
+import { LinkStyled, Wrapper } from "../components/StyledComponents/Wrapper";
 import dummyImage from "../images/people1.png";
 
 const Container = styled.div`
@@ -84,12 +85,12 @@ const Container = styled.div`
     }
   }
   .checkout-details-wrapper {
+    grid-area: auto/1/auto/3;
     display: flex;
-    background-color: #fbfbfb;
-    border-radius: 25px;
-    margin: var(--mt) 0;
+    padding: 1rem 0;
+    border-bottom: 1px solid #06070838;
+
     justify-content: space-between;
-    padding: 1rem 2rem;
     @media (max-width: 767px) {
       flex-direction: column;
       width: 80%;
@@ -113,23 +114,63 @@ const Container = styled.div`
         font-weight: var(--xheavyWeight);
         text-decoration: none;
       }
+    }
+    .customer-details-section {
+      width: 40%;
+      display: flex;
+      flex-direction: column;
+      @media (max-width: 767px) {
+        width: 100%;
+        margin-top: 1.2rem;
+      }
+    }
+  }
+  .no_upcoming_app,
+  .no_reports {
+    display: flex;
+    margin-top: 2rem;
+    justify-content: center;
+  }
+  .report_section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 2rem;
+  }
+  .checkout-details-parent-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    background-color: #fbfbfb;
+    border-radius: 25px;
+    margin: var(--mt) 0;
+    padding: 1rem 2rem;
 
+    .checkout-details-heading {
+      grid-area: 1/1/2/3;
+      display: flex;
+      justify-content: space-between;
+      @media (max-width: 767px) {
+        flex-direction: column;
+        width: 80%;
+      }
+      @media (max-width: 479px) {
+        flex-direction: column;
+        width: 100%;
+      }
       .test-details {
         display: flex;
         justify-content: space-between;
         align-items: center;
         border-bottom: 2px solid #060708;
         margin-bottom: 1.2rem;
-      }
-    }
-    .customer-details-section {
-      width: 40%;
-      margin-right: 2rem;
-      display: flex;
-      flex-direction: column;
-      @media (max-width: 767px) {
-        width: 100%;
-        margin-top: 1.2rem;
+        width: 40%;
+        @media (max-width: 767px) {
+          width: 100%;
+        }
+        @media (max-width: 479px) {
+          width: 100%;
+        }
       }
       .customer-details {
         display: flex;
@@ -137,7 +178,13 @@ const Container = styled.div`
         align-items: center;
         border-bottom: 2px solid #060708;
         margin-bottom: 1.2rem;
-
+        width: 40%;
+        @media (max-width: 767px) {
+          width: 100%;
+        }
+        @media (max-width: 479px) {
+          width: 100%;
+        }
         a {
           font-size: var(--p2);
           font-weight: var(--xheavyWeight);
@@ -155,25 +202,14 @@ const Container = styled.div`
       }
     }
   }
-  .no_upcoming_app,
-  .no_reports {
-    display: flex;
-    margin-top: 2rem;
-    justify-content: center;
-  }
-  .report_section {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin-top: 2rem;
-  }
 `;
 
 function Profile() {
   const [name, setName] = React.useState("Upcoming Appoinments");
   const { data, isSuccess, isLoading } = useGetOrdersQuery();
   const cart = useSelector((state) => state.cart.cartItems);
-  const { details, token } = useSelector((state) => state.user);
+  const { details, token, username } = useSelector((state) => state.user);
+  const user = getUser();
 
   const handleAppoinment = (e) => {
     setName(e.target.innerText);
@@ -183,7 +219,7 @@ function Profile() {
     setName(e.target.innerText);
   };
 
-  !isLoading && console.log("order", data.data[0]);
+  !isLoading && console.log("order", data);
 
   return (
     <Wrapper>
@@ -200,16 +236,19 @@ function Profile() {
                     <img src={dummyImage} alt="" />
                   </div>
                   <div className="text">
-                    <h3>Name Surname</h3>
+                    <h3>
+                      {user.username && user.username}{" "}
+                      {user.lastName && user.lastName}
+                    </h3>
                   </div>
                 </div>
                 <div className="details">
-                  <p>Age</p>
+                  <p>{details && details[0]?.age}</p>
                   <p>
-                    Contact : <span>+91999399933</span>
+                    Contact : <span>{user.phone && user.phone}</span>
                   </p>
                   <p>
-                    Email : <span>veeresh@gmail.com</span>
+                    Email : <span>{user.email && user.email}</span>
                   </p>
                 </div>
               </div>
@@ -236,32 +275,39 @@ function Profile() {
             </div>
             {name === "Upcoming Appoinments" &&
               (typeof details !== "undefined" || isSuccess) && (
-                <div className="checkout-details-wrapper">
-                  <div className="test-details-section">
+                <div className="checkout-details-parent-grid">
+                  <div className="checkout-details-heading">
                     <div className="test-details">
                       <h4>Test Details</h4>
                     </div>
-                    {data &&
-                      data.data[0]?.attributes.data.item.map((t) => (
-                        <span key={t.id}>{t.title}</span>
-                      ))}
-                  </div>
-                  <div className="customer-details-section">
                     <div className="customer-details">
                       <h4>Customer Details</h4>
                     </div>
-                    <span>Name</span>
-                    <span>
-                      Appointment Date,
-                      {` `}
-                      Time Slot
-                    </span>
-                    <span>
-                      Email,
-                      {` `}
-                      Phone No
-                    </span>
                   </div>
+                  {data &&
+                    data.data.map(
+                      (d) =>
+                        d.attributes.appointment === true && (
+                          <div className="checkout-details-wrapper">
+                            <div className="test-details-section">
+                              {d.attributes.data.item[0].data.map((a) => (
+                                <span key={a.id}>{a.title}</span>
+                              ))}
+                            </div>
+                            <div className="customer-details-section">
+                              <span>{d.attributes.data.item[0].name}</span>
+                              <span>
+                                {d.attributes.data.item[0].date},{` `}
+                                {d.attributes.data.item[0].time}
+                              </span>
+                              <span>
+                                {d.attributes.data.item[0].email},{` `}
+                                {d.attributes.data.item[0].phone}
+                              </span>
+                            </div>
+                          </div>
+                        )
+                    )}
                 </div>
               )}
 
@@ -290,9 +336,13 @@ function Profile() {
               justifyContent: "center",
               alignItems: "center",
               height: "600px",
+              flexDirection: "column",
             }}
           >
-            <h2>You Need to Login to see the profile.</h2>
+            <h2>You need to Login to see the profile.</h2>
+            <LinkStyled to="/sign-in" primary>
+              Go to Login
+            </LinkStyled>
           </div>
         )}
       </Container>

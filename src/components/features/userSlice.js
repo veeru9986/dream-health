@@ -5,16 +5,12 @@ import { registerApi } from "./api/authApi";
 const checkWindow = typeof window !== "undefined";
 
 const initialState = {
-  username: checkWindow
-    ? sessionStorage.getItem("user")
-      ? JSON.parse(sessionStorage.getItem("user"))
-      : ""
-    : null,
   token: checkWindow
     ? sessionStorage.getItem("token")
       ? JSON.parse(sessionStorage.getItem("token"))
       : ""
     : null,
+
   email: "",
   sessionId:
     typeof window !== "undefined"
@@ -28,7 +24,6 @@ const initialState = {
         ? JSON.parse(localStorage.getItem("details"))
         : []
       : null,
-  user: [],
 };
 
 export const userSlice = createSlice({
@@ -64,13 +59,10 @@ export const userSlice = createSlice({
     builder.addMatcher(
       registerApi.endpoints.addLogin.matchFulfilled,
       (state, { payload }) => {
-        console.log(payload);
+        console.log("payload", payload);
         state.token = payload.jwt;
-        state.username = payload.user.username;
         state.email = payload.user.email;
         saveToken(payload.jwt);
-        saveUser(payload.user.username);
-        state.user.push(payload);
       }
     );
   },

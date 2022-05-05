@@ -10,7 +10,7 @@ import { LinkStyled, Wrapper } from "../../components/StyledComponents/Wrapper";
 import confirm from "../../images/Order Confirmation 1.png";
 import * as queryString from "query-string";
 import { GatsbyImage } from "gatsby-plugin-image";
-import { cartTotal, cartSubTotal } from "../../../utils/cart";
+import { cartTotal, cartSubTotal, getUser } from "../../../utils/cart";
 
 const Container = styled.div`
   width: 100%;
@@ -158,8 +158,8 @@ const toConvertDate = (createdAt) => {
 function OrderDetails({ location }) {
   const { data, isLoading, isError } = useGetOrdersQuery();
   const cart = useSelector((state) => state.cart.cartItems);
-  const { user, token } = useSelector((state) => state.user);
-
+  const { token } = useSelector((state) => state.user);
+  const user = getUser();
   const { orderId } = queryString.parse(location.search);
 
   const copyA = !isLoading && data.data.slice();
@@ -202,7 +202,7 @@ function OrderDetails({ location }) {
             <div className="order-details-container-2">
               <div className="order-number">
                 <h4>Order Number</h4>
-                <span>241123</span>
+                <span>{orderId}</span>
               </div>
               <div className="order-date">
                 <h4>Order Date</h4>
@@ -245,11 +245,12 @@ function OrderDetails({ location }) {
             <div className="customer-details">
               <div className="details">
                 <h4>Customer Details</h4>
-                <p>{user} Surname, Age</p>
-                <p>Contact</p>
                 <p>
-                  Test Name, {toConvertDate(data.data[0].attributes.createdAt)}
+                  {user.username && user.username}{" "}
+                  {user.lastName && user.lastName}
                 </p>
+                <p>{user.phone && user.phone}</p>
+                <p>{toConvertDate(data.data[0].attributes.createdAt)}</p>
               </div>
               <div className="total">
                 <div className="payment-total-flex desktop">

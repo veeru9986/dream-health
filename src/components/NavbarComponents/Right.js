@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { LinkStyled } from "../StyledComponents/Wrapper";
 import Cart from "../../assets/cart.svg";
 import { useSelector } from "react-redux";
+import { getUser } from "../../../utils/cart";
 
 const UL = styled.ul`
   list-style: none;
@@ -81,12 +82,11 @@ const UL = styled.ul`
 
 const Right = ({ open, setOpen, data }) => {
   console.log(data[0].title);
-
   const cart = useSelector((state) => state.cart.cartItems);
-  const { token, username, user } = useSelector((state) => state.user);
-  console.log(user);
+  const { token } = useSelector((state) => state.user);
+  const user = getUser()
   // const { data: user, isError, isLoading } = useGetUserQuery();
-  // console.log(user);
+  console.log(user);
 
   const totalCart =
     cart && cart.reduce((count, product) => count + product.cartQuantity, 0);
@@ -105,7 +105,7 @@ const Right = ({ open, setOpen, data }) => {
             </Link>
           </li>
         ))}
-        {!token ? (
+        {!token  ? (
           <li>
             <LinkStyled to="/sign-in" onClick={() => setOpen(!open)}>
               Sign in
@@ -119,7 +119,7 @@ const Right = ({ open, setOpen, data }) => {
               to="/profile"
               onClick={() => setOpen(!open)}
             >
-              {username && username.charAt(0)}{" "}
+              {user.username ? user?.username.charAt(0) : null}
             </Link>
           </li>
         )}

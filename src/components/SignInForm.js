@@ -3,7 +3,7 @@ import styled from "styled-components";
 import FInput from "./FInput";
 import { ButtonStyled } from "./StyledComponents/Wrapper";
 import { Link, navigate } from "gatsby";
-import {saveToken} from "../../utils/cart"
+import { saveToken } from "../../utils/cart";
 import { useForm } from "react-hook-form";
 import { useAddLoginMutation } from "./features/api/authApi";
 
@@ -63,13 +63,15 @@ function SignInForm() {
   //useForm
   const { handleSubmit, control } = useForm();
 
-  const [addLogin, { error, isLoading, data, status }] = useAddLoginMutation();
+  const [addLogin, { error, isLoading, data: loginData, status }] =
+    useAddLoginMutation();
   const onSubmit = async (data) => {
     const { email, password } = data;
     await addLogin({ identifier: email, password: password });
   };
   if (status === "fulfilled") {
     navigate("/");
+    localStorage.setItem("user", JSON.stringify(loginData.user));
   }
   return (
     <SignInContainer>
