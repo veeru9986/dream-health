@@ -22,15 +22,15 @@ const SignInContainer = styled.div`
     justify-content: space-between;
     flex-wrap: wrap;
   }
-  .input-wrapper {
+  /* .input-wrapper {
     width: 330px;
     @media (max-width: 767px) {
       width: 100%;
     }
-  }
+  } */
   .btn-submit-submit {
     display: flex;
-    width: 50%;
+    width: 60%;
     justify-content: space-between;
     flex-wrap: wrap;
     margin-top: 1rem;
@@ -157,7 +157,7 @@ function SignUpForm() {
 
         <div className="btn-submit-submit">
           <div className="btn-submit">
-            <ButtonStyled type="submit">sign up</ButtonStyled>
+            <ButtonStyled type="submit">{!isLoading ? "sign up" : "loading..."}</ButtonStyled>
           </div>
           <p>
             already have an account?<Link to="/sign-in">Sign in</Link>
@@ -171,7 +171,7 @@ function SignUpForm() {
         </div>
         <div className="signup-options">
           <div className="options">
-            <a href="https://infinite-retreat-91320.herokuapp.com/api/connect/google">
+            <a href="http://localhost:1337/api/connect/google">
               <Google />
             </a>
           </div>

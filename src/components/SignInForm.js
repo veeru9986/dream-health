@@ -10,12 +10,10 @@ import { useAddLoginMutation } from "./features/api/authApi";
 const SignInContainer = styled.div`
   display: flex;
   flex-direction: column;
-  .input-wrapper {
-    width: 350px;
-  }
+
   .btn-submit-submit {
     display: flex;
-    width: 50%;
+    width: 60%;
     justify-content: space-between;
     flex-wrap: wrap;
     margin-top: 1rem;
@@ -94,7 +92,9 @@ function SignInForm() {
         />
         <div className="btn-submit-submit">
           <div className="btn-submit">
-            <ButtonStyled type="submit">sign in</ButtonStyled>
+            <ButtonStyled type="submit">
+              {!isLoading ? "sign in" : "loading..."}
+            </ButtonStyled>
           </div>
           <p>
             Don't have an account?<Link to="/sign-up">Sign up</Link>

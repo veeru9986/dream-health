@@ -18,7 +18,7 @@ const Container = styled.div`
     display: flex;
     flex-wrap: wrap;
     width: 80%;
-    justify-content: space-around;
+    justify-content: space-between;
     margin-top: 1rem;
     .grid_images {
       display: block;
@@ -69,6 +69,7 @@ const Container = styled.div`
 
   .test-links {
     position: relative;
+    margin-top: 1rem;
 
     .content-overlay {
       background: rgba(0, 0, 0);
