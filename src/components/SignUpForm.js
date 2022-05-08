@@ -171,7 +171,7 @@ function SignUpForm() {
         </div>
         <div className="signup-options">
           <div className="options">
-            <a href="http://localhost:1337/api/connect/google">
+            <a href="https://infinite-retreat-91320.herokuapp.com/api/connect/google">
               <Google />
             </a>
           </div>
