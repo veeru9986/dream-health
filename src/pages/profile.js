@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { getUser } from "../../utils/cart";
+import { getToken, getUser } from "../../utils/cart";
 import { useGetOrdersQuery } from "../components/features/api/authApi";
 import { LinkStyled, Wrapper } from "../components/StyledComponents/Wrapper";
 import dummyImage from "../images/people1.png";
@@ -208,8 +208,9 @@ function Profile() {
   const [name, setName] = React.useState("Upcoming Appoinments");
   const { data, isSuccess, isLoading } = useGetOrdersQuery();
   const cart = useSelector((state) => state.cart.cartItems);
-  const { details, token, username } = useSelector((state) => state.user);
+  const { details } = useSelector((state) => state.user);
   const user = getUser();
+  const token = getToken()
 
   const handleAppoinment = (e) => {
     setName(e.target.innerText);

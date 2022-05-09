@@ -20,6 +20,10 @@ const Container = styled.div`
     width: 80%;
     justify-content: space-between;
     margin-top: 1rem;
+
+    @media (min-width: 1900px){
+      width: 90%;
+    }
     .grid_images {
       display: block;
       width: 271.44px;

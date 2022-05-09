@@ -2,10 +2,10 @@ import React, { useRef } from "react";
 import { Link } from "gatsby";
 import { mainMenuItems } from "../../constants/menu-item";
 import styled from "styled-components";
-import { LinkStyled } from "../StyledComponents/Wrapper";
+import { ButtonStyled, LinkStyled } from "../StyledComponents/Wrapper";
 import Cart from "../../assets/cart.svg";
 import { useSelector } from "react-redux";
-import { getUser } from "../../../utils/cart";
+import { getUser, getToken } from "../../../utils/cart";
 
 const UL = styled.ul`
   list-style: none;
@@ -83,13 +83,21 @@ const UL = styled.ul`
 const Right = ({ open, setOpen, data }) => {
   console.log(data[0].title);
   const cart = useSelector((state) => state.cart.cartItems);
-  const { token } = useSelector((state) => state.user);
-  const user = getUser()
+  const user = getUser();
+  const token = getToken();
   // const { data: user, isError, isLoading } = useGetUserQuery();
   console.log(user);
 
   const totalCart =
     cart && cart.reduce((count, product) => count + product.cartQuantity, 0);
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    setOpen(!open);
+    sessionStorage.removeItem("token");
+    localStorage.removeItem("user");
+    window.location.href = "/";
+  };
   return (
     <>
       <UL open={open}>
@@ -105,7 +113,7 @@ const Right = ({ open, setOpen, data }) => {
             </Link>
           </li>
         ))}
-        {!token  ? (
+        {!token ? (
           <li>
             <LinkStyled to="/sign-in" onClick={() => setOpen(!open)}>
               Sign in
@@ -124,6 +132,11 @@ const Right = ({ open, setOpen, data }) => {
           </li>
         )}
 
+        {token && (
+          <li>
+            <ButtonStyled onClick={handleLogout}>Logout</ButtonStyled>
+          </li>
+        )}
         <li>
           <Link
             to="/cart"

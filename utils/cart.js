@@ -64,9 +64,9 @@ export const getUser = () => {
 export const saveToken = (token) => {
   sessionStorage.setItem("token", JSON.stringify(token));
 };
-// export const saveUser = (user) => {
-//   localStorage.setItem("user", JSON.stringify(user));
-// };
+export const saveUser = (user) => {
+  localStorage.setItem("user", JSON.stringify(user));
+};
 export const saveSession = (sessionId) => {
   sessionStorage.setItem("sessionId", JSON.stringify(sessionId));
 };
