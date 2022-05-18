@@ -21,6 +21,7 @@ export const query = graphql`
       services_links {
         id
         LinkTo
+        title
         test_images {
           file {
             childImageSharp {

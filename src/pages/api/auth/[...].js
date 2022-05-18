@@ -22,6 +22,7 @@ const Wrapper1 = styled(Wrapper)`
 function ConnectPage(props) {
   const [text, setText] = React.useState("Loading...");
 
+  console.log(props);
   React.useEffect(() => {
     // Successfully logged with the provider
     // Now logging with strapi by using the access_token (given by the provider) in props.location.search
